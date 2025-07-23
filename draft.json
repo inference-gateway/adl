@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://a2a.dev/schemas/agent/v1",
-  "title": "A2A Agent Configuration",
-  "description": "JSON Schema for A2A agent configuration files",
+  "$id": "https://adl.dev/schemas/agent/v1",
+  "title": "Vendor neutral ADL (Agent Definition Language)",
+  "description": "JSON Schema for ADL agent configuration files",
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
     "apiVersion": {
       "type": "string",
-      "const": "a2a.dev/v1",
+      "const": "adl.dev/v1",
       "description": "API version for the agent configuration"
     },
     "kind": {
