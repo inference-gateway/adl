@@ -1,0 +1,296 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://adl.dev/schemas/agent/v1",
+  "title": "Vendor neutral ADL (Agent Definition Language)",
+  "description": "JSON Schema for ADL agent configuration files",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "adl.dev/v1",
+      "description": "API version for the agent configuration"
+    },
+    "kind": {
+      "type": "string",
+      "const": "Agent",
+      "description": "Resource type, must be 'Agent'"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Metadata about the agent",
+      "required": ["name", "description", "version"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Agent name (lowercase alphanumeric with hyphens)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the agent"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9-]+)?$",
+          "description": "Semantic version of the agent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "description": "Agent specification",
+      "required": ["agent"],
+      "properties": {
+        "capabilities": {
+          "type": "object",
+          "description": "Agent capabilities configuration",
+          "properties": {
+            "streaming": {
+              "type": "boolean",
+              "description": "Whether the agent supports streaming responses"
+            },
+            "pushNotifications": {
+              "type": "boolean",
+              "description": "Whether the agent supports push notifications"
+            },
+            "stateTransitionHistory": {
+              "type": "boolean",
+              "description": "Whether to maintain state transition history"
+            }
+          },
+          "additionalProperties": false
+        },
+        "agent": {
+          "type": "object",
+          "description": "Core agent configuration",
+          "required": ["provider", "model"],
+          "properties": {
+            "provider": {
+              "type": "string",
+              "description": "AI provider name",
+              "enum": ["openai", "anthropic", "deepseek", "ollama", "azure-openai"]
+            },
+            "model": {
+              "type": "string",
+              "description": "Model identifier for the specified provider"
+            },
+            "systemPrompt": {
+              "type": "string",
+              "description": "System prompt for the agent"
+            },
+            "maxTokens": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000,
+              "description": "Maximum number of tokens for responses"
+            },
+            "temperature": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Temperature setting for response generation"
+            }
+          },
+          "additionalProperties": false
+        },
+        "tools": {
+          "type": "array",
+          "description": "Array of available tools for the agent",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "schema"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$",
+                "description": "Tool name (valid identifier)"
+              },
+              "description": {
+                "type": "string",
+                "description": "Human-readable description of the tool"
+              },
+              "schema": {
+                "$ref": "#/definitions/toolSchema"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "server": {
+          "type": "object",
+          "description": "Server configuration",
+          "properties": {
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535,
+              "description": "Server port number"
+            },
+            "debug": {
+              "type": "boolean",
+              "description": "Enable debug mode"
+            },
+            "auth": {
+              "type": "object",
+              "description": "Authentication configuration",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "description": "Whether authentication is enabled"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "language": {
+          "type": "object",
+          "description": "Language-specific configuration",
+          "properties": {
+            "go": {
+              "type": "object",
+              "description": "Go language configuration",
+              "properties": {
+                "module": {
+                  "type": "string",
+                  "description": "Go module name"
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+                  "description": "Go version"
+                }
+              },
+              "additionalProperties": false
+            },
+            "python": {
+              "type": "object",
+              "description": "Python language configuration",
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+                  "description": "Python version"
+                },
+                "requirements": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Python package requirements"
+                }
+              },
+              "additionalProperties": false
+            },
+            "javascript": {
+              "type": "object",
+              "description": "JavaScript/Node.js language configuration",
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+                  "description": "Node.js version"
+                },
+                "packageManager": {
+                  "type": "string",
+                  "enum": ["npm", "yarn", "pnpm"],
+                  "description": "Package manager to use"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "toolSchema": {
+      "type": "object",
+      "description": "JSON Schema for tool parameters",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["object", "array", "string", "number", "integer", "boolean", "null"]
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/propertySchema"
+          }
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "propertySchema": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["object", "array", "string", "number", "integer", "boolean", "null"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "array",
+          "items": true
+        },
+        "format": {
+          "type": "string",
+          "enum": ["date", "date-time", "email", "uri", "uuid"]
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "minLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/propertySchema"
+          }
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "items": {
+          "$ref": "#/definitions/propertySchema"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
