@@ -11,6 +11,17 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 
 </div>
 
+## Table of Contents
+
+- [What is ADL?](#what-is-adl)
+- [Layout](#layout)
+- [Example manifest](#example-manifest)
+- [Consumers](#consumers)
+- [Versioning](#versioning)
+- [Why ADL?](#why-adl)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## What is ADL?
 
 ADL (Agent Definition Language) is a vendor-neutral, declarative specification for AI agents. Just as OpenAPI provides a standard way to describe REST services, ADL provides a standard way to describe agents: their metadata, capabilities, skills, the AI provider behind them, the services they depend on, and the runtime they ship to.
@@ -89,6 +100,10 @@ If you build a tool that consumes ADL, please open a PR adding it to the table a
 ## Why ADL?
 
 The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which enterprise-ready agent code, configuration, documentation, and deployment manifests can be generated, vendor-agnostic and portable across platforms.
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to set up local validation, the schema versioning rules, the commit-message convention, and the release process.
 
 ## License
 
