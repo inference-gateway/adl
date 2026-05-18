@@ -1,20 +1,29 @@
+---
 name: Validate schema
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   validate:
     name: Compile JSON Schema
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    runs-on: ubuntu-24.04
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
         with:
-          node-version: "20"
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: "24.14.1"
 
       - name: Install ajv
         run: npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
