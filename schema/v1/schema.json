@@ -297,7 +297,8 @@
           "type": "string",
           "enum": ["kubernetes", "cloudrun"]
         },
-        "cloudrun": { "$ref": "#/definitions/CloudRunConfig" }
+        "cloudrun": { "$ref": "#/definitions/CloudRunConfig" },
+        "kubernetes": { "$ref": "#/definitions/KubernetesConfig" }
       }
     },
     "CloudRunConfig": {
@@ -311,6 +312,12 @@
           "type": "object",
           "additionalProperties": { "type": "string" }
         }
+      }
+    },
+    "KubernetesConfig": {
+      "type": "object",
+      "properties": {
+        "image": { "$ref": "#/definitions/ImageConfig" }
       }
     },
     "ImageConfig": {
