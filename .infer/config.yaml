@@ -1,0 +1,278 @@
+---
+container_runtime:
+  type: docker
+gateway:
+  url: http://localhost:8080
+  api_key: ""
+  timeout: 200
+  oci: ghcr.io/inference-gateway/inference-gateway:latest
+  run: true
+  standalone_binary: true
+  exclude_models:
+    - ollama_cloud/cogito-2.1:671b
+    - ollama_cloud/kimi-k2:1t
+    - ollama_cloud/kimi-k2-thinking
+    - ollama_cloud/deepseek-v3.1:671b
+    - groq/whisper-large-v3
+    - groq/whisper-large-v3-turbo
+    - groq/playai-tts
+    - groq/playai-tts-arabic
+  vision_enabled: true
+claude_code:
+  enabled: false
+  cli_path: claude
+  timeout: 600
+  max_output_tokens: 32000
+  thinking_budget: 10000
+  max_turns: 10
+client:
+  timeout: 200
+  retry:
+    enabled: true
+    max_attempts: 3
+    initial_backoff_sec: 5
+    max_backoff_sec: 60
+    backoff_multiplier: 2
+    retryable_status_codes:
+      - 400
+      - 408
+      - 429
+      - 500
+      - 502
+      - 503
+      - 504
+logging:
+  debug: false
+  dir: ""
+  stdout: false
+tools:
+  enabled: true
+  sandbox:
+    directories:
+      - .
+      - /tmp
+      - .infer/tmp
+    protected_paths:
+      - .infer/config.yaml
+      - .infer/*.db
+      - .infer/shortcuts/
+      - .infer/agents.yaml
+      - .infer/mcp.yaml
+      - .infer/keybindings.yaml
+      - .infer/prompts.yaml
+      - .infer/channels.yaml
+      - .infer/heartbeat.yaml
+      - .infer/computer_use.yaml
+      - .git/
+      - '*.env'
+  bash:
+    enabled: true
+    timeout: 120
+    whitelist:
+      commands:
+        - echo
+        - ls
+        - pwd
+        - tree
+        - wc
+        - sort
+        - uniq
+        - head
+        - tail
+        - task
+        - make
+        - find
+      patterns:
+        - ^git status$
+        - ^git branch( --show-current)?( -[alrvd])?$
+        - ^git log
+        - ^git diff
+        - ^git remote( -v)?$
+        - ^git show
+    background_shells:
+      enabled: true
+      max_concurrent: 5
+      max_output_buffer_mb: 10
+      retention_minutes: 60
+  read:
+    enabled: true
+    require_approval: false
+  write:
+    enabled: true
+    require_approval: true
+  edit:
+    enabled: true
+    require_approval: true
+  delete:
+    enabled: true
+    require_approval: true
+  grep:
+    enabled: true
+    backend: auto
+    require_approval: false
+  tree:
+    enabled: true
+    require_approval: false
+  web_fetch:
+    enabled: true
+    whitelisted_domains:
+      - golang.org
+      - localhost
+    safety:
+      max_size: 10485760
+      timeout: 30
+      allow_redirect: true
+    cache:
+      enabled: true
+      ttl: 3600
+      max_size: 52428800
+  web_search:
+    enabled: true
+    default_engine: duckduckgo
+    max_results: 10
+    engines:
+      - duckduckgo
+      - google
+    timeout: 10
+  github:
+    enabled: true
+    token: '%GITHUB_TOKEN%'
+    base_url: https://api.github.com
+    owner: inference-gateway
+    safety:
+      max_size: 1048576
+      timeout: 30
+  todo_write:
+    enabled: true
+    require_approval: false
+  schedule:
+    enabled: false
+    require_approval: true
+    max_jobs: 100
+  safety:
+    require_approval: true
+image:
+  max_size: 5242880
+  timeout: 30
+  clipboard_optimize:
+    enabled: true
+    max_width: 1920
+    max_height: 1080
+    quality: 75
+    convert_jpeg: true
+export:
+  output_dir: .infer/tmp
+  summary_model: ""
+agent:
+  model: ""
+  system_prompt_with_defaults: true
+  context:
+    git_context_enabled: true
+    working_dir_enabled: true
+    git_context_refresh_turns: 10
+  skills:
+    enabled: false
+  verbose_tools: false
+  max_turns: 50
+  max_tokens: 8192
+  max_concurrent_tools: 5
+git:
+  commit_message:
+    model: ""
+storage:
+  enabled: true
+  type: jsonl
+  sqlite:
+    path: .infer/conversations.db
+  postgres:
+    host: localhost
+    port: 5432
+    database: infer_conversations
+    username: ""
+    password: ""
+    ssl_mode: prefer
+  redis:
+    host: localhost
+    port: 6379
+    password: ""
+    db: 0
+  jsonl:
+    path: .infer/conversations
+conversation:
+  title_generation:
+    enabled: true
+    model: ""
+    batch_size: 10
+    interval: 0
+chat:
+  theme: tokyo-night
+  status_bar:
+    enabled: true
+    indicators:
+      model: true
+      theme: true
+      max_output: false
+      a2a_agents: true
+      tools: true
+      background_shells: true
+      a2a_tasks: true
+      mcp: true
+      context_usage: true
+      session_tokens: true
+      cost: true
+      git_branch: true
+a2a:
+  enabled: true
+  cache:
+    enabled: true
+    ttl: 300
+  task:
+    status_poll_seconds: 5
+    polling_strategy: exponential
+    initial_poll_interval_sec: 2
+    max_poll_interval_sec: 60
+    backoff_multiplier: 2
+    background_monitoring: true
+    completed_task_retention: 5
+    agent_mode_max_wait_seconds: 300
+  tools:
+    query_agent:
+      enabled: true
+      require_approval: false
+    query_task:
+      enabled: true
+      require_approval: false
+    submit_task:
+      enabled: true
+      require_approval: true
+mcp:
+  enabled: false
+  connection_timeout: 30
+  discovery_timeout: 30
+  liveness_probe_enabled: true
+  liveness_probe_interval: 10
+  max_retries: 10
+  servers: []
+pricing:
+  enabled: true
+  currency: USD
+  custom_prices: {}
+compact:
+  enabled: true
+  auto_at: 80
+  keep_first_messages: 2
+  rollover_on_idle_minutes: 30
+  summary_max_tokens: 1024
+web:
+  enabled: false
+  port: 3000
+  host: localhost
+  session_inactivity_mins: 5
+  ssh:
+    enabled: false
+    use_ssh_config: true
+    known_hosts_path: ~/.ssh/known_hosts
+    auto_install: true
+    install_version: latest
+    install_dir: ~/.local/bin
+  servers: []
