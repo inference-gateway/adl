@@ -22,7 +22,7 @@ This repository is the **source of truth for the ADL schema**. The JSON Schema d
 ```
 schema/
 └── v1/
-    └── schema.json   # JSON Schema Draft-07 for apiVersion: adl.dev/v1
+    └── schema.json   # JSON Schema Draft-07 for apiVersion: adl.inference-gateway.com/v1
 ```
 
 A new major version of ADL goes under `schema/v2/`, etc. Within a major version, only backwards-compatible additions are allowed.
@@ -30,7 +30,7 @@ A new major version of ADL goes under `schema/v2/`, etc. Within a major version,
 ## Example manifest
 
 ```yaml
-apiVersion: adl.dev/v1
+apiVersion: adl.inference-gateway.com/v1
 kind: Agent
 metadata:
   name: customer-support
@@ -79,7 +79,7 @@ If you build a tool that consumes ADL, please open a PR adding it to the table a
 
 ## Versioning
 
-- The `apiVersion` field in a manifest (`adl.dev/v1`) and the directory (`schema/v1/`) move together.
+- The `apiVersion` field in a manifest (`adl.inference-gateway.com/v1`) and the directory (`schema/v1/`) move together.
 - Schema files are immutable once released under a git tag. Consumers pin to a tag.
 - Additive, backwards-compatible changes ship as new patch/minor tags within the same major version.
 

@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://adl.dev/schemas/agent/v1",
+  "$id": "https://adl.inference-gateway.com/schemas/agent/v1",
   "title": "Agent Definition Language (ADL) v1",
-  "description": "JSON Schema for Agent Definition Language manifests (apiVersion adl.dev/v1).",
+  "description": "JSON Schema for Agent Definition Language manifests (apiVersion adl.inference-gateway.com/v1).",
   "type": "object",
   "required": ["apiVersion", "kind", "metadata", "spec"],
   "properties": {
     "apiVersion": {
       "type": "string",
-      "const": "adl.dev/v1"
+      "const": "adl.inference-gateway.com/v1"
     },
     "kind": {
       "type": "string",
