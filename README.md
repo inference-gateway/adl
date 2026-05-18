@@ -24,9 +24,16 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 
 ## What is ADL?
 
-ADL (Agent Definition Language) is a vendor-neutral, declarative specification for AI agents. Just as OpenAPI provides a standard way to describe REST services, ADL provides a standard way to describe agents: their metadata, capabilities, skills, the AI provider behind them, the services they depend on, and the runtime they ship to.
+ADL (Agent Definition Language) is a vendor-neutral, declarative specification for AI agents. Just as OpenAPI provides a standard way to describe REST services, ADL provides a standard way to describe agents: their metadata, capabilities, tools, skills, the AI provider behind them, the services they depend on, and the runtime they ship to.
 
 This repository is the **source of truth for the ADL schema**. The JSON Schema document under [`schema/v1/schema.json`](./schema/v1/schema.json) is the canonical specification. Tools that produce or consume ADL manifests (including [`adl-cli`](https://github.com/inference-gateway/adl-cli)) pin to a tagged version of this schema.
+
+### Tools vs Skills
+
+ADL distinguishes two ways for an agent to act:
+
+- **Tools** (`spec.tools[]`) are function-call entrypoints. Each tool has a JSON Schema for its inputs and is generated as code in the target language. Use a tool when the agent needs to invoke a deterministic operation (query a database, send an email, call an API).
+- **Skills** (`spec.skills[]`) are markdown playbooks injected into the agent's system prompt at startup. They're either pulled from the skills registry or scaffolded blank with `bare: true`. Use a skill when you want to teach the agent a workflow, policy, or response pattern in natural language.
 
 ## Layout
 
@@ -59,7 +66,7 @@ spec:
       You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
-  skills:
+  tools:
     - id: knowledge_search
       name: knowledge_search
       description: Search the company knowledge base
@@ -74,6 +81,14 @@ spec:
             description: The search query
         required:
           - query
+  skills:
+    - id: incident-response
+      bare: true
+      name: incident-response
+      description: How to triage a paged production incident, draft an initial response, and notify stakeholders.
+      tags:
+        - operations
+        - incident
   server:
     port: 8080
     debug: false
