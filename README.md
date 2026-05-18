@@ -2,155 +2,84 @@
 
 # ADL (Agent Definition Language)
 
-A declarative language for defining AI agents, their capabilities, and tools. Think of ADL as "OpenAPI for AI Agents" - a standardized specification that enables consistent agent definition, documentation, and code generation across platforms. ADL simplifies agent development by generating production-ready code from a single manifest. Build faster. Deploy smarter. Stay consistent.
+A declarative language for defining AI agents, their capabilities, and skills. Think of ADL as "OpenAPI for AI Agents" — a standardized specification that enables consistent agent definition, documentation, and code generation across platforms.
 
 </div>
 
 ## What is ADL?
 
-ADL (Agent Definition Language) is a unified, declarative specification language designed to address the growing complexity and fragmentation in the AI agent ecosystem. Just as OpenAPI revolutionized API development by providing a standard way to describe REST services, ADL does the same for AI agents. 
+ADL (Agent Definition Language) is a vendor-neutral, declarative specification for AI agents. Just as OpenAPI provides a standard way to describe REST services, ADL provides a standard way to describe agents: their metadata, capabilities, skills, the AI provider behind them, the services they depend on, and the runtime they ship to.
 
-Inspired by the pain points observed in Agent-to-Agent (A2A) communication and Model Context Protocol (MCP) implementations, ADL was created to solve the fundamental challenges of agent interoperability and standardization.
+This repository is the **source of truth for the ADL schema**. The JSON Schema document under [`schema/v1/schema.json`](./schema/v1/schema.json) is the canonical specification. Tools that produce or consume ADL manifests — including [`adl-cli`](https://github.com/inference-gateway/adl-cli) — pin to a tagged version of this schema.
 
-Following Domain Driven Design principles, ADL allows you to model your agent's domain logic, capabilities, and behaviors in a vendor-agnostic way. As the AI industry experiences explosive growth with new tools, frameworks, and vendors emerging daily, ADL provides a standardized approach to define, configure, and deploy AI agents across different platforms and environments while maintaining clear domain boundaries and consistent terminology.
+## Layout
 
-## Example
+```
+schema/
+└── v1/
+    └── schema.json   # JSON Schema Draft-07 for apiVersion: adl.dev/v1
+```
 
-Here's a simple ADL manifest that defines a customer support agent:
+A new major version of ADL goes under `schema/v2/`, etc. Within a major version, only backwards-compatible additions are allowed.
+
+## Example manifest
 
 ```yaml
-# customer-support-agent.adl
 apiVersion: adl.dev/v1
 kind: Agent
 metadata:
   name: customer-support
-  description: "AI agent for handling customer inquiries and support requests"
+  description: AI agent for handling customer inquiries
   version: "1.0.0"
-
 spec:
   capabilities:
     streaming: true
     pushNotifications: true
     stateTransitionHistory: true
-  
   agent:
     provider: openai
     model: gpt-4o
     systemPrompt: |
-      You are a professional customer support agent specialized in helping customers with their inquiries and issues.
-      You provide empathetic, accurate, and helpful responses while maintaining a professional tone.
-      You can search knowledge bases, analyze customer sentiment, and escalate issues when necessary.
+      You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
-
-  tools:
-    - name: knowledge_search
-      description: "Search the company knowledge base for relevant information"
+  skills:
+    - id: knowledge_search
+      name: knowledge_search
+      description: Search the company knowledge base
+      tags: [knowledge, search]
       schema:
         type: object
         properties:
           query:
             type: string
-            description: "The search query"
-          category:
-            type: string
-            description: "Knowledge base category to search in"
-            enum: ["faq", "troubleshooting", "policies", "products"]
-        required: ["query"]
-
-    - name: sentiment_analysis
-      description: "Analyze customer message sentiment"
-      schema:
-        type: object
-        properties:
-          message:
-            type: string
-            description: "The customer message to analyze"
-        required: ["message"]
-
-    - name: create_ticket
-      description: "Create a support ticket for escalation"
-      schema:
-        type: object
-        properties:
-          title:
-            type: string
-            description: "Ticket title"
-          description:
-            type: string
-            description: "Detailed description of the issue"
-          priority:
-            type: string
-            description: "Ticket priority level"
-            enum: ["low", "medium", "high", "urgent"]
-            default: "medium"
-          customer_id:
-            type: string
-            description: "Customer identifier"
-        required: ["title", "description", "customer_id"]
-
+            description: The search query
+        required: [query]
   server:
     port: 8080
     debug: false
-    auth:
-      enabled: true
-
   language:
     go:
-      module: "github.com/company/customer-support-agent"
-      version: "1.22"
+      module: github.com/company/customer-support-agent
+      version: "1.26"
 ```
 
-From this single manifest, ADL generates:
-- **Production-ready code** for multiple platforms (Python, TypeScript, Go)
-- **API documentation** with OpenAPI specs
-- **Configuration files** for deployment (Docker, Kubernetes)
-- **Test suites** with conversation flows
-- **Monitoring dashboards** with key metrics
+## Consumers
 
-## Why ADL Matters in Today's AI Landscape
+| Tool | Description |
+|------|-------------|
+| [`adl-cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into enterprise-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
 
-### The Current Challenge
+If you build a tool that consumes ADL, please open a PR adding it to the table above.
 
-The AI industry is evolving at breakneck speed. Every day brings:
-- **New AI tools and platforms** flooding the market
-- **Vendor-specific implementations** that create lock-in
-- **Inconsistent interfaces** across different AI services
-- **Complex integration challenges** when combining multiple AI tools
-- **Rapid obsolescence** of custom implementations
+## Versioning
 
-This rapid proliferation creates significant challenges for developers and organizations:
-- **Development Fragmentation**: Each AI vendor requires different integration approaches
-- **Maintenance Overhead**: Keeping up with constantly changing APIs and interfaces
-- **Vendor Lock-in**: Tight coupling to specific platforms limits flexibility
-- **Inconsistent Quality**: Ad-hoc implementations lead to unreliable agent behavior
-- **Knowledge Silos**: Expertise becomes scattered across numerous specialized tools
+- The `apiVersion` field in a manifest (`adl.dev/v1`) and the directory (`schema/v1/`) move together.
+- Schema files are immutable once released under a git tag. Consumers pin to a tag.
+- Additive, backwards-compatible changes ship as new patch/minor tags within the same major version.
 
-### The ADL Solution
+## Why ADL?
 
-ADL addresses these challenges by providing:
+The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which enterprise-ready agent code, configuration, documentation, and deployment manifests can be generated — vendor-agnostic and portable across platforms.
 
-**🎯 Standardization**: A unified language that abstracts away vendor-specific implementations while maintaining the flexibility to leverage unique capabilities.
-
-**⚡ Rapid Development**: Generate production-ready agent code from a single, readable manifest instead of writing boilerplate for each platform.
-
-**🔄 Portability**: Define once, deploy anywhere. Switch between AI providers without rewriting your agent logic.
-
-**📈 Consistency**: Ensure reliable, predictable agent behavior across different environments and deployments.
-
-**🛡️ Future-Proofing**: Adapt to new AI tools and vendors by updating the ADL compiler, not your agent definitions.
-
-**🔧 Maintainability**: Centralized configuration makes it easy to update, version, and manage complex agent ecosystems.
-
-## Industry Impact
-
-In an era where AI capabilities are advancing monthly and new vendors emerge weekly, ADL provides the stability and abstraction layer that organizations need to:
-
-- **Innovate Rapidly**: Focus on agent logic and business value rather than integration complexity
-- **Reduce Risk**: Avoid vendor lock-in while leveraging best-of-breed AI services
-- **Scale Efficiently**: Deploy consistent agent behaviors across multiple platforms and environments
-- **Adapt Quickly**: Respond to new AI capabilities without architectural rewrites
-
-ADL transforms the chaotic landscape of AI tooling into a manageable, standardized development experience, enabling teams to build sophisticated AI agents that can evolve with the industry rather than being left behind by it.
-
-*Note: This project is independently developed and is not backed by any venture capital or corporate interests, ensuring that ADL remains focused on developer needs rather than investor demands.*
+*Note: This project is independently developed and is not backed by any venture capital or corporate interests.*
