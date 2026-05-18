@@ -42,8 +42,8 @@ spec:
     pushNotifications: true
     stateTransitionHistory: true
   agent:
-    provider: openai
-    model: gpt-4o
+    provider: deepseek
+    model: deepseek-v4-flash
     systemPrompt: |
       You are a professional customer support agent.
     maxTokens: 4096
@@ -52,14 +52,17 @@ spec:
     - id: knowledge_search
       name: knowledge_search
       description: Search the company knowledge base
-      tags: [knowledge, search]
+      tags:
+        - knowledge
+        - search
       schema:
         type: object
         properties:
           query:
             type: string
             description: The search query
-        required: [query]
+        required:
+          - query
   server:
     port: 8080
     debug: false
@@ -90,5 +93,3 @@ The AI agent ecosystem is fragmenting fast. Every provider has a different surfa
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](./LICENSE) for the full text.
-
-*Note: This project is independently developed and is not backed by any venture capital or corporate interests.*
