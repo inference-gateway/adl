@@ -68,7 +68,7 @@ spec:
 
 | Tool | Description |
 |------|-------------|
-| [`adl-cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into production-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
+| [`adl-cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into enterprise-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
 
 If you build a tool that consumes ADL, please open a PR adding it to the table above.
 
@@ -80,6 +80,6 @@ If you build a tool that consumes ADL, please open a PR adding it to the table a
 
 ## Why ADL?
 
-The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which production-ready agent code, configuration, documentation, and deployment manifests can be generated — vendor-agnostic and portable across platforms.
+The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which enterprise-ready agent code, configuration, documentation, and deployment manifests can be generated — vendor-agnostic and portable across platforms.
 
 *Note: This project is independently developed and is not backed by any venture capital or corporate interests.*
