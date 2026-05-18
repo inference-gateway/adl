@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0](https://github.com/inference-gateway/adl/compare/v0.2.0...v0.3.0) (2026-05-18)
+
+### ✨ Features
+
+* Split tools and skills ([#3](https://github.com/inference-gateway/adl/issues/3)) ([d0e3fe9](https://github.com/inference-gateway/adl/commit/d0e3fe98eb5ec260b3808e27054e00c164185ca0))
+
 ## [0.2.0](https://github.com/inference-gateway/adl/compare/v0.1.1...v0.2.0) (2026-05-18)
 
 ### ✨ Features
