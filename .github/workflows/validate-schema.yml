@@ -1,0 +1,23 @@
+name: Validate schema
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    name: Compile JSON Schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ajv
+        run: npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
+
+      - name: Validate Draft-07 compilation
+        run: npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json

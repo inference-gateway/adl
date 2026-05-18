@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://adl.dev/schemas/agent/v1",
+  "title": "Agent Definition Language (ADL) v1",
+  "description": "JSON Schema for Agent Definition Language manifests (apiVersion adl.dev/v1).",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "adl.dev/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "Agent"
+    },
+    "metadata": { "$ref": "#/definitions/Metadata" },
+    "spec": { "$ref": "#/definitions/Spec" }
+  },
+  "definitions": {
+    "Metadata": {
+      "type": "object",
+      "required": ["name", "description", "version"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "description": { "type": "string" },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      }
+    },
+    "Spec": {
+      "type": "object",
+      "required": ["server", "capabilities", "language"],
+      "properties": {
+        "capabilities": { "$ref": "#/definitions/Capabilities" },
+        "card": { "$ref": "#/definitions/Card" },
+        "agent": { "$ref": "#/definitions/Agent" },
+        "config": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "services": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/Service" }
+        },
+        "acronyms": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "skills": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Skill" }
+        },
+        "server": { "$ref": "#/definitions/Server" },
+        "language": { "$ref": "#/definitions/Language" },
+        "artifacts": { "$ref": "#/definitions/ArtifactsConfig" },
+        "hooks": { "$ref": "#/definitions/Hooks" },
+        "scm": { "$ref": "#/definitions/SCM" },
+        "sandbox": { "$ref": "#/definitions/SandboxConfig" },
+        "deployment": { "$ref": "#/definitions/DeploymentConfig" }
+      }
+    },
+    "Capabilities": {
+      "type": "object",
+      "required": ["streaming", "pushNotifications", "stateTransitionHistory"],
+      "properties": {
+        "streaming": { "type": "boolean" },
+        "pushNotifications": { "type": "boolean" },
+        "stateTransitionHistory": { "type": "boolean" }
+      }
+    },
+    "Card": {
+      "type": "object",
+      "properties": {
+        "protocolVersion": { "type": "string" },
+        "url": { "type": "string" },
+        "preferredTransport": { "type": "string" },
+        "defaultInputModes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "defaultOutputModes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "documentationUrl": { "type": "string" },
+        "iconUrl": { "type": "string" }
+      }
+    },
+    "Agent": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": ["", "openai", "anthropic", "ollama", "deepseek", "google", "mistral", "groq"]
+        },
+        "model": { "type": "string" },
+        "systemPrompt": { "type": "string" },
+        "maxTokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        }
+      }
+    },
+    "Service": {
+      "type": "object",
+      "required": ["type", "interface", "factory", "description"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["service", "repository", "client", "middleware"]
+        },
+        "interface": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$"
+        },
+        "factory": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$"
+        },
+        "description": { "type": "string" }
+      }
+    },
+    "Skill": {
+      "type": "object",
+      "required": ["id", "name", "description", "tags", "schema"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+        },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "examples": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "inputModes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "outputModes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "schema": {
+          "type": "object",
+          "description": "Free-form JSON Schema describing the skill's input parameters.",
+          "additionalProperties": true
+        },
+        "implementation": { "type": "string" },
+        "inject": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*$"
+          }
+        }
+      }
+    },
+    "Server": {
+      "type": "object",
+      "required": ["port"],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "scheme": { "type": "string" },
+        "debug": { "type": "boolean" },
+        "auth": { "$ref": "#/definitions/AuthConfig" }
+      }
+    },
+    "AuthConfig": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "Language": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "go": { "$ref": "#/definitions/GoConfig" },
+        "typescript": { "$ref": "#/definitions/TypeScriptConfig" },
+        "rust": { "$ref": "#/definitions/RustConfig" }
+      }
+    },
+    "GoConfig": {
+      "type": "object",
+      "required": ["module", "version"],
+      "properties": {
+        "module": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "TypeScriptConfig": {
+      "type": "object",
+      "required": ["packageName", "nodeVersion"],
+      "properties": {
+        "packageName": { "type": "string" },
+        "nodeVersion": { "type": "string" }
+      }
+    },
+    "RustConfig": {
+      "type": "object",
+      "required": ["packageName", "version", "edition"],
+      "properties": {
+        "packageName": { "type": "string" },
+        "version": { "type": "string" },
+        "edition": { "type": "string" },
+        "features": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "ArtifactsConfig": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "Hooks": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "SCM": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": ["github", "gitlab", "bitbucket"]
+        },
+        "url": { "type": "string" },
+        "github_app": { "type": "boolean" },
+        "issue_templates": { "type": "boolean" }
+      }
+    },
+    "SandboxConfig": {
+      "type": "object",
+      "properties": {
+        "flox": { "$ref": "#/definitions/FloxConfig" },
+        "devcontainer": { "$ref": "#/definitions/DevContainerConfig" },
+        "dockerCompose": { "$ref": "#/definitions/DockerComposeConfig" }
+      }
+    },
+    "FloxConfig": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "DevContainerConfig": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "DockerComposeConfig": {
+      "type": "object",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "DeploymentConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["kubernetes", "cloudrun"]
+        },
+        "cloudrun": { "$ref": "#/definitions/CloudRunConfig" }
+      }
+    },
+    "CloudRunConfig": {
+      "type": "object",
+      "properties": {
+        "image": { "$ref": "#/definitions/ImageConfig" },
+        "resources": { "$ref": "#/definitions/ResourcesConfig" },
+        "scaling": { "$ref": "#/definitions/ScalingConfig" },
+        "service": { "$ref": "#/definitions/ServiceConfig" },
+        "environment": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "ImageConfig": {
+      "type": "object",
+      "properties": {
+        "registry": { "type": "string" },
+        "repository": { "type": "string" },
+        "tag": { "type": "string" },
+        "useCloudBuild": { "type": "boolean" }
+      }
+    },
+    "ResourcesConfig": {
+      "type": "object",
+      "properties": {
+        "cpu": { "type": "string" },
+        "memory": { "type": "string" }
+      }
+    },
+    "ScalingConfig": {
+      "type": "object",
+      "properties": {
+        "minInstances": { "type": "integer" },
+        "maxInstances": { "type": "integer" },
+        "concurrency": { "type": "integer" }
+      }
+    },
+    "ServiceConfig": {
+      "type": "object",
+      "properties": {
+        "timeout": { "type": "integer" },
+        "allowUnauthenticated": { "type": "boolean" },
+        "serviceAccount": { "type": "string" },
+        "executionEnvironment": { "type": "string" }
+      }
+    }
+  }
+}
