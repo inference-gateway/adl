@@ -55,6 +55,10 @@
           "type": "array",
           "items": { "type": "string" }
         },
+        "tools": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Tool" }
+        },
         "skills": {
           "type": "array",
           "items": { "$ref": "#/definitions/Skill" }
@@ -134,9 +138,11 @@
         "description": { "type": "string" }
       }
     },
-    "Skill": {
+    "Tool": {
       "type": "object",
+      "description": "Function-call entrypoint the agent can invoke. Generated as code in the target language.",
       "required": ["id", "name", "description", "tags", "schema"],
+      "additionalProperties": false,
       "properties": {
         "id": {
           "type": "string",
@@ -148,30 +154,38 @@
           "type": "array",
           "items": { "type": "string" }
         },
-        "examples": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "inputModes": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "outputModes": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
         "schema": {
           "type": "object",
-          "description": "Free-form JSON Schema describing the skill's input parameters.",
+          "description": "Free-form JSON Schema describing the tool's input parameters.",
           "additionalProperties": true
         },
-        "implementation": { "type": "string" },
         "inject": {
           "type": "array",
           "items": {
             "type": "string",
             "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*$"
           }
+        }
+      }
+    },
+    "Skill": {
+      "type": "object",
+      "description": "Markdown playbook injected into the agent's system prompt. Pulled from the skills registry or scaffolded blank with bare: true.",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_-]*$"
+        },
+        "version": { "type": "string" },
+        "source": { "type": "string" },
+        "bare": { "type": "boolean" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
         }
       }
     },
