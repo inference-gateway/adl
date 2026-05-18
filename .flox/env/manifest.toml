@@ -13,4 +13,3 @@ claude-code.version = "2.1.141"
 on-activate = """
   npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
 """
-
