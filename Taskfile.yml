@@ -1,0 +1,21 @@
+version: "3"
+
+vars:
+  SCHEMA: schema/v1/schema.json
+  AJV: node_modules/.bin/ajv
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+
+  compile:
+    desc: Compile the JSON Schema (same check CI runs)
+    cmds:
+      - "{{.AJV}} compile --spec=draft7 -c ajv-formats -s {{.SCHEMA}}"
+
+  validate:
+    desc: "Validate a manifest against the schema (usage: task validate -- path/to/manifest.yaml)"
+    cmds:
+      - "{{.AJV}} validate --spec=draft7 -c ajv-formats -s {{.SCHEMA}} -d {{.CLI_ARGS}}"

@@ -1,0 +1,16 @@
+schema-version = "1.11.0"
+
+[install]
+nodejs_24.pkg-path = "nodejs_24"
+nodejs_24.version = "24.14.1"
+go-task.pkg-path = "go-task"
+go-task.version = "3.48.0"
+infer.flake = "github:inference-gateway/cli/v0.109.6"
+claude-code.pkg-path = "claude-code"
+claude-code.version = "2.1.141"
+
+[hook]
+on-activate = """
+  npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
+"""
+

@@ -15,14 +15,24 @@ Thank you for your interest in contributing to the [Agent Definition Language](.
 
 ## Development Setup
 
-This repository has no language toolchain of its own. The schema is validated with [`ajv`](https://ajv.js.org) via `npx`, which is the same path CI takes. The only prerequisites are Node.js and Git.
+This repository has no language toolchain of its own. The schema is validated with [`ajv`](https://ajv.js.org), which is the same path CI takes. You can set up the environment automatically with [flox](https://flox.dev) (recommended) or manually.
 
-### Prerequisites
+### Option A: flox (recommended)
 
-- [Node.js](https://nodejs.org) 24.x (matches `.github/workflows/validate-schema.yml`)
-- Git
+[flox](https://flox.dev) provisions a reproducible per-directory environment with Node.js, [go-task](https://taskfile.dev), and the ajv toolchain pre-installed. Activating the environment also runs `npm install` for the ajv packages automatically (see `.flox/env/manifest.toml`).
 
-### Clone and install
+1. [Install flox](https://flox.dev/docs/install-flox/).
+2. From the repo root:
+
+```sh
+flox activate
+```
+
+That's it. `task`, `node`, and the ajv binaries (`node_modules/.bin/ajv`) are now on `PATH`.
+
+### Option B: manual
+
+If you'd rather not use flox, you only need Node.js 24.x (matches `.github/workflows/validate-schema.yml`) and Git:
 
 ```sh
 git clone https://github.com/inference-gateway/adl
@@ -45,12 +55,16 @@ git checkout -b my-change
 3. Compile the schema locally. This is the exact check CI runs:
 
 ```sh
+task compile
+# or, without go-task:
 npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json
 ```
 
 4. If your change affects manifest authoring, validate a real manifest against the updated schema:
 
 ```sh
+task validate -- path/to/manifest.yaml
+# or, without go-task:
 npx ajv validate --spec=draft7 -c ajv-formats -s schema/v1/schema.json -d path/to/manifest.yaml
 ```
 
@@ -95,7 +109,7 @@ level, mirroring Kubernetes-style metadata. Purely additive.
 
 Before opening a PR, please confirm:
 
-- [ ] `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json` succeeds locally.
+- [ ] `task compile` (or `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json`) succeeds locally.
 - [ ] Any manifest examples in the README or in your PR description validate against the updated schema.
 - [ ] The change is additive within an existing major version, or you have an accepted Discussion/issue for a new major version.
 - [ ] The PR title follows the [commit convention](#commit-message-convention) (the title becomes the squash-merge commit message).
