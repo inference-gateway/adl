@@ -2,7 +2,12 @@
 
 # ADL (Agent Definition Language)
 
-A declarative language for defining AI agents, their capabilities, and skills. Think of ADL as "OpenAPI for AI Agents" — a standardized specification that enables consistent agent definition, documentation, and code generation across platforms.
+A declarative language for defining AI agents, their capabilities, and skills. Think of ADL as "OpenAPI for AI Agents": a standardized specification that enables consistent agent definition, documentation, and code generation across platforms.
+
+[![Validate Schema](https://img.shields.io/github/actions/workflow/status/inference-gateway/adl/validate-schema.yml?style=flat-square&logo=github&label=validate%20schema)](https://github.com/inference-gateway/adl/actions/workflows/validate-schema.yml)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/inference-gateway/adl?style=flat-square&logo=github)](https://github.com/inference-gateway/adl/releases)
+[![Schema Version](https://img.shields.io/badge/schema-v1-blue.svg?style=flat-square)](./schema/v1/schema.json)
 
 </div>
 
@@ -10,7 +15,7 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 
 ADL (Agent Definition Language) is a vendor-neutral, declarative specification for AI agents. Just as OpenAPI provides a standard way to describe REST services, ADL provides a standard way to describe agents: their metadata, capabilities, skills, the AI provider behind them, the services they depend on, and the runtime they ship to.
 
-This repository is the **source of truth for the ADL schema**. The JSON Schema document under [`schema/v1/schema.json`](./schema/v1/schema.json) is the canonical specification. Tools that produce or consume ADL manifests — including [`adl-cli`](https://github.com/inference-gateway/adl-cli) — pin to a tagged version of this schema.
+This repository is the **source of truth for the ADL schema**. The JSON Schema document under [`schema/v1/schema.json`](./schema/v1/schema.json) is the canonical specification. Tools that produce or consume ADL manifests (including [`adl-cli`](https://github.com/inference-gateway/adl-cli)) pin to a tagged version of this schema.
 
 ## Layout
 
@@ -80,6 +85,10 @@ If you build a tool that consumes ADL, please open a PR adding it to the table a
 
 ## Why ADL?
 
-The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which enterprise-ready agent code, configuration, documentation, and deployment manifests can be generated — vendor-agnostic and portable across platforms.
+The AI agent ecosystem is fragmenting fast. Every provider has a different surface; every framework has its own scaffolding. ADL gives teams one declarative manifest from which enterprise-ready agent code, configuration, documentation, and deployment manifests can be generated, vendor-agnostic and portable across platforms.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for the full text.
 
 *Note: This project is independently developed and is not backed by any venture capital or corporate interests.*
