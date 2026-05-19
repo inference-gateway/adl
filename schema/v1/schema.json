@@ -140,8 +140,8 @@
     },
     "Tool": {
       "type": "object",
-      "description": "Function-call entrypoint the agent can invoke. Generated as code in the target language.",
-      "required": ["id", "name", "description", "tags", "schema"],
+      "description": "Function-call entrypoint the agent can invoke. Generated as code in the target language. User-defined tools require name, description, tags, and schema; reserved built-in IDs (e.g. read, bash, write, edit) may omit them and have those fields supplied by the generator.",
+      "required": ["id"],
       "additionalProperties": false,
       "properties": {
         "id": {
