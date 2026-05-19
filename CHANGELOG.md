@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0](https://github.com/inference-gateway/adl/compare/v0.3.0...v0.4.0) (2026-05-19)
+
+### ✨ Features
+
+* **schema:** Relax Tool.required to id only ([#4](https://github.com/inference-gateway/adl/issues/4)) ([9405930](https://github.com/inference-gateway/adl/commit/9405930db5b2a95fd007b644c459741bdf4f5138))
+
 ## [0.3.0](https://github.com/inference-gateway/adl/compare/v0.2.0...v0.3.0) (2026-05-18)
 
 ### ✨ Features
