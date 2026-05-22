@@ -318,7 +318,50 @@
     },
     "AIConfig": {
       "type": "object",
-      "description": "Toggle generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of claude-code in sandbox environments.",
+      "description": "Configures generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding agents (Claude Code, Codex, Gemini, OpenCode, Infer, ...) inside sandbox environments. Each coding agent is toggled independently via its own subsection; by default every agent is disabled.",
+      "properties": {
+        "claudecode": { "$ref": "#/definitions/ClaudeCodeConfig" },
+        "codex": { "$ref": "#/definitions/CodexConfig" },
+        "gemini": { "$ref": "#/definitions/GeminiConfig" },
+        "opencode": { "$ref": "#/definitions/OpenCodeConfig" },
+        "infer": { "$ref": "#/definitions/InferConfig" }
+      }
+    },
+    "ClaudeCodeConfig": {
+      "type": "object",
+      "description": "Provision Anthropic's Claude Code coding agent inside the sandbox.",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "CodexConfig": {
+      "type": "object",
+      "description": "Provision OpenAI's Codex coding agent inside the sandbox.",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "GeminiConfig": {
+      "type": "object",
+      "description": "Provision Google's Gemini coding agent inside the sandbox.",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "OpenCodeConfig": {
+      "type": "object",
+      "description": "Provision the OpenCode coding agent inside the sandbox.",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "InferConfig": {
+      "type": "object",
+      "description": "Provision the Inference Gateway 'infer' coding agent inside the sandbox.",
       "required": ["enabled"],
       "properties": {
         "enabled": { "type": "boolean" }

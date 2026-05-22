@@ -104,7 +104,16 @@ spec:
       devcontainer:
         enabled: false
     ai:
-      enabled: true
+      claudecode:
+        enabled: true
+      codex:
+        enabled: false
+      gemini:
+        enabled: false
+      opencode:
+        enabled: false
+      infer:
+        enabled: false
 ```
 
 ### Skill licensing
@@ -144,9 +153,22 @@ experience for an agent project:
   `flox`, `devcontainer`, or `dockerCompose`. Each is independently
   toggleable; consumers like `adl-cli` use these flags to scaffold the
   matching environment files.
-- `spec.development.ai.enabled` toggles generation of AI-assistant
-  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of
-  `claude-code` inside the sandbox.
+- `spec.development.ai` configures generation of AI-assistant
+  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of coding
+  agents inside the sandbox. Each supported coding agent is toggled
+  independently via its own subsection, and every agent is disabled by
+  default:
+
+  | Field | Coding agent |
+  |-------|--------------|
+  | `claudecode.enabled` | Anthropic Claude Code |
+  | `codex.enabled` | OpenAI Codex |
+  | `gemini.enabled` | Google Gemini |
+  | `opencode.enabled` | OpenCode |
+  | `infer.enabled` | Inference Gateway `infer` |
+
+  Multiple agents can be enabled at once if a project wants to ship
+  configuration for more than one.
 
 ## Consumers
 
