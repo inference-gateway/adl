@@ -96,7 +96,28 @@ spec:
     go:
       module: github.com/company/customer-support-agent
       version: "1.26"
+  development:
+    sandbox:
+      flox:
+        enabled: true
+      devcontainer:
+        enabled: false
+    ai:
+      enabled: true
 ```
+
+### Development sandboxes
+
+`spec.development` groups everything related to the local developer
+experience for an agent project:
+
+- `spec.development.sandbox` selects reproducible dev environments —
+  `flox`, `devcontainer`, or `dockerCompose`. Each is independently
+  toggleable; consumers like `adl-cli` use these flags to scaffold the
+  matching environment files.
+- `spec.development.ai.enabled` toggles generation of AI-assistant
+  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of
+  `claude-code` inside the sandbox.
 
 ## Consumers
 
