@@ -318,12 +318,8 @@
     },
     "AIConfig": {
       "type": "object",
-      "description": "Configures generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding agents (Claude Code, Codex, Gemini, OpenCode, Infer, ...) inside sandbox environments. Each coding agent is toggled independently via its own subsection; by default every agent is disabled. The top-level 'enabled' field is retained as a legacy global toggle for backwards compatibility with manifests written against earlier patches of v1.",
+      "description": "Configures generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding agents (Claude Code, Codex, Gemini, OpenCode, Infer, ...) inside sandbox environments. Each coding agent is toggled independently via its own subsection; by default every agent is disabled.",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Deprecated. Legacy global toggle for AI-assistant integration. New manifests should select individual coding agents via the per-agent subsections (claudecode, codex, gemini, opencode, infer) instead."
-        },
         "claudecode": { "$ref": "#/definitions/ClaudeCodeConfig" },
         "codex": { "$ref": "#/definitions/CodexConfig" },
         "gemini": { "$ref": "#/definitions/GeminiConfig" },

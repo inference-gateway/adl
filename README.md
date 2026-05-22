@@ -168,10 +168,7 @@ experience for an agent project:
   | `infer.enabled` | Inference Gateway `infer` |
 
   Multiple agents can be enabled at once if a project wants to ship
-  configuration for more than one. The legacy `spec.development.ai.enabled`
-  boolean is retained for backwards compatibility with manifests written
-  against earlier patches of v1; new manifests should prefer the
-  per-agent subsections.
+  configuration for more than one.
 
 ## Consumers
 
