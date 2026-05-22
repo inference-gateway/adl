@@ -111,7 +111,7 @@ spec:
 `spec.development` groups everything related to the local developer
 experience for an agent project:
 
-- `spec.development.sandbox` selects reproducible dev environments —
+- `spec.development.sandbox` selects reproducible dev environments -
   `flox`, `devcontainer`, or `dockerCompose`. Each is independently
   toggleable; consumers like `adl-cli` use these flags to scaffold the
   matching environment files.
