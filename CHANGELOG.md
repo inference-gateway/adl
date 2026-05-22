@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0](https://github.com/inference-gateway/adl/compare/v0.6.0...v0.7.0) (2026-05-22)
+
+### ✨ Features
+
+* **schema:** Add optional license field to Skill ([#10](https://github.com/inference-gateway/adl/issues/10)) ([534be54](https://github.com/inference-gateway/adl/commit/534be54e0fcea778d88aee845fe027f471ff9e41)), closes [#9](https://github.com/inference-gateway/adl/issues/9)
+
+### 🔧 Miscellaneous
+
+* Replace em dash with normal dash ([9317908](https://github.com/inference-gateway/adl/commit/931790876c8dc9bdd44b8517409eb0f33ce804b4))
+
 ## [0.6.0](https://github.com/inference-gateway/adl/compare/v0.5.0...v0.6.0) (2026-05-22)
 
 ### ✨ Features
