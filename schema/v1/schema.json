@@ -68,9 +68,8 @@
         "artifacts": { "$ref": "#/definitions/ArtifactsConfig" },
         "hooks": { "$ref": "#/definitions/Hooks" },
         "scm": { "$ref": "#/definitions/SCM" },
-        "sandbox": { "$ref": "#/definitions/SandboxConfig" },
-        "deployment": { "$ref": "#/definitions/DeploymentConfig" },
-        "ai": { "$ref": "#/definitions/AIConfig" }
+        "development": { "$ref": "#/definitions/DevelopmentConfig" },
+        "deployment": { "$ref": "#/definitions/DeploymentConfig" }
       }
     },
     "Capabilities": {
@@ -279,8 +278,17 @@
         "cd": { "type": "boolean" }
       }
     },
+    "DevelopmentConfig": {
+      "type": "object",
+      "description": "Local development experience for the agent: sandboxed dev environments (flox, devcontainer, dockerCompose) and AI-assistant integration (CLAUDE.md/AGENTS.md generation, claude-code provisioning).",
+      "properties": {
+        "sandbox": { "$ref": "#/definitions/SandboxConfig" },
+        "ai": { "$ref": "#/definitions/AIConfig" }
+      }
+    },
     "SandboxConfig": {
       "type": "object",
+      "description": "Reproducible development environments. flox, devcontainer, and dockerCompose are alternative ways to package the same sandbox; pick what suits the team.",
       "properties": {
         "flox": { "$ref": "#/definitions/FloxConfig" },
         "devcontainer": { "$ref": "#/definitions/DevContainerConfig" },

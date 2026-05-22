@@ -102,7 +102,7 @@ spec:
   artifacts:     { enabled }
   hooks:         { post: [commands] }
   scm:           { provider, url, github_app, issue_templates }
-  sandbox:       { flox, devcontainer, dockerCompose }
+  development:   { sandbox: { flox, devcontainer, dockerCompose }, ai: { enabled } }
   deployment:    { type, cloudrun }
 ```
 
