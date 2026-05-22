@@ -183,6 +183,11 @@
         "bare": { "type": "boolean" },
         "name": { "type": "string" },
         "description": { "type": "string" },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "description": "License under which the skill is distributed. Conventionally an SPDX license identifier or expression (e.g. \"MIT\", \"Apache-2.0\", \"MIT OR Apache-2.0\"). Consumers should mirror this value in the SKILL.md frontmatter so the licence travels with the playbook; shipping a separate LICENSE file alongside SKILL.md is optional and not enforced by the schema."
+        },
         "tags": {
           "type": "array",
           "items": { "type": "string" }

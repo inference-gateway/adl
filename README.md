@@ -86,6 +86,7 @@ spec:
       bare: true
       name: incident-response
       description: How to triage a paged production incident, draft an initial response, and notify stakeholders.
+      license: Apache-2.0
       tags:
         - operations
         - incident
@@ -105,6 +106,12 @@ spec:
     ai:
       enabled: true
 ```
+
+### Skill licensing
+
+Each entry in `spec.skills[]` accepts an optional `license` string. It carries the licence under which the skill is distributed and is conventionally an [SPDX](https://spdx.org/licenses/) identifier or expression — e.g. `MIT`, `Apache-2.0`, or `MIT OR Apache-2.0`.
+
+The value mirrors the `license` field in the skill's `SKILL.md` frontmatter, so the licence travels with the playbook regardless of where it is consumed. Shipping a separate `LICENSE` file alongside `SKILL.md` is optional and not enforced by the schema — consumers MAY include one in the skill's source directory if their distribution channel expects it.
 
 ### Development sandboxes
 
