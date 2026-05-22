@@ -185,8 +185,24 @@
         "description": { "type": "string" },
         "license": {
           "type": "string",
-          "minLength": 1,
-          "description": "License under which the skill is distributed. Conventionally an SPDX license identifier or expression (e.g. \"MIT\", \"Apache-2.0\", \"MIT OR Apache-2.0\"). Consumers should mirror this value in the SKILL.md frontmatter so the licence travels with the playbook; shipping a separate LICENSE file alongside SKILL.md is optional and not enforced by the schema."
+          "description": "License under which the skill is distributed. Must be one of the accepted SPDX license identifiers, or \"Proprietary\" for closed-source skills. Consumers should mirror this value in the SKILL.md frontmatter so the licence travels with the playbook; shipping a separate LICENSE file alongside SKILL.md is optional and not enforced by the schema. New identifiers may be added in future minor versions of the schema.",
+          "enum": [
+            "MIT",
+            "Apache-2.0",
+            "BSD-2-Clause",
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0",
+            "LGPL-2.1",
+            "LGPL-3.0",
+            "MPL-2.0",
+            "ISC",
+            "CC0-1.0",
+            "CC-BY-4.0",
+            "CC-BY-SA-4.0",
+            "Unlicense",
+            "Proprietary"
+          ]
         },
         "tags": {
           "type": "array",
