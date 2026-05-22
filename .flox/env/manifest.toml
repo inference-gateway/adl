@@ -5,9 +5,9 @@ nodejs_24.pkg-path = "nodejs_24"
 nodejs_24.version = "24.14.1"
 go-task.pkg-path = "go-task"
 go-task.version = "3.48.0"
-infer.flake = "github:inference-gateway/cli/v0.109.7"
+infer.flake = "github:inference-gateway/cli/v0.109.11"
 claude-code.pkg-path = "claude-code"
-claude-code.version = "2.1.141"
+claude-code.version = "^2.1.141"
 
 [hook]
 on-activate = """
