@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0](https://github.com/inference-gateway/adl/compare/v0.4.0...v0.5.0) (2026-05-22)
+
+### ✨ Features
+
+* **schema:** Add scm dependabot/ci/cd flags and ai.enabled config ([#6](https://github.com/inference-gateway/adl/issues/6)) ([aff6b6b](https://github.com/inference-gateway/adl/commit/aff6b6bdc69e0ba01b88a4961a3ad7ffc7a7b163)), closes [#5](https://github.com/inference-gateway/adl/issues/5)
+
+### 👷 CI
+
+* Update CI workflow to use Node.js instead of Go ([073ab19](https://github.com/inference-gateway/adl/commit/073ab1982c37c731f2c4489a431f6d25a0c73c68))
+
+### 🔧 Miscellaneous
+
+* Add Claude Code GitHub Actions workflow ([f49cf2f](https://github.com/inference-gateway/adl/commit/f49cf2fa0a9fb3e3b48d3044c0153855e63bcf23))
+* Change Node.js version to LTS in workflow ([20480dd](https://github.com/inference-gateway/adl/commit/20480ddadf022740d3f7d714b2dc5f836eb5ff2b))
+* **deps:** Update claude-code version to 2.1.141 and infer.flake to v0.109.11 ([103f41e](https://github.com/inference-gateway/adl/commit/103f41eded0de0e1f29f3fa649aca8cd9a551fac))
+
 ## [0.4.0](https://github.com/inference-gateway/adl/compare/v0.3.0...v0.4.0) (2026-05-19)
 
 ### ✨ Features
