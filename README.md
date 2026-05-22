@@ -152,7 +152,7 @@ experience for an agent project:
 
 | Tool | Description |
 |------|-------------|
-| [`adl-cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into enterprise-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
+| [`cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into enterprise-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
 
 If you build a tool that consumes ADL, please open a PR adding it to the table above.
 
