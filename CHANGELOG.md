@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0](https://github.com/inference-gateway/adl/compare/v0.5.0...v0.6.0) (2026-05-22)
+
+### ✨ Features
+
+* **schema:** Group sandbox and ai under spec.development ([#8](https://github.com/inference-gateway/adl/issues/8)) ([3c00c51](https://github.com/inference-gateway/adl/commit/3c00c5135ddd669fb5adf48e0f70ec4421974f81))
+
 ## [0.5.0](https://github.com/inference-gateway/adl/compare/v0.4.0...v0.5.0) (2026-05-22)
 
 ### ✨ Features
