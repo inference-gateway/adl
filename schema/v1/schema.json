@@ -69,7 +69,8 @@
         "hooks": { "$ref": "#/definitions/Hooks" },
         "scm": { "$ref": "#/definitions/SCM" },
         "sandbox": { "$ref": "#/definitions/SandboxConfig" },
-        "deployment": { "$ref": "#/definitions/DeploymentConfig" }
+        "deployment": { "$ref": "#/definitions/DeploymentConfig" },
+        "ai": { "$ref": "#/definitions/AIConfig" }
       }
     },
     "Capabilities": {
@@ -272,7 +273,10 @@
         },
         "url": { "type": "string" },
         "github_app": { "type": "boolean" },
-        "issue_templates": { "type": "boolean" }
+        "issue_templates": { "type": "boolean" },
+        "dependabot": { "type": "boolean" },
+        "ci": { "type": "boolean" },
+        "cd": { "type": "boolean" }
       }
     },
     "SandboxConfig": {
@@ -281,6 +285,14 @@
         "flox": { "$ref": "#/definitions/FloxConfig" },
         "devcontainer": { "$ref": "#/definitions/DevContainerConfig" },
         "dockerCompose": { "$ref": "#/definitions/DockerComposeConfig" }
+      }
+    },
+    "AIConfig": {
+      "type": "object",
+      "description": "Toggle generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of claude-code in sandbox environments.",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": { "type": "boolean" }
       }
     },
     "FloxConfig": {
