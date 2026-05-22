@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0](https://github.com/inference-gateway/adl/compare/v0.7.0...v0.8.0) (2026-05-22)
+
+### ✨ Features
+
+* **schema:** Support per-agent toggles in development.ai config ([#12](https://github.com/inference-gateway/adl/issues/12)) ([0b4271c](https://github.com/inference-gateway/adl/commit/0b4271c067fe14483edc9a0a6ba3cf887ba6bd42)), closes [#11](https://github.com/inference-gateway/adl/issues/11)
+
+### 👷 CI
+
+* **claude:** Add maintainer skill ([933663d](https://github.com/inference-gateway/adl/commit/933663d49965d190964f4b9037069e9ab0b80b79))
+* **deps:** Update Claude Code Action to version 1.0.131 ([b409632](https://github.com/inference-gateway/adl/commit/b409632dadd3343338e18f7d49856525607f25c0))
+
+### 🔧 Miscellaneous
+
+* **docs:** Rename adl-cli to cli in the README to make it fit better ([e48add3](https://github.com/inference-gateway/adl/commit/e48add353d2f4dea1a0f001690e9d01f25e0013b))
+
 ## [0.7.0](https://github.com/inference-gateway/adl/compare/v0.6.0...v0.7.0) (2026-05-22)
 
 ### ✨ Features
