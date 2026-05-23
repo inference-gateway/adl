@@ -327,10 +327,18 @@
     },
     "DevelopmentConfig": {
       "type": "object",
-      "description": "Local development experience for the agent: sandboxed dev environments (flox, devcontainer, dockerCompose) and AI-assistant integration (CLAUDE.md/AGENTS.md generation, claude-code provisioning).",
+      "description": "Local development experience for the agent: sandboxed dev environments (flox, devcontainer, dockerCompose), AI-assistant integration (CLAUDE.md/AGENTS.md generation, claude-code provisioning), and extra sandbox-level dependencies (deps) for tools that don't belong to any single language's package manager (e.g. deno, kubectl, terraform).",
       "properties": {
         "sandbox": { "$ref": "#/definitions/SandboxConfig" },
-        "ai": { "$ref": "#/definitions/AIConfig" }
+        "ai": { "$ref": "#/definitions/AIConfig" },
+        "deps": {
+          "type": "array",
+          "description": "Extra packages to install into the development sandbox (flox, devcontainer, dockerCompose) on top of whatever the generator pulls in by default. Use this for cross-cutting tools that aren't tied to one of the project's languages — e.g. 'deno@2.1.4', 'kubectl@1.31.0', 'terraform@1.9.5'. Each entry follows the '<package>@<version>' form; consumers are responsible for resolving the package against the sandbox's native package source (Nixpkgs for flox, apt/apk/feature for devcontainer, image layers for dockerCompose).",
+          "items": {
+            "type": "string",
+            "pattern": "^\\S+@\\S+$"
+          }
+        }
       }
     },
     "SandboxConfig": {

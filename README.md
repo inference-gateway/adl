@@ -228,6 +228,35 @@ experience for an agent project:
 
   Multiple agents can be enabled at once if a project wants to ship
   configuration for more than one.
+- `spec.development.deps` declares extra packages to install into the
+  development sandbox itself (flox, devcontainer, dockerCompose) on top
+  of whatever the generator pulls in by default. Use this for
+  cross-cutting tools that aren't tied to one of the project's
+  languages — e.g. a Go service that also needs `deno` for quick
+  scripting, or a TypeScript agent that wants `kubectl` available in
+  the dev shell.
+
+  Each entry follows the same `<package>@<version>` shape as
+  `spec.language.<lang>.vendor.deps`:
+
+  ```yaml
+  spec:
+    development:
+      sandbox:
+        flox:
+          enabled: true
+      deps:
+        - deno@2.1.4
+        - kubectl@1.31.0
+        - terraform@1.9.5
+  ```
+
+  The schema only validates the `<package>@<version>` shape;
+  consumers (e.g. `adl-cli`) are responsible for resolving each entry
+  against the sandbox's native package source — Nixpkgs for flox, an
+  apt/apk package or devcontainer feature for devcontainer, image
+  layers for dockerCompose. The field is optional and defaults to
+  empty.
 
 ## Consumers
 
