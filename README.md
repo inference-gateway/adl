@@ -5,7 +5,7 @@
 A declarative language for defining AI agents, their capabilities, and skills. Think of ADL as "OpenAPI for AI Agents": a standardized specification that enables consistent agent definition, documentation, and code generation across platforms.
 
 [![Validate Schema](https://img.shields.io/github/actions/workflow/status/inference-gateway/adl/validate-schema.yml?style=flat-square&logo=github&label=validate%20schema)](https://github.com/inference-gateway/adl/actions/workflows/validate-schema.yml)
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/inference-gateway/adl?style=flat-square&logo=github)](https://github.com/inference-gateway/adl/releases)
 [![Schema Version](https://img.shields.io/badge/schema-v1-blue.svg?style=flat-square)](./schema/v1/schema.json)
 
@@ -194,4 +194,4 @@ Contributions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to s
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](./LICENSE) for the full text.
+This project is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for the full text.
