@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0](https://github.com/inference-gateway/adl/compare/v0.9.0...v0.10.0) (2026-05-23)
+
+### ✨ Features
+
+* Add spec.development.deps for sandbox-level dependencies ([#17](https://github.com/inference-gateway/adl/issues/17)) ([11c2f4f](https://github.com/inference-gateway/adl/commit/11c2f4fe3e4231369b1ca39215de0bfdbd07bc6e)), closes [#15](https://github.com/inference-gateway/adl/issues/15)
+
 ## [0.9.0](https://github.com/inference-gateway/adl/compare/v0.8.0...v0.9.0) (2026-05-23)
 
 ### ✨ Features
