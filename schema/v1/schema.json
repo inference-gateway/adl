@@ -244,7 +244,8 @@
       "required": ["module", "version"],
       "properties": {
         "module": { "type": "string" },
-        "version": { "type": "string" }
+        "version": { "type": "string" },
+        "vendor": { "$ref": "#/definitions/VendorConfig" }
       }
     },
     "TypeScriptConfig": {
@@ -252,7 +253,8 @@
       "required": ["packageName", "nodeVersion"],
       "properties": {
         "packageName": { "type": "string" },
-        "nodeVersion": { "type": "string" }
+        "nodeVersion": { "type": "string" },
+        "vendor": { "$ref": "#/definitions/VendorConfig" }
       }
     },
     "RustConfig": {
@@ -265,6 +267,30 @@
         "features": {
           "type": "array",
           "items": { "type": "string" }
+        },
+        "vendor": { "$ref": "#/definitions/VendorConfig" }
+      }
+    },
+    "VendorConfig": {
+      "type": "object",
+      "description": "Extra packages to vendor into the generated project on top of whatever the generator pulls in by default. Use 'deps' for runtime/production dependencies and 'devdeps' for development- or test-only dependencies (linters, test frameworks, mock generators, etc.). Each entry follows the '<package>@<version>' form using the target language's native package and version syntax (e.g. 'github.com/stretchr/testify@v1.9.0' for Go, 'vitest@1.6.0' or '@types/node@20.11.0' for TypeScript, 'tokio@1.36.0' for Rust). Consumers are responsible for translating these into the language's lockfile / manifest format.",
+      "additionalProperties": false,
+      "properties": {
+        "deps": {
+          "type": "array",
+          "description": "Runtime/production dependencies to add to the generated project, each in '<package>@<version>' form.",
+          "items": {
+            "type": "string",
+            "pattern": "^\\S+@\\S+$"
+          }
+        },
+        "devdeps": {
+          "type": "array",
+          "description": "Development- and test-only dependencies to add to the generated project (e.g. testing libraries, linters, mock generators), each in '<package>@<version>' form.",
+          "items": {
+            "type": "string",
+            "pattern": "^\\S+@\\S+$"
+          }
         }
       }
     },
