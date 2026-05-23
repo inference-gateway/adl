@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0](https://github.com/inference-gateway/adl/compare/v0.8.0...v0.9.0) (2026-05-23)
+
+### ✨ Features
+
+* **schema:** Add optional vendor.deps and vendor.devdeps to language configs ([#14](https://github.com/inference-gateway/adl/issues/14)) ([5a28d5a](https://github.com/inference-gateway/adl/commit/5a28d5a71442e2f9fce1435a56c2058126d326cb)), closes [#13](https://github.com/inference-gateway/adl/issues/13)
+
+### 🔧 Miscellaneous
+
+* **license:** Update license to Apache 2.0 ([e62879e](https://github.com/inference-gateway/adl/commit/e62879ef61d33ce25c42c60da3b143af8caedf4d))
+
 ## [0.8.0](https://github.com/inference-gateway/adl/compare/v0.7.0...v0.8.0) (2026-05-22)
 
 ### ✨ Features
