@@ -97,6 +97,11 @@ spec:
     go:
       module: github.com/company/customer-support-agent
       version: "1.26"
+      vendor:
+        deps:
+          - github.com/google/uuid@v1.6.0
+        devdeps:
+          - github.com/stretchr/testify@v1.9.0
   development:
     sandbox:
       flox:
@@ -143,6 +148,60 @@ Accepted values:
 The value mirrors the `license` field in the skill's `SKILL.md` frontmatter, so the licence travels with the playbook regardless of where it is consumed. Shipping a separate `LICENSE` file alongside `SKILL.md` is optional and not enforced by the schema — consumers MAY include one in the skill's source directory if their distribution channel expects it.
 
 Additional identifiers may be added in future minor versions of the schema; SPDX expressions (e.g. `MIT OR Apache-2.0`) are not currently accepted.
+
+### Extra language dependencies
+
+Every language config under `spec.language.<lang>` accepts an optional
+`vendor` block that lets a manifest declare extra packages the
+generator should pull into the project on top of its defaults — useful
+for testing libraries, linters, mock generators, or any runtime
+package the generated scaffolding doesn't ship by default.
+
+- `vendor.deps` — runtime/production dependencies.
+- `vendor.devdeps` — development- and test-only dependencies.
+
+Each entry is a string of the form `<package>@<version>` using the
+target language's native package and version syntax. Consumers (such
+as `adl-cli`) translate these into the language's lockfile / manifest
+format (`go.mod`, `package.json`, `Cargo.toml`, ...).
+
+```yaml
+spec:
+  language:
+    go:
+      module: github.com/company/customer-support-agent
+      version: "1.26"
+      vendor:
+        deps:
+          - github.com/google/uuid@v1.6.0
+        devdeps:
+          - github.com/stretchr/testify@v1.9.0
+          - go.uber.org/mock@v0.4.0
+    typescript:
+      packageName: customer-support-agent
+      nodeVersion: "20"
+      vendor:
+        deps:
+          - zod@3.23.0
+        devdeps:
+          - vitest@1.6.0
+          - "@types/node@20.11.0"
+    rust:
+      packageName: customer-support-agent
+      version: "0.1.0"
+      edition: "2021"
+      vendor:
+        deps:
+          - tokio@1.36.0
+        devdeps:
+          - mockall@0.12.1
+```
+
+Both fields are optional and default to empty. The schema only
+validates the `<package>@<version>` shape — it intentionally does not
+constrain the package or version syntax further, so each language's
+native conventions (Go module paths, npm scoped packages, semver
+ranges, etc.) are accepted.
 
 ### Development sandboxes
 
