@@ -23,7 +23,7 @@ ADL (Agent Definition Language) is a **declarative, vendor-neutral specification
 | Technology | Version / Details |
 |---|---|
 | **JSON Schema** | Draft-07 (`http://json-schema.org/draft-07/schema#`) |
-| **Node.js** | 24.x (24.14.1 in CI) |
+| **Node.js** | 24.x (24.15.0 in CI) |
 | **ajv** | v8 (validator) |
 | **ajv-cli** | v5 (CLI interface) |
 | **ajv-formats** | v3 (format extensions) |
@@ -250,7 +250,7 @@ Format: `<type>(<scope>): <description>`
 | `schema/v1/schema.json` | **The schema** - the single source of truth |
 | `Taskfile.yml` | go-task definitions for `compile` and `validate` |
 | `.releaserc.yaml` | semantic-release version rules and changelog section mapping |
-| `.flox/env/manifest.toml` | Flox environment: Node.js 24.14.1, go-task 3.48.0, ajv install hook |
+| `.flox/env/manifest.toml` | Flox environment: Node.js 24.15.0, go-task 3.48.0, ajv install hook |
 | `.github/workflows/validate-schema.yml` | CI: validates schema compiles on push/PR |
 | `.github/workflows/release.yml` | Manual release workflow using semantic-release |
 | `.github/dependabot.yml` | Weekly Dependabot updates for GitHub Actions |
