@@ -1,4 +1,4 @@
-# AGENTS.md — AI Agent Guide for ADL
+# AGENTS.md - AI Agent Guide for ADL
 
 This file helps AI agents understand how to work effectively with the ADL (Agent Definition Language) repository. It augments `CLAUDE.md` with additional context, workflow patterns, and conventions.
 
@@ -6,7 +6,7 @@ This file helps AI agents understand how to work effectively with the ADL (Agent
 
 ## Project Overview
 
-ADL (Agent Definition Language) is a **declarative, vendor-neutral specification for defining AI agents** — their metadata, capabilities, skills, AI provider, services, and runtime configuration. Think of it as "OpenAPI for AI Agents."
+ADL (Agent Definition Language) is a **declarative, vendor-neutral specification for defining AI agents** - their metadata, capabilities, skills, AI provider, services, and runtime configuration. Think of it as "OpenAPI for AI Agents."
 
 **This repository is NOT an application.** It is the **source of truth for the ADL JSON Schema**. The only shipped artifact is `schema/v1/schema.json` (JSON Schema Draft-07). Downstream tools (e.g., [`adl-cli`](https://github.com/inference-gateway/adl-cli)) pin to tagged versions of this schema.
 
@@ -49,7 +49,7 @@ adl/
 ├── .gitignore                  # Ignores /node_modules and **/.env
 ├── schema/
 │   └── v1/
-│       └── schema.json         # 🔑 The only shipped artifact — the ADL schema
+│       └── schema.json         # 🔑 The only shipped artifact - the ADL schema
 ├── Taskfile.yml                # go-task tasks (compile, validate)
 ├── CLAUDE.md                   # Claude Code guidance (read this first)
 ├── CONTRIBUTING.md             # Full contributing guide
@@ -180,9 +180,9 @@ If changing the schema, test the downstream effect on `adl-cli` by pointing its 
 
 ### Common schema validation failures
 
-1. **ajv compilation errors** — typically caused by invalid JSON Schema syntax (e.g., missing `$ref` targets, incorrect `additionalProperties`, invalid regex patterns).
-2. **Breaking changes detected** — removing fields, tightening constraints, or making optional fields required within an existing major version.
-3. **Format validation failures** — if using format-specific constraints, ensure `ajv-formats` is loaded (`-c ajv-formats`).
+1. **ajv compilation errors** - typically caused by invalid JSON Schema syntax (e.g., missing `$ref` targets, incorrect `additionalProperties`, invalid regex patterns).
+2. **Breaking changes detected** - removing fields, tightening constraints, or making optional fields required within an existing major version.
+3. **Format validation failures** - if using format-specific constraints, ensure `ajv-formats` is loaded (`-c ajv-formats`).
 
 ---
 
@@ -228,7 +228,7 @@ Format: `<type>(<scope>): <description>`
 
 ### Schema editing rules
 
-1. **Strictly additive within a major version.** Only backwards-compatible changes to `schema/v1/`. New optional fields, new `definitions`, new enum values — yes. Removing/renaming/tightening — no.
+1. **Strictly additive within a major version.** Only backwards-compatible changes to `schema/v1/`. New optional fields, new `definitions`, new enum values - yes. Removing/renaming/tightening - no.
 2. **Breaking changes require a new major version** (`schema/v2/` + `adl.inference-gateway.com/v2`). Discuss via GitHub Discussion/issue first.
 3. **Tags are immutable.** Once `vX.Y.Z` is cut, the schema at that tag never changes.
 4. **README must be updated** when introducing new top-level fields or capabilities.
@@ -247,7 +247,7 @@ Format: `<type>(<scope>): <description>`
 
 | File | Purpose |
 |---|---|
-| `schema/v1/schema.json` | **The schema** — the single source of truth |
+| `schema/v1/schema.json` | **The schema** - the single source of truth |
 | `Taskfile.yml` | go-task definitions for `compile` and `validate` |
 | `.releaserc.yaml` | semantic-release version rules and changelog section mapping |
 | `.flox/env/manifest.toml` | Flox environment: Node.js 24.14.1, go-task 3.48.0, ajv install hook |
@@ -261,9 +261,9 @@ Format: `<type>(<scope>): <description>`
 
 ### Files that should NOT exist / be created
 
-- No `package.json` — ajv is installed ad-hoc. Do not create one.
-- No tests directory — validation is done via ajv compilation against the schema.
-- No application code — this is a schema-only repository.
+- No `package.json` - ajv is installed ad-hoc. Do not create one.
+- No tests directory - validation is done via ajv compilation against the schema.
+- No application code - this is a schema-only repository.
 - Do not create new top-level files unless absolutely necessary.
 
 ---
@@ -301,9 +301,9 @@ Format: `<type>(<scope>): <description>`
 
 ## Git Branch Strategy
 
-- **`main`** — default branch, protected. All PRs merge here.
-- **`rc/*`** — release candidate branches (e.g., `rc/v1.1.0`). Trigger the same `Release` workflow manually from these branches.
-- **Feature branches** — named arbitrarily (e.g., `feat/add-mcp-support`). CI runs on PRs to `main`.
+- **`main`** - default branch, protected. All PRs merge here.
+- **`rc/*`** - release candidate branches (e.g., `rc/v1.1.0`). Trigger the same `Release` workflow manually from these branches.
+- **Feature branches** - named arbitrarily (e.g., `feat/add-mcp-support`). CI runs on PRs to `main`.
 
 ---
 
