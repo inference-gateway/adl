@@ -11,6 +11,7 @@ export default defineConfig({
   lang: "en-US",
   title: "ADL",
   titleTemplate: ":title — Agent Definition Language",
+  srcExclude: ["README.md"],
   description:
     'Agent Definition Language (ADL): a vendor-neutral, declarative specification for AI agents. Think of ADL as "OpenAPI for AI Agents".',
   cleanUrls: true,
