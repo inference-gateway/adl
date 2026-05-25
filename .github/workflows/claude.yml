@@ -45,7 +45,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          version: 'lts/*'
+          version: "lts/*"
 
       - name: Install maintainer skill
         run: |
@@ -64,7 +64,7 @@ jobs:
             actions: read
           use_commit_signing: true
           base_branch: main
-          branch_prefix: 'claude/'
+          branch_prefix: "claude/"
           claude_args: |
             --model claude-opus-4-7
             --system-prompt "You must NEVER push directly to the main branch. Always create a new feature branch (claude/feature-name), make changes there, and open a pull request to main. Use conventional commits with a capital description, e.g. 'feat(client): Add retry mechanism for streaming requests' or 'fix(auth): Resolve token validation issue'. Follow the development workflow specified in the coding instructions."

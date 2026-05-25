@@ -174,23 +174,23 @@ Each entry in `spec.skills[]` accepts an optional `license` string. It carries t
 
 Accepted values:
 
-| Identifier | Notes |
-|------------|-------|
-| `MIT` | Permissive |
-| `Apache-2.0` | Permissive, patent grant |
-| `BSD-2-Clause` | Permissive |
-| `BSD-3-Clause` | Permissive |
-| `GPL-2.0` | Copyleft |
-| `GPL-3.0` | Copyleft |
-| `LGPL-2.1` | Weak copyleft |
-| `LGPL-3.0` | Weak copyleft |
-| `MPL-2.0` | Weak copyleft |
-| `ISC` | Permissive |
-| `CC0-1.0` | Public domain dedication |
-| `CC-BY-4.0` | Creative Commons, attribution |
+| Identifier     | Notes                                       |
+| -------------- | ------------------------------------------- |
+| `MIT`          | Permissive                                  |
+| `Apache-2.0`   | Permissive, patent grant                    |
+| `BSD-2-Clause` | Permissive                                  |
+| `BSD-3-Clause` | Permissive                                  |
+| `GPL-2.0`      | Copyleft                                    |
+| `GPL-3.0`      | Copyleft                                    |
+| `LGPL-2.1`     | Weak copyleft                               |
+| `LGPL-3.0`     | Weak copyleft                               |
+| `MPL-2.0`      | Weak copyleft                               |
+| `ISC`          | Permissive                                  |
+| `CC0-1.0`      | Public domain dedication                    |
+| `CC-BY-4.0`    | Creative Commons, attribution               |
 | `CC-BY-SA-4.0` | Creative Commons, attribution + share-alike |
-| `Unlicense` | Public domain dedication |
-| `Proprietary` | Closed-source / all rights reserved |
+| `Unlicense`    | Public domain dedication                    |
+| `Proprietary`  | Closed-source / all rights reserved         |
 
 The value mirrors the `license` field in the skill's `SKILL.md` frontmatter, so the licence travels with the playbook regardless of where it is consumed. Shipping a separate `LICENSE` file alongside `SKILL.md` is optional and not enforced by the schema - consumers MAY include one in the skill's source directory if their distribution channel expects it.
 
@@ -265,16 +265,17 @@ experience for an agent project:
   independently via its own subsection, and every agent is disabled by
   default:
 
-  | Field | Coding agent |
-  |-------|--------------|
-  | `claudecode.enabled` | Anthropic Claude Code |
-  | `codex.enabled` | OpenAI Codex |
-  | `gemini.enabled` | Google Gemini |
-  | `opencode.enabled` | OpenCode |
-  | `infer.enabled` | Inference Gateway `infer` |
+  | Field                | Coding agent              |
+  | -------------------- | ------------------------- |
+  | `claudecode.enabled` | Anthropic Claude Code     |
+  | `codex.enabled`      | OpenAI Codex              |
+  | `gemini.enabled`     | Google Gemini             |
+  | `opencode.enabled`   | OpenCode                  |
+  | `infer.enabled`      | Inference Gateway `infer` |
 
   Multiple agents can be enabled at once if a project wants to ship
   configuration for more than one.
+
 - `spec.development.deps` declares extra packages to install into the
   development sandbox itself (flox, devcontainer, dockerCompose) on top
   of whatever the generator pulls in by default. Use this for
@@ -307,8 +308,8 @@ experience for an agent project:
 
 ## Consumers
 
-| Tool | Description |
-|------|-------------|
+| Tool                                                  | Description                                                                                                                                        |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`cli`](https://github.com/inference-gateway/adl-cli) | Reference generator that turns ADL manifests into enterprise-ready agent projects (Go, Rust, TypeScript). Pins this schema via its `Taskfile.yml`. |
 
 If you build a tool that consumes ADL, please open a PR adding it to the table above.

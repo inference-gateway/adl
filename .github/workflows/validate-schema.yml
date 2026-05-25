@@ -30,3 +30,21 @@ jobs:
 
       - name: Validate Draft-07 compilation
         run: npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json
+
+  format:
+    name: Check formatting
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: "24.15.0"
+
+      - name: Check formatting with Prettier
+        run: npx --yes prettier@3.8.3 --check .

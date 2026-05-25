@@ -141,7 +141,16 @@
       "properties": {
         "provider": {
           "type": "string",
-          "enum": ["", "openai", "anthropic", "ollama", "deepseek", "google", "mistral", "groq"]
+          "enum": [
+            "",
+            "openai",
+            "anthropic",
+            "ollama",
+            "deepseek",
+            "google",
+            "mistral",
+            "groq"
+          ]
         },
         "model": { "type": "string" },
         "systemPrompt": { "type": "string" },

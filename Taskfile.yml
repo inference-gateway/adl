@@ -15,6 +15,11 @@ tasks:
     cmds:
       - prettier --write .
 
+  format:check:
+    desc: Check formatting (same check CI runs)
+    cmds:
+      - prettier --check .
+
   compile:
     desc: Compile the JSON Schema (same check CI runs)
     cmds:
