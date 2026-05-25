@@ -2,12 +2,9 @@ import { defineConfig } from "vitepress";
 
 // VitePress configuration for the ADL documentation site.
 //
-// The site is published at https://adl.inference-gateway.com/v1/ via GitHub Pages.
-// The `/v1/` base mirrors the schema's major-version directory layout
-// (`schema/v1/`) so that a future v2 schema can ship its own docs under `/v2/`
-// without colliding with v1.
+// The site is published at https://adl.inference-gateway.com/ via GitHub Pages.
 export default defineConfig({
-  base: "/v1/",
+  base: "/",
   lang: "en-US",
   title: "ADL",
   titleTemplate: ":title — Agent Definition Language",
@@ -17,7 +14,7 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   sitemap: {
-    hostname: "https://adl.inference-gateway.com/v1/",
+    hostname: "https://adl.inference-gateway.com/",
   },
   head: [
     ["meta", { name: "theme-color", content: "#3c8772" }],
@@ -36,7 +33,7 @@ export default defineConfig({
     ["meta", { property: "og:type", content: "website" }],
     [
       "meta",
-      { property: "og:url", content: "https://adl.inference-gateway.com/v1/" },
+      { property: "og:url", content: "https://adl.inference-gateway.com/" },
     ],
   ],
   themeConfig: {

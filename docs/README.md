@@ -2,7 +2,7 @@
 
 This directory contains the [VitePress](https://vitepress.dev/) source for
 the ADL documentation site, published at
-**https://adl.inference-gateway.com/v1/** via GitHub Pages.
+**https://adl.inference-gateway.com/** via GitHub Pages.
 
 The site is the long-form companion to the canonical schema at
 [`schema/v1/schema.json`](../schema/v1/schema.json). The schema validates;
@@ -50,79 +50,14 @@ docs/
 └── README.md              # This file
 ```
 
-## Base path
-
-The site is configured with `base: '/v1/'` in
-[`.vitepress/config.ts`](./.vitepress/config.ts) so that the published
-URL is `https://adl.inference-gateway.com/v1/`. The `/v1/` prefix
-mirrors the schema's major-version directory (`schema/v1/`) so a future
-v2 site can live at `/v2/` without colliding with v1.
-
 ## Deployment
 
-> **Setup required.** The GitHub Pages deployment workflow needs to be
-> created by a repo maintainer — the bot that opens this PR doesn't have
-> permission to modify files under `.github/workflows/`. A reference
-> workflow that builds the site and publishes it to GitHub Pages is
-> outlined below.
-
-1. In the repository settings, enable **GitHub Pages** with the
-   "GitHub Actions" build source.
-2. Add the custom domain `adl.inference-gateway.com` and configure the
-   DNS `CNAME` record at the registrar to point at GitHub Pages. The
-   `docs/public/CNAME` file in this directory ensures the domain is
-   preserved on each deploy.
-3. Add a workflow under `.github/workflows/deploy-docs.yml` along the
-   lines of:
-
-   ```yaml
-   name: Deploy docs
-
-   on:
-     push:
-       branches:
-         - main
-       paths:
-         - "docs/**"
-         - ".github/workflows/deploy-docs.yml"
-     workflow_dispatch:
-
-   permissions:
-     contents: read
-     pages: write
-     id-token: write
-
-   concurrency:
-     group: pages
-     cancel-in-progress: false
-
-   jobs:
-     build:
-       runs-on: ubuntu-24.04
-       steps:
-         - uses: actions/checkout@v6
-         - uses: actions/setup-node@v6
-           with:
-             node-version: "24.15.0"
-         - run: npm ci
-           working-directory: docs
-         - run: npm run build
-           working-directory: docs
-         - uses: actions/configure-pages@v6
-         - uses: actions/upload-pages-artifact@v4
-           with:
-             path: docs/.vitepress/dist
-
-     deploy:
-       needs: build
-       runs-on: ubuntu-24.04
-       environment:
-         name: github-pages
-         url: ${{ steps.deployment.outputs.page_url }}
-       steps:
-         - id: deployment
-           uses: actions/deploy-pages@v5
-   ```
+The site is built and published by
+[`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) on every
+push to `main` that touches `docs/**`. GitHub Pages must be configured with
+the "GitHub Actions" build source (Settings → Pages). The custom domain
+`adl.inference-gateway.com` is preserved on each deploy via
+[`docs/public/CNAME`](./public/CNAME).
 
 ## Contributing
 
