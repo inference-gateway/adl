@@ -8,12 +8,16 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/inference-gateway/adl?style=flat-square&logo=github)](https://github.com/inference-gateway/adl/releases)
 [![Schema Version](https://img.shields.io/badge/schema-v1-blue.svg?style=flat-square)](./schema/v1/schema.json)
+[![Docs](https://img.shields.io/badge/docs-adl.inference--gateway.com-3c8772?style=flat-square&logo=readthedocs&logoColor=white)](https://adl.inference-gateway.com/v1/)
+
+📖 **Full documentation:** [adl.inference-gateway.com/v1](https://adl.inference-gateway.com/v1/)
 
 </div>
 
 ## Table of Contents
 
 - [What is ADL?](#what-is-adl)
+- [Documentation](#documentation)
 - [Layout](#layout)
 - [Example manifest](#example-manifest)
 - [Consumers](#consumers)
@@ -21,6 +25,16 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 - [Why ADL?](#why-adl)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Documentation
+
+Extensive, browsable documentation for ADL — concepts, a per-field
+schema reference, and copy-pasteable manifest examples — lives at
+[**adl.inference-gateway.com/v1**](https://adl.inference-gateway.com/v1/).
+The site source is a VitePress project under [`docs/`](./docs/).
+
+This README stays intentionally short: the docs site is the long-form
+companion, and it's the right place to link to from your own projects.
 
 ## What is ADL?
 
