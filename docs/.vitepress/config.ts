@@ -17,6 +17,8 @@ export default defineConfig({
     hostname: "https://adl.inference-gateway.com/",
   },
   head: [
+    ["link", { rel: "icon", type: "image/png", href: "/logo.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/logo.png" }],
     ["meta", { name: "theme-color", content: "#3c8772" }],
     [
       "meta",
@@ -34,6 +36,45 @@ export default defineConfig({
     [
       "meta",
       { property: "og:url", content: "https://adl.inference-gateway.com/" },
+    ],
+    [
+      "meta",
+      {
+        property: "og:image",
+        content: "https://adl.inference-gateway.com/logo.png",
+      },
+    ],
+    ["meta", { property: "og:image:width", content: "1672" }],
+    ["meta", { property: "og:image:height", content: "941" }],
+    [
+      "meta",
+      {
+        property: "og:image:alt",
+        content: "Agent Definition Language (ADL) logo",
+      },
+    ],
+    ["meta", { name: "twitter:card", content: "summary_large_image" }],
+    [
+      "meta",
+      {
+        name: "twitter:title",
+        content: "Agent Definition Language (ADL)",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:description",
+        content:
+          "A declarative, vendor-neutral specification for AI agents - OpenAPI for AI agents.",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content: "https://adl.inference-gateway.com/logo.png",
+      },
     ],
   ],
   themeConfig: {
