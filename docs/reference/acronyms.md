@@ -33,6 +33,6 @@ hand in every emitted file.
 
 - Casing in this list is informational; the generator decides how to
   apply each acronym based on the target language's conventions.
-- Add domain-specific acronyms as well as general ones — `SLA`, `JWT`,
-  `OIDC`, internal codes — anything that should not be camelCased into
+- Add domain-specific acronyms as well as general ones - `SLA`, `JWT`,
+  `OIDC`, internal codes - anything that should not be camelCased into
   something silly.

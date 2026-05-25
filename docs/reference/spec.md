@@ -16,7 +16,7 @@ blocks and a long list of optional ones.
 | Field         | Reference                                  |
 | ------------- | ------------------------------------------ |
 | `card`        | [card](./card)                             |
-| `agent`       | [agent](./agent) — provider, model, prompt |
+| `agent`       | [agent](./agent) - provider, model, prompt |
 | `config`      | [config](./config)                         |
 | `services`    | [services](./services)                     |
 | `acronyms`    | [acronyms](./acronyms)                     |
@@ -46,6 +46,6 @@ spec:
       version: "1.26"
 ```
 
-Everything beyond that is opt-in — pull in only what your agent actually
+Everything beyond that is opt-in - pull in only what your agent actually
 uses. The schema doesn't penalise you for omitting capabilities you
 don't need; it penalises ambiguity.

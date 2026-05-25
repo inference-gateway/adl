@@ -14,10 +14,10 @@ top-level fields:
 
 | Field        | Description                                                                                   |
 | ------------ | --------------------------------------------------------------------------------------------- |
-| `apiVersion` | The schema version this manifest targets — currently `adl.inference-gateway.com/v1`.          |
+| `apiVersion` | The schema version this manifest targets - currently `adl.inference-gateway.com/v1`.          |
 | `kind`       | Always `Agent`. Reserved so future kinds (e.g. `AgentTemplate`) can coexist.                  |
 | `metadata`   | Name, description, version, optional author, license, and tags.                               |
-| `spec`       | Everything that defines the agent's behaviour — capabilities, tools, skills, server, runtime. |
+| `spec`       | Everything that defines the agent's behaviour - capabilities, tools, skills, server, runtime. |
 
 ```yaml
 apiVersion: adl.inference-gateway.com/v1
@@ -30,13 +30,13 @@ spec:
   # ...
 ```
 
-## What an ADL manifest is — and isn't
+## What an ADL manifest is - and isn't
 
 ADL is **declarative**: it describes _what_ an agent should look like, not
 _how_ to build it. The schema deliberately stops at the boundary between
-declaration and implementation. Consumers — generators like
+declaration and implementation. Consumers - generators like
 [`adl-cli`](https://github.com/inference-gateway/adl-cli), runtimes, or
-registries — fill in the implementation, while ADL guarantees the shape of
+registries - fill in the implementation, while ADL guarantees the shape of
 the contract.
 
 ADL **is**:
@@ -52,7 +52,7 @@ ADL is **not**:
 - A model framework. ADL is provider-agnostic; it carries provider/model
   identifiers but doesn't bundle SDKs.
 - A package manager. Vendor entries like `<package>@<version>` are
-  pass-through strings — the schema only validates the shape, the
+  pass-through strings - the schema only validates the shape, the
   consumer resolves them against the right ecosystem.
 
 ## How it fits together
@@ -83,9 +83,9 @@ load and execute the agent.
 
 ## Next steps
 
-- [Getting Started](/guide/getting-started) — install the validator and
+- [Getting Started](/guide/getting-started) - install the validator and
   write your first manifest.
-- [Tools vs Skills](/guide/tools-vs-skills) — the single most important
+- [Tools vs Skills](/guide/tools-vs-skills) - the single most important
   concept in ADL.
-- [Schema Reference](/reference/) — every field, what it does, and how it
+- [Schema Reference](/reference/) - every field, what it does, and how it
   validates.

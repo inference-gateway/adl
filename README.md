@@ -28,8 +28,8 @@ A declarative language for defining AI agents, their capabilities, and skills. T
 
 ## Documentation
 
-Extensive, browsable documentation for ADL — concepts, a per-field
-schema reference, and copy-pasteable manifest examples — lives at
+Extensive, browsable documentation for ADL - concepts, a per-field
+schema reference, and copy-pasteable manifest examples - lives at
 [**adl.inference-gateway.com/v1**](https://adl.inference-gateway.com/v1/).
 The site source is a VitePress project under [`docs/`](./docs/).
 
@@ -145,11 +145,11 @@ spec:
 
 ### Agent metadata
 
-`metadata` is required and carries three mandatory fields — `name`, `description`, and `version` — plus three optional fields that travel with the manifest rather than being supplied by a downstream catalog or registry:
+`metadata` is required and carries three mandatory fields - `name`, `description`, and `version` - plus three optional fields that travel with the manifest rather than being supplied by a downstream catalog or registry:
 
-- `metadata.author` — `{ name (required), email?, url? }`. Attribution and contact for whoever publishes the agent.
-- `metadata.license` — SPDX identifier (or `Proprietary`) the agent is distributed under. Uses the same accepted set as [`Skill.license`](#skill-licensing).
-- `metadata.tags` — `string[]`. Agent-level discoverability tags (e.g. `calendar`, `automation`). Consumers may merge these with tool- and skill-level tags when indexing.
+- `metadata.author` - `{ name (required), email?, url? }`. Attribution and contact for whoever publishes the agent.
+- `metadata.license` - SPDX identifier (or `Proprietary`) the agent is distributed under. Uses the same accepted set as [`Skill.license`](#skill-licensing).
+- `metadata.tags` - `string[]`. Agent-level discoverability tags (e.g. `calendar`, `automation`). Consumers may merge these with tool- and skill-level tags when indexing.
 
 All three are optional and additive; manifests that omit them remain valid.
 
@@ -200,12 +200,12 @@ Additional identifiers may be added in future minor versions of the schema; SPDX
 
 Every language config under `spec.language.<lang>` accepts an optional
 `vendor` block that lets a manifest declare extra packages the
-generator should pull into the project on top of its defaults — useful
+generator should pull into the project on top of its defaults - useful
 for testing libraries, linters, mock generators, or any runtime
 package the generated scaffolding doesn't ship by default.
 
-- `vendor.deps` — runtime/production dependencies.
-- `vendor.devdeps` — development- and test-only dependencies.
+- `vendor.deps` - runtime/production dependencies.
+- `vendor.devdeps` - development- and test-only dependencies.
 
 Each entry is a string of the form `<package>@<version>` using the
 target language's native package and version syntax. Consumers (such
@@ -245,7 +245,7 @@ spec:
 ```
 
 Both fields are optional and default to empty. The schema only
-validates the `<package>@<version>` shape — it intentionally does not
+validates the `<package>@<version>` shape - it intentionally does not
 constrain the package or version syntax further, so each language's
 native conventions (Go module paths, npm scoped packages, semver
 ranges, etc.) are accepted.
@@ -279,7 +279,7 @@ experience for an agent project:
   development sandbox itself (flox, devcontainer, dockerCompose) on top
   of whatever the generator pulls in by default. Use this for
   cross-cutting tools that aren't tied to one of the project's
-  languages — e.g. a Go service that also needs `deno` for quick
+  languages - e.g. a Go service that also needs `deno` for quick
   scripting, or a TypeScript agent that wants `kubectl` available in
   the dev shell.
 
@@ -300,7 +300,7 @@ experience for an agent project:
 
   The schema only validates the `<package>@<version>` shape;
   consumers (e.g. `adl-cli`) are responsible for resolving each entry
-  against the sandbox's native package source — Nixpkgs for flox, an
+  against the sandbox's native package source - Nixpkgs for flox, an
   apt/apk package or devcontainer feature for devcontainer, image
   layers for dockerCompose. The field is optional and defaults to
   empty.

@@ -22,7 +22,7 @@ metadata:
 
 - **Type:** `string`
 - **Required:** yes
-- **Pattern:** `^[a-z0-9-]+$` — lowercase letters, digits, and hyphens only.
+- **Pattern:** `^[a-z0-9-]+$` - lowercase letters, digits, and hyphens only.
 
 The agent's canonical identifier. Generators turn this into package and
 service names, so the kebab-case constraint is enforced for portability
@@ -41,7 +41,7 @@ and generated documentation. Keep it short and behaviour-focused
 
 - **Type:** `string`
 - **Required:** yes
-- **Pattern:** `^\d+\.\d+\.\d+$` — semantic versioning `MAJOR.MINOR.PATCH`.
+- **Pattern:** `^\d+\.\d+\.\d+$` - semantic versioning `MAJOR.MINOR.PATCH`.
 
 The agent's own version, independent of the schema version. Bump it
 when you change the agent's behaviour. Pre-release suffixes (`-rc.1`)
@@ -63,7 +63,7 @@ metadata:
 
 Attribution and contact for whoever publishes the agent. Surfaces in
 registries and the generated project's documentation. `additionalProperties`
-are not allowed — only `name`, `email`, and `url`.
+are not allowed - only `name`, `email`, and `url`.
 
 ## `metadata.license`
 
@@ -81,7 +81,7 @@ The licence the **agent** is distributed under. Mirrors the enum used by
 See [License identifiers](./license-identifiers) for the full table.
 
 > SPDX expressions like `MIT OR Apache-2.0` are **not** currently
-> accepted — a single identifier only.
+> accepted - a single identifier only.
 
 ## `metadata.tags`
 

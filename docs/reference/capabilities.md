@@ -1,7 +1,7 @@
 # `spec.capabilities`
 
 Declares which protocol-level capabilities the agent supports. All three
-fields are required so the schema makes the agent's contract explicit —
+fields are required so the schema makes the agent's contract explicit -
 a runtime should never need to _guess_ whether streaming is on.
 
 ```yaml
@@ -26,7 +26,7 @@ buffered result.
 - **Type:** `boolean`
 - **Required:** yes
 
-Whether the agent can push notifications about state changes — useful
+Whether the agent can push notifications about state changes - useful
 for long-running tasks where the caller subscribes and is informed when
 something happens.
 
@@ -41,7 +41,7 @@ reached its final state.
 
 ## A note on defaults
 
-There are no defaults — every value must be explicitly `true` or
+There are no defaults - every value must be explicitly `true` or
 `false`. This is intentional: a manifest that elides `streaming` would
 leave runtimes and clients unsure what to negotiate. Making the field
 required forces the author to think about it.

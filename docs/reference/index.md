@@ -1,4 +1,4 @@
-# Schema Reference — ADL v1
+# Schema Reference - ADL v1
 
 This is the canonical reference for every field defined in
 [`schema/v1/schema.json`](https://github.com/inference-gateway/adl/blob/main/schema/v1/schema.json).
@@ -55,5 +55,5 @@ spec: # required
 
 ## Appendix
 
-- [License identifiers](./license-identifiers) — the accepted SPDX set
+- [License identifiers](./license-identifiers) - the accepted SPDX set
   for `metadata.license` and `spec.skills[].license`.

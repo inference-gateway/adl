@@ -1,7 +1,7 @@
 # `spec.config`
 
 Free-form key/value configuration the agent should be given at runtime.
-The schema is deliberately permissive — it carries shape, not semantics.
+The schema is deliberately permissive - it carries shape, not semantics.
 
 ```yaml
 spec:
@@ -28,7 +28,7 @@ spec:
       <any-key>: <any-value>
 ```
 
-So config is grouped one level deep — typically by subsystem — and the
+So config is grouped one level deep - typically by subsystem - and the
 contents of each group are unconstrained.
 
 ## Why so loose?

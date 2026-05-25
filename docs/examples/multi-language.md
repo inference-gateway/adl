@@ -88,7 +88,7 @@ project tree using that language's idioms:
 | `typescript` | An npm package with the listed dependencies in `package.json`, plus tsconfig and test setup.               |
 | `rust`       | A Cargo crate with the listed crates in `Cargo.toml`, the requested edition, and default features enabled. |
 
-`vendor.deps` and `vendor.devdeps` follow each language's native syntax —
+`vendor.deps` and `vendor.devdeps` follow each language's native syntax -
 the schema only validates the `<package>@<version>` shape.
 
 ## When this is overkill

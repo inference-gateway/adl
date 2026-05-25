@@ -34,7 +34,7 @@ should be lenient about unknown values when reading newer manifests.
 
 The model identifier for the chosen provider (e.g. `gpt-4o-mini`,
 `claude-sonnet-4-7`, `deepseek-v4-flash`). The schema doesn't constrain
-the value — providers move fast, and the model catalogue is consumer
+the value - providers move fast, and the model catalogue is consumer
 territory.
 
 ## `systemPrompt`
@@ -53,7 +53,7 @@ and put workflows into skills.
 - **Required:** no
 - **Minimum:** `1`
 
-Upper bound on tokens the model may emit per response. Optional — many
+Upper bound on tokens the model may emit per response. Optional - many
 runtimes default to a provider-specific value when omitted.
 
 ## `temperature`

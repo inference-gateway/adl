@@ -1,7 +1,7 @@
 # `spec.card`
 
 Optional protocol-card metadata. Surfaces information consumers need to
-_talk to_ the deployed agent — protocol version, endpoint URL, supported
+_talk to_ the deployed agent - protocol version, endpoint URL, supported
 input/output modes, and documentation links.
 
 ```yaml
@@ -32,4 +32,4 @@ spec:
 | `iconUrl`            | `string`   | Display icon for registries and UIs.                       |
 
 All fields are optional. If you don't surface a public card, omit the
-block entirely — it's purely declarative.
+block entirely - it's purely declarative.

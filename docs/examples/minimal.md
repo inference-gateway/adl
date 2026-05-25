@@ -25,8 +25,8 @@ spec:
 
 ## What's required (and why)
 
-The schema demands four top-level fields — `apiVersion`, `kind`,
-`metadata`, `spec` — and three inside `spec`: `capabilities`, `server`,
+The schema demands four top-level fields - `apiVersion`, `kind`,
+`metadata`, `spec` - and three inside `spec`: `capabilities`, `server`,
 `language`. Every other block is opt-in.
 
 | Block                                 | Why it's required                                                                          |

@@ -35,7 +35,7 @@ whole or to an individual skill.
   the licence travels with the playbook regardless of where it's
   consumed.
 - **`LICENSE` file is optional.** Shipping a separate `LICENSE` file
-  alongside `SKILL.md` is not enforced by the schema — consumers MAY
+  alongside `SKILL.md` is not enforced by the schema - consumers MAY
   include one in the skill's source directory if their distribution
   channel expects it.
 - **Additive growth.** New identifiers may be added in future

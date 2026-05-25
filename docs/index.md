@@ -42,7 +42,7 @@ features:
 The AI agent ecosystem is fragmenting fast. Every provider has a different
 surface; every framework has its own scaffolding. ADL gives teams **one
 declarative manifest** from which enterprise-ready agent code, configuration,
-documentation, and deployment manifests can be generated — vendor-agnostic
+documentation, and deployment manifests can be generated - vendor-agnostic
 and portable across platforms.
 
 ```yaml
@@ -70,8 +70,8 @@ spec:
 ```
 
 Feed that file into [`adl-cli`](https://github.com/inference-gateway/adl-cli) and
-get a complete agent project — server, handlers, tests, sandbox, CI, and
-deployment manifests — in the language of your choice.
+get a complete agent project - server, handlers, tests, sandbox, CI, and
+deployment manifests - in the language of your choice.
 
 ## Where to go next
 

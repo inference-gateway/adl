@@ -60,7 +60,7 @@ spec:
 | Sandbox         | When to use                                                                 |
 | --------------- | --------------------------------------------------------------------------- |
 | `flox`          | Reproducible per-project dev shells via Nixpkgs, no container layer needed. |
-| `devcontainer`  | VS Code (and compatible) Dev Containers — boots the project in a container. |
+| `devcontainer`  | VS Code (and compatible) Dev Containers - boots the project in a container. |
 | `dockerCompose` | Existing multi-service Docker Compose stack you want the agent to live in.  |
 
 Each sub-block has the shape `{ enabled: boolean }`. Enabling more than
@@ -109,7 +109,7 @@ devcontainer, dockerCompose) on top of whatever the generator pulls in
 by default.
 
 Use this for cross-cutting tools that **aren't tied to a single
-language** — e.g. a Go service that also needs `deno` for quick
+language** - e.g. a Go service that also needs `deno` for quick
 scripting, or a TypeScript agent that wants `kubectl` available in the
 dev shell.
 

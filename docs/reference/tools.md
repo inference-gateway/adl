@@ -38,7 +38,7 @@ spec:
 | `schema`      | `object`   |          | Free-form JSON Schema for the tool's input parameters. Required for user-defined tools.       |
 | `inject`      | `string[]` |          | Names of services from [`spec.services`](./services) to inject when the tool body is invoked. |
 
-`additionalProperties` are not allowed — anything outside this set fails
+`additionalProperties` are not allowed - anything outside this set fails
 validation.
 
 ## User-defined vs. built-in tools
@@ -46,7 +46,7 @@ validation.
 The schema makes a deliberate split:
 
 - **User-defined tools** must supply `name`, `description`, `tags`, and
-  `schema` — that's how the generator knows what to wire up.
+  `schema` - that's how the generator knows what to wire up.
 - **Built-in tools** use reserved IDs (`read`, `bash`, `write`, `edit`,
   …) and may omit those fields. The generator supplies the canonical
   name, description, tags, and schema for built-ins.
@@ -85,7 +85,7 @@ spec:
 
 A free-form [JSON Schema](https://json-schema.org/) describing the
 tool's input parameters. The ADL schema deliberately doesn't constrain
-its contents — anything a JSON Schema validator accepts is allowed.
+its contents - anything a JSON Schema validator accepts is allowed.
 Generators turn this into a typed input struct (Go), interface
 (TypeScript), or struct (Rust), and surface it to the LLM via the
 provider's function-calling API.
@@ -162,5 +162,5 @@ spec:
 ```
 
 Each entry must match the pattern
-`^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*$` — a single
+`^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*$` - a single
 identifier or a dotted path (`foo.bar.baz`) for sub-references.

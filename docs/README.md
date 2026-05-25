@@ -29,7 +29,7 @@ npm run build
 npm run preview
 ```
 
-> The root of the repo intentionally has no `package.json` — see the root
+> The root of the repo intentionally has no `package.json` - see the root
 > [`CLAUDE.md`](../CLAUDE.md). The `docs/package.json` is scoped to this
 > Vite project and is separate from the ad-hoc `ajv` install used to
 > validate the schema itself.
@@ -62,5 +62,5 @@ the "GitHub Actions" build source (Settings → Pages). The custom domain
 ## Contributing
 
 Open a PR. Follow the repo's
-[Conventional Commits](../CONTRIBUTING.md) convention — `docs:` for
+[Conventional Commits](../CONTRIBUTING.md) convention - `docs:` for
 content-only changes, `feat(docs):` for new pages or sections.

@@ -39,7 +39,7 @@ spec:
 | ------- | -------------------- |
 | `image` | See [Image](#image). |
 
-The Kubernetes block is intentionally minimal in v1 — it carries the
+The Kubernetes block is intentionally minimal in v1 - it carries the
 **image** and leaves the rest (Deployment, Service, ConfigMap, …) to
 the generator's templating. Future minor versions may add typed slots
 for replica counts and resource limits as common patterns harden.
@@ -79,7 +79,7 @@ spec:
 | `resources`   | [Resources](#cloud-run-resources)       |
 | `scaling`     | [Scaling](#cloud-run-scaling)           |
 | `service`     | [Service](#cloud-run-service)           |
-| `environment` | `{ [key: string]: string }` — env vars. |
+| `environment` | `{ [key: string]: string }` - env vars. |
 
 ### Resources {#cloud-run-resources}
 

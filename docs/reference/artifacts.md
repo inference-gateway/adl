@@ -19,7 +19,7 @@ spec:
 
 ## Why so minimal?
 
-Artifact production is highly consumer-specific — image registries,
+Artifact production is highly consumer-specific - image registries,
 release naming conventions, signing, attestation. Pinning that down in
 v1 of the schema would lock manifests to whatever was popular at the
 time. The single boolean keeps the contract durable while delegating

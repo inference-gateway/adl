@@ -8,7 +8,7 @@ against the schema.
 You need either:
 
 - **Node.js 24** (matches CI), or
-- **[flox](https://flox.dev/)** — `flox activate` in the schema repo runs
+- **[flox](https://flox.dev/)** - `flox activate` in the schema repo runs
   `npm install` of `ajv`, `ajv-cli`, and `ajv-formats` for you.
 
 ## 1. Write a minimal manifest
@@ -63,7 +63,7 @@ specific path, expected type, and offending value.
 ## 3. Pin the schema version
 
 Once your manifest passes validation, decide which **tag** of the schema
-you want to pin against. Released schema tags are immutable — once `vX.Y.Z`
+you want to pin against. Released schema tags are immutable - once `vX.Y.Z`
 is cut, the schema file at that tag never changes. Consumers (including
 `adl-cli`) pin to a specific tag in their `Taskfile.yml` or equivalent, so
 your manifests stay valid for the lifetime of the consumer's pin.
@@ -78,15 +78,15 @@ vars:
 ## 4. Generate a project (optional)
 
 If you want code, not just a manifest, feed your YAML to
-[`adl-cli`](https://github.com/inference-gateway/adl-cli) — the reference
+[`adl-cli`](https://github.com/inference-gateway/adl-cli) - the reference
 generator. It emits a complete agent project (server, handlers, tests,
 sandbox, CI, and deployment manifests) in the language you chose under
 `spec.language`.
 
 ## What to read next
 
-- [Tools vs Skills](/guide/tools-vs-skills) — the most important concept
+- [Tools vs Skills](/guide/tools-vs-skills) - the most important concept
   in ADL, and the one most people get wrong on first read.
 - [Reference: `metadata`](/reference/metadata) and
-  [Reference: `spec`](/reference/spec) — the two halves of the manifest.
-- [Examples](/examples/) — copy-pasteable manifests for common shapes.
+  [Reference: `spec`](/reference/spec) - the two halves of the manifest.
+- [Examples](/examples/) - copy-pasteable manifests for common shapes.

@@ -18,8 +18,8 @@ spec:
 | Field    | Type      | Required | Constraint                    | Description                                                    |
 | -------- | --------- | :------: | ----------------------------- | -------------------------------------------------------------- |
 | `port`   | `integer` |    ✓     | `1` ≤ port ≤ `65535`          | TCP port the server binds to.                                  |
-| `scheme` | `string`  |          | —                             | URL scheme (`http`, `https`). Influences emitted URLs in code. |
-| `debug`  | `boolean` |          | —                             | Enable verbose debug logging in generated code.                |
+| `scheme` | `string`  |          | -                             | URL scheme (`http`, `https`). Influences emitted URLs in code. |
+| `debug`  | `boolean` |          | -                             | Enable verbose debug logging in generated code.                |
 | `auth`   | `object`  |          | see [Auth](#spec-server-auth) | Authentication block.                                          |
 
 ## `spec.server.auth` {#spec-server-auth}

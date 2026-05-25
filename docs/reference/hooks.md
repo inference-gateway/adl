@@ -18,7 +18,7 @@ spec:
 | ------ | ---------- | :------: | -------------------------------------------------------------------------------------------- |
 | `post` | `string[]` |          | Commands to run after code generation completes. Executed in order in the project directory. |
 
-Each entry is an opaque string — the schema doesn't parse it. The
+Each entry is an opaque string - the schema doesn't parse it. The
 generator runs each command in a shell, in the order they appear, with
 the generated project as the working directory.
 

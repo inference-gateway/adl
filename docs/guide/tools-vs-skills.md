@@ -24,7 +24,7 @@ Real agents need both:
   output, no creative interpretation by the LLM. That's a **tool**.
 - **Some things are judgment-laden.** "If the user reports an outage,
   triage it like this: first check our status page, then …" is a
-  procedure written in prose. There's no `triageOutage()` function — you
+  procedure written in prose. There's no `triageOutage()` function - you
   want the model to follow the _approach_. That's a **skill**.
 
 Trying to express a skill as a tool produces a brittle, hard-to-test
@@ -53,18 +53,18 @@ spec:
           - query
 ```
 
-The `schema` is free-form JSON Schema — it describes the tool's input
+The `schema` is free-form JSON Schema - it describes the tool's input
 arguments. The generator uses it to emit a typed function signature in
 your target language (e.g. a Go struct with json tags, a TypeScript
 interface, a Rust struct with serde derives) plus a stub function body
 for you to fill in.
 
-A tool's `id` must match `^[a-zA-Z_][a-zA-Z0-9_]*$` — it becomes a symbol
+A tool's `id` must match `^[a-zA-Z_][a-zA-Z0-9_]*$` - it becomes a symbol
 name in generated code.
 
 Some `id`s are reserved as **built-in tools** that the generator
 implements for you (e.g. `read`, `bash`, `write`, `edit`). For those,
-`name`, `description`, `tags`, and `schema` may be omitted — the generator
+`name`, `description`, `tags`, and `schema` may be omitted - the generator
 supplies them.
 
 See [Reference: tools](/reference/tools) for every field.
@@ -91,9 +91,9 @@ part of its instructions.
 
 Two sources:
 
-- **`bare: true`** — scaffold an empty `SKILL.md` for you to fill in
+- **`bare: true`** - scaffold an empty `SKILL.md` for you to fill in
   locally. Use this for proprietary workflows or one-off playbooks.
-- **From the registry** — set `source` (and optionally `version`) to pull
+- **From the registry** - set `source` (and optionally `version`) to pull
   a published skill from the shared registry. Use this for common
   playbooks you don't want to maintain yourself.
 

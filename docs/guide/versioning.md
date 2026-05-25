@@ -13,7 +13,7 @@ There are two versions to keep straight:
 | **`apiVersion`** (in the manifest)   | The major schema version this manifest uses    | `adl.inference-gateway.com/v1` |
 | **Git tag** of the schema repository | A specific snapshot of `schema/v1/schema.json` | `v1.3.0`                       |
 
-The `apiVersion` and the directory under `schema/` always move together —
+The `apiVersion` and the directory under `schema/` always move together -
 `schema/v1/` matches `adl.inference-gateway.com/v1`. The git tag picks a
 _point in time_ within that major version.
 
@@ -36,7 +36,7 @@ Forbidden until a new major version:
 
 A breaking change requires a new directory (`schema/v2/`) and a new
 `apiVersion` string (`adl.inference-gateway.com/v2`). The two ship
-together, and `v1` is **not** removed when `v2` lands — both major
+together, and `v1` is **not** removed when `v2` lands - both major
 versions coexist so existing manifests stay valid.
 
 ## Released tags are immutable

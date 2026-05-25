@@ -1,6 +1,6 @@
 # `spec.services`
 
-Declares external dependencies the agent's code should be wired against —
+Declares external dependencies the agent's code should be wired against -
 databases, repositories, downstream clients, middleware. Each service
 gets an interface and a factory, which the generator turns into a typed
 dependency-injection seam in the target language.
@@ -36,7 +36,7 @@ Every service object requires all four fields below.
 | `type`        | `string` | enum: `service`, `repository`, `client`, `middleware` | Broad role the service plays. Helps generators bucket DI.   |
 | `interface`   | `string` | pattern `^[a-zA-Z][a-zA-Z0-9_]*$`                     | Interface/trait name the consumer code depends on.          |
 | `factory`     | `string` | pattern `^[a-zA-Z][a-zA-Z0-9_]*$`                     | Factory function/constructor the runtime calls to build it. |
-| `description` | `string` | —                                                     | One-line explanation of what the service does.              |
+| `description` | `string` | -                                                     | One-line explanation of what the service does.              |
 
 ## `type` values
 

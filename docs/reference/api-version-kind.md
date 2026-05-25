@@ -33,7 +33,7 @@ the rest.
 kind: Agent
 ```
 
-Reserved so future kinds — `AgentTemplate`, `AgentGroup`, etc. — can
+Reserved so future kinds - `AgentTemplate`, `AgentGroup`, etc. - can
 coexist in the same `apiVersion` family without breaking existing
 tooling.
 

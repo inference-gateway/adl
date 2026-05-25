@@ -7,7 +7,7 @@ export default defineConfig({
   base: "/",
   lang: "en-US",
   title: "ADL",
-  titleTemplate: ":title — Agent Definition Language",
+  titleTemplate: ":title - Agent Definition Language",
   srcExclude: ["README.md"],
   description:
     'Agent Definition Language (ADL): a vendor-neutral, declarative specification for AI agents. Think of ADL as "OpenAPI for AI Agents".',
@@ -27,7 +27,7 @@ export default defineConfig({
       {
         property: "og:description",
         content:
-          "A declarative, vendor-neutral specification for AI agents — OpenAPI for AI agents.",
+          "A declarative, vendor-neutral specification for AI agents - OpenAPI for AI agents.",
       },
     ],
     ["meta", { property: "og:type", content: "website" }],
@@ -137,7 +137,7 @@ export default defineConfig({
       message:
         'Released under the <a href="https://github.com/inference-gateway/adl/blob/main/LICENSE">Apache 2.0 License</a>.',
       copyright:
-        'Copyright © 2025 — <a href="https://github.com/inference-gateway">Inference Gateway</a>',
+        'Copyright © 2025 - <a href="https://github.com/inference-gateway">Inference Gateway</a>',
     },
     search: {
       provider: "local",

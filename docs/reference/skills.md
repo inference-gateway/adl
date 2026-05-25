@@ -17,7 +17,7 @@ spec:
 ```
 
 If you're new to skills, read [Tools vs Skills](/guide/tools-vs-skills)
-first — it explains _when_ you want a skill instead of a tool.
+first - it explains _when_ you want a skill instead of a tool.
 
 ## Shape
 
@@ -28,7 +28,7 @@ first — it explains _when_ you want a skill instead of a tool.
 
 | Field         | Type       | Required | Description                                                                           |
 | ------------- | ---------- | :------: | ------------------------------------------------------------------------------------- |
-| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` — kebab-case allowed.      |
+| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` - kebab-case allowed.      |
 | `version`     | `string`   |          | Version of the published skill to pull from the registry.                             |
 | `source`      | `string`   |          | Registry reference for a published skill.                                             |
 | `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry. |
@@ -83,13 +83,13 @@ playbook.
 ## Licensing
 
 Every skill **may** carry a `license`. The accepted enum is identical to
-the one for `metadata.license` — see
+the one for `metadata.license` - see
 [License identifiers](./license-identifiers) for the full table.
 
 The value mirrors the `license` field in the skill's `SKILL.md`
 frontmatter, so the licence travels with the playbook regardless of
 where it's consumed. Shipping a separate `LICENSE` file alongside
-`SKILL.md` is optional and not enforced by the schema — consumers MAY
+`SKILL.md` is optional and not enforced by the schema - consumers MAY
 include one in the skill's source directory if their distribution
 channel expects it.
 
