@@ -29,13 +29,13 @@ spec:
 
 ## Tool fields
 
-| Field         | Type       | Required | Description                                                                                  |
-|---------------|------------|:--------:|----------------------------------------------------------------------------------------------|
-| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z_][a-zA-Z0-9_]*$`. Becomes the symbol name in code.     |
-| `name`        | `string`   |          | Human-readable name. Required for user-defined tools (see below).                            |
-| `description` | `string`   |          | What the tool does. Required for user-defined tools.                                         |
-| `tags`        | `string[]` |          | Discoverability/grouping tags. Required for user-defined tools.                              |
-| `schema`      | `object`   |          | Free-form JSON Schema for the tool's input parameters. Required for user-defined tools.      |
+| Field         | Type       | Required | Description                                                                                   |
+| ------------- | ---------- | :------: | --------------------------------------------------------------------------------------------- |
+| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z_][a-zA-Z0-9_]*$`. Becomes the symbol name in code.      |
+| `name`        | `string`   |          | Human-readable name. Required for user-defined tools (see below).                             |
+| `description` | `string`   |          | What the tool does. Required for user-defined tools.                                          |
+| `tags`        | `string[]` |          | Discoverability/grouping tags. Required for user-defined tools.                               |
+| `schema`      | `object`   |          | Free-form JSON Schema for the tool's input parameters. Required for user-defined tools.       |
 | `inject`      | `string[]` |          | Names of services from [`spec.services`](./services) to inject when the tool body is invoked. |
 
 `additionalProperties` are not allowed — anything outside this set fails
@@ -66,14 +66,19 @@ spec:
     - id: send_email
       name: send_email
       description: Send a transactional email via Postmark
-      tags: [communication, email]
+      tags:
+        - communication
+        - email
       schema:
         type: object
         properties:
           to: { type: string, format: email }
           subject: { type: string }
           body: { type: string }
-        required: [to, subject, body]
+        required:
+          - to
+          - subject
+          - body
 ```
 
 ## `schema`
@@ -93,7 +98,8 @@ schema:
   type: object
   properties:
     query: { type: string }
-  required: [query]
+  required:
+    - query
 
 # Enum-constrained input
 schema:
@@ -101,8 +107,12 @@ schema:
   properties:
     region:
       type: string
-      enum: [us-east-1, us-west-2, eu-west-1]
-  required: [region]
+      enum:
+        - us-east-1
+        - us-west-2
+        - eu-west-1
+  required:
+    - region
 
 # Nested object
 schema:
@@ -113,8 +123,10 @@ schema:
       properties:
         id: { type: string }
         email: { type: string, format: email }
-      required: [id]
-  required: [customer]
+      required:
+        - id
+  required:
+    - customer
 ```
 
 ## `inject` {#inject}
@@ -137,12 +149,14 @@ spec:
     - id: get_customer
       name: get_customer
       description: Look up a customer by ID
-      tags: [customer]
+      tags:
+        - customer
       schema:
         type: object
         properties:
           id: { type: string }
-        required: [id]
+        required:
+          - id
       inject:
         - customerRepo
 ```

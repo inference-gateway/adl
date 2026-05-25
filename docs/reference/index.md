@@ -8,17 +8,17 @@ The schema is JSON Schema Draft-07 and validates manifests with
 ## Manifest shape
 
 ```yaml
-apiVersion: adl.inference-gateway.com/v1   # required
-kind: Agent                                 # required
-metadata:                                   # required
+apiVersion: adl.inference-gateway.com/v1 # required
+kind: Agent # required
+metadata: # required
   name: string
   description: string
   version: x.y.z
   # optional: author, license, tags
-spec:                                       # required
-  capabilities: { ... }                     # required
-  server: { ... }                           # required
-  language: { ... }                         # required
+spec: # required
+  capabilities: { ... } # required
+  server: { ... } # required
+  language: { ... } # required
   # optional: card, agent, config, services, acronyms,
   #           tools, skills, artifacts, hooks, scm,
   #           development, deployment
@@ -26,32 +26,32 @@ spec:                                       # required
 
 ## Top-level
 
-| Field        | Required | Reference                            |
-|--------------|:--------:|--------------------------------------|
+| Field        | Required | Reference                               |
+| ------------ | :------: | --------------------------------------- |
 | `apiVersion` |    ✓     | [apiVersion / kind](./api-version-kind) |
 | `kind`       |    ✓     | [apiVersion / kind](./api-version-kind) |
-| `metadata`   |    ✓     | [metadata](./metadata)              |
-| `spec`       |    ✓     | [spec](./spec)                      |
+| `metadata`   |    ✓     | [metadata](./metadata)                  |
+| `spec`       |    ✓     | [spec](./spec)                          |
 
 ## `spec.*`
 
-| Field           | Required | Reference                                |
-|-----------------|:--------:|------------------------------------------|
-| `capabilities`  |    ✓     | [capabilities](./capabilities)           |
-| `card`          |          | [card](./card)                           |
-| `agent`         |          | [agent](./agent)                         |
-| `config`        |          | [config](./config)                       |
-| `services`      |          | [services](./services)                   |
-| `acronyms`      |          | [acronyms](./acronyms)                   |
-| `tools`         |          | [tools](./tools)                         |
-| `skills`        |          | [skills](./skills)                       |
-| `server`        |    ✓     | [server](./server)                       |
-| `language`      |    ✓     | [language](./language)                   |
-| `artifacts`     |          | [artifacts](./artifacts)                 |
-| `hooks`         |          | [hooks](./hooks)                         |
-| `scm`           |          | [scm](./scm)                             |
-| `development`   |          | [development](./development)             |
-| `deployment`    |          | [deployment](./deployment)               |
+| Field          | Required | Reference                      |
+| -------------- | :------: | ------------------------------ |
+| `capabilities` |    ✓     | [capabilities](./capabilities) |
+| `card`         |          | [card](./card)                 |
+| `agent`        |          | [agent](./agent)               |
+| `config`       |          | [config](./config)             |
+| `services`     |          | [services](./services)         |
+| `acronyms`     |          | [acronyms](./acronyms)         |
+| `tools`        |          | [tools](./tools)               |
+| `skills`       |          | [skills](./skills)             |
+| `server`       |    ✓     | [server](./server)             |
+| `language`     |    ✓     | [language](./language)         |
+| `artifacts`    |          | [artifacts](./artifacts)       |
+| `hooks`        |          | [hooks](./hooks)               |
+| `scm`          |          | [scm](./scm)                   |
+| `development`  |          | [development](./development)   |
+| `deployment`   |          | [deployment](./deployment)     |
 
 ## Appendix
 

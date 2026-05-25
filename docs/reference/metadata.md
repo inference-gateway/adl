@@ -5,15 +5,15 @@ optional.
 
 ```yaml
 metadata:
-  name: customer-support           # required
-  description: ...                  # required
-  version: "1.0.0"                  # required
-  author:                           # optional
+  name: customer-support # required
+  description: ... # required
+  version: "1.0.0" # required
+  author: # optional
     name: Acme Corp
     email: agents@acme.example
     url: https://acme.example
-  license: Apache-2.0               # optional
-  tags:                             # optional
+  license: Apache-2.0 # optional
+  tags: # optional
     - support
     - customer-service
 ```
@@ -56,9 +56,9 @@ are not currently accepted by the pattern.
 ```yaml
 metadata:
   author:
-    name: Acme Corp                  # required when author is present
-    email: agents@acme.example       # optional, format: email
-    url: https://acme.example        # optional, format: uri
+    name: Acme Corp # required when author is present
+    email: agents@acme.example # optional, format: email
+    url: https://acme.example # optional, format: uri
 ```
 
 Attribution and contact for whoever publishes the agent. Surfaces in

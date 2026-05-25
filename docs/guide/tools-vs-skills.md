@@ -6,14 +6,14 @@ generators wire your manifest into runnable code.
 
 ## The short version
 
-| | **Tool** | **Skill** |
-|---|---|---|
-| **Where it lives** | `spec.tools[]` | `spec.skills[]` |
-| **Shape** | Function call with a JSON Schema for inputs | Markdown playbook |
-| **How the agent uses it** | The model calls it as a function | The text is injected into the system prompt at startup |
-| **Generated as** | Code stubs in the target language | A bundled `SKILL.md` (or scaffolded blank with `bare: true`) |
-| **Best for** | Deterministic operations (DB query, API call, send email) | Workflows, policies, response patterns expressed in natural language |
-| **Carries a license?** | No | Yes (SPDX or `Proprietary`) |
+|                           | **Tool**                                                  | **Skill**                                                            |
+| ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- |
+| **Where it lives**        | `spec.tools[]`                                            | `spec.skills[]`                                                      |
+| **Shape**                 | Function call with a JSON Schema for inputs               | Markdown playbook                                                    |
+| **How the agent uses it** | The model calls it as a function                          | The text is injected into the system prompt at startup               |
+| **Generated as**          | Code stubs in the target language                         | A bundled `SKILL.md` (or scaffolded blank with `bare: true`)         |
+| **Best for**              | Deterministic operations (DB query, API call, send email) | Workflows, policies, response patterns expressed in natural language |
+| **Carries a license?**    | No                                                        | Yes (SPDX or `Proprietary`)                                          |
 
 ## Why two concepts?
 
@@ -25,7 +25,7 @@ Real agents need both:
 - **Some things are judgment-laden.** "If the user reports an outage,
   triage it like this: first check our status page, then …" is a
   procedure written in prose. There's no `triageOutage()` function — you
-  want the model to follow the *approach*. That's a **skill**.
+  want the model to follow the _approach_. That's a **skill**.
 
 Trying to express a skill as a tool produces a brittle, hard-to-test
 function with a giant `instructions: string` parameter. Trying to express
@@ -113,10 +113,10 @@ A quick decision tree:
 2. **Is the "action" really a procedure the model should follow?** (how
    to handle a refund request, how to escalate, what tone to use) →
    **skill**.
-3. **Both?** Many features split cleanly: a `refund` *tool* that issues
-   the API call, plus a `refund-policy` *skill* that tells the model
-   *when* and *how* to issue refunds.
+3. **Both?** Many features split cleanly: a `refund` _tool_ that issues
+   the API call, plus a `refund-policy` _skill_ that tells the model
+   _when_ and _how_ to issue refunds.
 
-When in doubt, ask: *if I removed the LLM and called this from a script,
-would the script still make sense?* If yes, it's a tool. If the
+When in doubt, ask: _if I removed the LLM and called this from a script,
+would the script still make sense?_ If yes, it's a tool. If the
 "function" is "be a thoughtful assistant about X", it's a skill.

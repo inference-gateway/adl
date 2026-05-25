@@ -14,9 +14,9 @@ spec:
 
 ## Fields
 
-| Field   | Type       | Required | Description                                                                                  |
-|---------|------------|:--------:|----------------------------------------------------------------------------------------------|
-| `post`  | `string[]` |          | Commands to run after code generation completes. Executed in order in the project directory. |
+| Field  | Type       | Required | Description                                                                                  |
+| ------ | ---------- | :------: | -------------------------------------------------------------------------------------------- |
+| `post` | `string[]` |          | Commands to run after code generation completes. Executed in order in the project directory. |
 
 Each entry is an opaque string — the schema doesn't parse it. The
 generator runs each command in a shell, in the order they appear, with

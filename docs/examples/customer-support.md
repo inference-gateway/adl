@@ -29,8 +29,11 @@ spec:
     protocolVersion: "1.0"
     url: https://agents.acme.example/customer-support
     preferredTransport: http+sse
-    defaultInputModes: [text/plain, application/json]
-    defaultOutputModes: [text/plain]
+    defaultInputModes:
+      - text/plain
+      - application/json
+    defaultOutputModes:
+      - text/plain
     documentationUrl: https://acme.example/docs/customer-support
     iconUrl: https://acme.example/agents/customer-support.png
 
@@ -56,33 +59,45 @@ spec:
       factory: NewZendeskTicketingClient
       description: Thin wrapper around the Zendesk API.
 
-  acronyms: [URL, HTTP, API, SLA, SLO]
+  acronyms:
+    - URL
+    - HTTP
+    - API
+    - SLA
+    - SLO
 
   tools:
     - id: knowledge_search
       name: knowledge_search
       description: Search the company knowledge base
-      tags: [knowledge, search]
+      tags:
+        - knowledge
+        - search
       schema:
         type: object
         properties:
           query: { type: string, description: The search query }
-        required: [query]
+        required:
+          - query
     - id: get_customer
       name: get_customer
       description: Look up a customer by ID
-      tags: [customer]
+      tags:
+        - customer
       schema:
         type: object
         properties:
           id: { type: string }
-        required: [id]
+        required:
+          - id
       inject:
         - customerRepo
     - id: escalate_ticket
       name: escalate_ticket
       description: Open a ticket in Zendesk for human follow-up
-      tags: [escalation, ticketing]
+      tags:
+        - escalation
+        - ticketing
       schema:
         type: object
         properties:
@@ -90,8 +105,15 @@ spec:
           summary: { type: string }
           priority:
             type: string
-            enum: [low, normal, high, urgent]
-        required: [customerId, summary, priority]
+            enum:
+              - low
+              - normal
+              - high
+              - urgent
+        required:
+          - customerId
+          - summary
+          - priority
       inject:
         - ticketingClient
 
@@ -101,13 +123,17 @@ spec:
       name: incident-response
       description: How to triage a paged production incident, draft an initial response, and notify stakeholders.
       license: Apache-2.0
-      tags: [operations, incident]
+      tags:
+        - operations
+        - incident
     - id: refund-policy
       bare: true
       name: refund-policy
       description: When and how to issue refunds, with required approvals.
       license: Proprietary
-      tags: [policy, refunds]
+      tags:
+        - policy
+        - refunds
 
   server:
     port: 8080

@@ -13,8 +13,8 @@ spec:
 
 ## Fields
 
-| Field     | Type      | Required | Description                                                        |
-|-----------|-----------|:--------:|--------------------------------------------------------------------|
+| Field     | Type      | Required | Description                                                            |
+| --------- | --------- | :------: | ---------------------------------------------------------------------- |
 | `enabled` | `boolean` |    ✓     | When `true`, the generator emits CI/CD wiring that produces artifacts. |
 
 ## Why so minimal?

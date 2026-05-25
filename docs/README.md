@@ -80,8 +80,11 @@ v2 site can live at `/v2/` without colliding with v1.
 
    on:
      push:
-       branches: [main]
-       paths: ['docs/**', '.github/workflows/deploy-docs.yml']
+       branches:
+         - main
+       paths:
+         - "docs/**"
+         - ".github/workflows/deploy-docs.yml"
      workflow_dispatch:
 
    permissions:
@@ -100,7 +103,7 @@ v2 site can live at `/v2/` without colliding with v1.
          - uses: actions/checkout@v6
          - uses: actions/setup-node@v6
            with:
-             node-version: '24.15.0'
+             node-version: "24.15.0"
          - run: npm ci
            working-directory: docs
          - run: npm run build

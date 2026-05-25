@@ -23,6 +23,10 @@
       "nodejs_24": {
         "pkg-path": "nodejs_24",
         "version": "24.15.0"
+      },
+      "prettier": {
+        "pkg-path": "prettier",
+        "version": "^3.8.3"
       }
     },
     "hook": {
@@ -490,6 +494,122 @@
       ],
       "outputs": {
         "out": "/nix/store/5a8ysg1jnj8jmzzyfcfw7rvpvnp5rfpa-nodejs-24.15.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "prettier",
+      "broken": false,
+      "derivation": "/nix/store/1gn4wfid50smxbcaghsfjg3wqh96ykgb-prettier-3.8.3.drv",
+      "description": "Code formatter",
+      "install_id": "prettier",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=29916453413845e54a65b8a1cf996842300cd299",
+      "name": "prettier-3.8.3",
+      "pname": "prettier",
+      "rev": "29916453413845e54a65b8a1cf996842300cd299",
+      "rev_count": 1003640,
+      "rev_date": "2026-05-23T03:54:30Z",
+      "scrape_date": "2026-05-24T07:06:30.282371Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.8.3",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/p66lch2l5idjix079nw6dbcp81svzjws-prettier-3.8.3"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "prettier",
+      "broken": false,
+      "derivation": "/nix/store/dly1idks1ayrsfxkcfylawmcnfla2d6p-prettier-3.8.3.drv",
+      "description": "Code formatter",
+      "install_id": "prettier",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=29916453413845e54a65b8a1cf996842300cd299",
+      "name": "prettier-3.8.3",
+      "pname": "prettier",
+      "rev": "29916453413845e54a65b8a1cf996842300cd299",
+      "rev_count": 1003640,
+      "rev_date": "2026-05-23T03:54:30Z",
+      "scrape_date": "2026-05-24T07:35:04.369493Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.8.3",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/4k98mwg6q91nrdnfh9kxcw0ifns7rcla-prettier-3.8.3"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "prettier",
+      "broken": false,
+      "derivation": "/nix/store/lwykmlkzrszcvhpnmdd2g1f56m3269di-prettier-3.8.3.drv",
+      "description": "Code formatter",
+      "install_id": "prettier",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=29916453413845e54a65b8a1cf996842300cd299",
+      "name": "prettier-3.8.3",
+      "pname": "prettier",
+      "rev": "29916453413845e54a65b8a1cf996842300cd299",
+      "rev_count": 1003640,
+      "rev_date": "2026-05-23T03:54:30Z",
+      "scrape_date": "2026-05-24T08:02:13.272576Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.8.3",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/15mp846gfvf4ca67kl9x63j4a8ddzs7j-prettier-3.8.3"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "prettier",
+      "broken": false,
+      "derivation": "/nix/store/lpzq8872xnj626awa50r4ggspd4q3yzl-prettier-3.8.3.drv",
+      "description": "Code formatter",
+      "install_id": "prettier",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=29916453413845e54a65b8a1cf996842300cd299",
+      "name": "prettier-3.8.3",
+      "pname": "prettier",
+      "rev": "29916453413845e54a65b8a1cf996842300cd299",
+      "rev_count": 1003640,
+      "rev_date": "2026-05-23T03:54:30Z",
+      "scrape_date": "2026-05-24T08:32:57.462671Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.8.3",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/phjkrasanj180ckfhkjb82az4am3v39z-prettier-3.8.3"
       },
       "system": "x86_64-linux",
       "group": "toplevel",

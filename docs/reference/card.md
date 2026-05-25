@@ -1,7 +1,7 @@
 # `spec.card`
 
 Optional protocol-card metadata. Surfaces information consumers need to
-*talk to* the deployed agent — protocol version, endpoint URL, supported
+_talk to_ the deployed agent — protocol version, endpoint URL, supported
 input/output modes, and documentation links.
 
 ```yaml
@@ -22,7 +22,7 @@ spec:
 ## Fields
 
 | Field                | Type       | Description                                                |
-|----------------------|------------|------------------------------------------------------------|
+| -------------------- | ---------- | ---------------------------------------------------------- |
 | `protocolVersion`    | `string`   | The agent-protocol version the deployed instance speaks.   |
 | `url`                | `string`   | Where the deployed agent lives.                            |
 | `preferredTransport` | `string`   | The transport the agent prefers (e.g. `http+sse`, `grpc`). |

@@ -33,11 +33,11 @@ spec:
 
 ## Fields
 
-| Field      | Reference                       | Description                                                                  |
-|------------|---------------------------------|------------------------------------------------------------------------------|
-| `sandbox`  | [sandbox](#sandbox)             | Reproducible dev environments (flox, devcontainer, dockerCompose).           |
-| `ai`       | [ai](#ai)                       | AI coding-agent provisioning (Claude Code, Codex, Gemini, OpenCode, Infer).  |
-| `deps`     | [deps](#deps)                   | Sandbox-level extra packages (cross-cutting, language-agnostic).             |
+| Field     | Reference           | Description                                                                 |
+| --------- | ------------------- | --------------------------------------------------------------------------- |
+| `sandbox` | [sandbox](#sandbox) | Reproducible dev environments (flox, devcontainer, dockerCompose).          |
+| `ai`      | [ai](#ai)           | AI coding-agent provisioning (Claude Code, Codex, Gemini, OpenCode, Infer). |
+| `deps`    | [deps](#deps)       | Sandbox-level extra packages (cross-cutting, language-agnostic).            |
 
 ## `sandbox` {#sandbox}
 
@@ -57,11 +57,11 @@ spec:
         enabled: false
 ```
 
-| Sandbox          | When to use                                                                  |
-|------------------|------------------------------------------------------------------------------|
-| `flox`           | Reproducible per-project dev shells via Nixpkgs, no container layer needed.  |
-| `devcontainer`   | VS Code (and compatible) Dev Containers — boots the project in a container.  |
-| `dockerCompose`  | Existing multi-service Docker Compose stack you want the agent to live in.   |
+| Sandbox         | When to use                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| `flox`          | Reproducible per-project dev shells via Nixpkgs, no container layer needed. |
+| `devcontainer`  | VS Code (and compatible) Dev Containers — boots the project in a container. |
+| `dockerCompose` | Existing multi-service Docker Compose stack you want the agent to live in.  |
 
 Each sub-block has the shape `{ enabled: boolean }`. Enabling more than
 one is allowed if your project wants to ship multiple ways to enter the
@@ -90,13 +90,13 @@ spec:
         enabled: false
 ```
 
-| Field                | Coding agent                          |
-|----------------------|---------------------------------------|
-| `claudecode.enabled` | Anthropic **Claude Code**             |
-| `codex.enabled`      | OpenAI **Codex**                      |
-| `gemini.enabled`     | Google **Gemini**                     |
-| `opencode.enabled`   | **OpenCode**                          |
-| `infer.enabled`      | Inference Gateway **`infer`**         |
+| Field                | Coding agent                  |
+| -------------------- | ----------------------------- |
+| `claudecode.enabled` | Anthropic **Claude Code**     |
+| `codex.enabled`      | OpenAI **Codex**              |
+| `gemini.enabled`     | Google **Gemini**             |
+| `opencode.enabled`   | **OpenCode**                  |
+| `infer.enabled`      | Inference Gateway **`infer`** |
 
 Each sub-block has the shape `{ enabled: boolean }`. Multiple agents
 can be enabled at once if a project wants to ship configuration for
@@ -125,16 +125,16 @@ spec:
       - terraform@1.9.5
 ```
 
-| Aspect    | Detail                                                                                |
-|-----------|---------------------------------------------------------------------------------------|
-| **Shape** | `string[]`, each entry matching `^\S+@\S+$` (i.e. `<package>@<version>`).             |
-| **Default** | Empty.                                                                              |
+| Aspect         | Detail                                                                                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Shape**      | `string[]`, each entry matching `^\S+@\S+$` (i.e. `<package>@<version>`).                                                 |
+| **Default**    | Empty.                                                                                                                    |
 | **Resolution** | Consumer responsibility: Nixpkgs for flox, apt/apk/devcontainer feature for devcontainer, image layers for dockerCompose. |
 
 The schema only validates the `<package>@<version>` shape. Consumers
 (e.g. `adl-cli`) are responsible for resolving each entry against the
 sandbox's native package source.
 
-> If you need a package that *is* tied to a specific language, use that
+> If you need a package that _is_ tied to a specific language, use that
 > language's [`vendor.deps` / `vendor.devdeps`](./language#vendor-config)
 > instead.

@@ -13,7 +13,7 @@ Every ADL manifest is a YAML (or JSON) document with four required
 top-level fields:
 
 | Field        | Description                                                                                   |
-|--------------|-----------------------------------------------------------------------------------------------|
+| ------------ | --------------------------------------------------------------------------------------------- |
 | `apiVersion` | The schema version this manifest targets — currently `adl.inference-gateway.com/v1`.          |
 | `kind`       | Always `Agent`. Reserved so future kinds (e.g. `AgentTemplate`) can coexist.                  |
 | `metadata`   | Name, description, version, optional author, license, and tags.                               |
@@ -32,8 +32,8 @@ spec:
 
 ## What an ADL manifest is — and isn't
 
-ADL is **declarative**: it describes *what* an agent should look like, not
-*how* to build it. The schema deliberately stops at the boundary between
+ADL is **declarative**: it describes _what_ an agent should look like, not
+_how_ to build it. The schema deliberately stops at the boundary between
 declaration and implementation. Consumers — generators like
 [`adl-cli`](https://github.com/inference-gateway/adl-cli), runtimes, or
 registries — fill in the implementation, while ADL guarantees the shape of

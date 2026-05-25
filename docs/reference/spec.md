@@ -5,28 +5,28 @@ blocks and a long list of optional ones.
 
 ## Required
 
-| Field           | Reference                                |
-|-----------------|------------------------------------------|
-| `capabilities`  | [capabilities](./capabilities)           |
-| `server`        | [server](./server)                       |
-| `language`      | [language](./language)                   |
+| Field          | Reference                      |
+| -------------- | ------------------------------ |
+| `capabilities` | [capabilities](./capabilities) |
+| `server`       | [server](./server)             |
+| `language`     | [language](./language)         |
 
 ## Optional
 
-| Field           | Reference                                |
-|-----------------|------------------------------------------|
-| `card`          | [card](./card)                           |
-| `agent`         | [agent](./agent) — provider, model, prompt |
-| `config`        | [config](./config)                       |
-| `services`      | [services](./services)                   |
-| `acronyms`      | [acronyms](./acronyms)                   |
-| `tools`         | [tools](./tools)                         |
-| `skills`        | [skills](./skills)                       |
-| `artifacts`     | [artifacts](./artifacts)                 |
-| `hooks`         | [hooks](./hooks)                         |
-| `scm`           | [scm](./scm)                             |
-| `development`   | [development](./development)             |
-| `deployment`    | [deployment](./deployment)               |
+| Field         | Reference                                  |
+| ------------- | ------------------------------------------ |
+| `card`        | [card](./card)                             |
+| `agent`       | [agent](./agent) — provider, model, prompt |
+| `config`      | [config](./config)                         |
+| `services`    | [services](./services)                     |
+| `acronyms`    | [acronyms](./acronyms)                     |
+| `tools`       | [tools](./tools)                           |
+| `skills`      | [skills](./skills)                         |
+| `artifacts`   | [artifacts](./artifacts)                   |
+| `hooks`       | [hooks](./hooks)                           |
+| `scm`         | [scm](./scm)                               |
+| `development` | [development](./development)               |
+| `deployment`  | [deployment](./deployment)                 |
 
 ## Minimal valid `spec`
 

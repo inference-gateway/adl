@@ -8,14 +8,14 @@ shatter every pinned consumer.
 
 There are two versions to keep straight:
 
-| Version                              | What it identifies                          | Example                                  |
-|--------------------------------------|---------------------------------------------|------------------------------------------|
-| **`apiVersion`** (in the manifest)   | The major schema version this manifest uses | `adl.inference-gateway.com/v1`           |
-| **Git tag** of the schema repository | A specific snapshot of `schema/v1/schema.json` | `v1.3.0`                               |
+| Version                              | What it identifies                             | Example                        |
+| ------------------------------------ | ---------------------------------------------- | ------------------------------ |
+| **`apiVersion`** (in the manifest)   | The major schema version this manifest uses    | `adl.inference-gateway.com/v1` |
+| **Git tag** of the schema repository | A specific snapshot of `schema/v1/schema.json` | `v1.3.0`                       |
 
 The `apiVersion` and the directory under `schema/` always move together —
 `schema/v1/` matches `adl.inference-gateway.com/v1`. The git tag picks a
-*point in time* within that major version.
+_point in time_ within that major version.
 
 ## The additive contract
 
@@ -24,7 +24,7 @@ Inside a single major version (e.g. all of `v1`), only
 
 - ✅ New optional fields
 - ✅ New entries in `definitions`
-- ✅ New enum values *where consumers tolerate unknowns*
+- ✅ New enum values _where consumers tolerate unknowns_
 
 Forbidden until a new major version:
 
@@ -53,19 +53,19 @@ Releases are **manual**. A maintainer runs the `Release` workflow via
 
 The next version is decided by [Conventional Commits](https://www.conventionalcommits.org/):
 
-| Commit type | Effect            |
-|-------------|-------------------|
-| `feat`      | Minor bump        |
-| `fix`       | Patch bump        |
-| `impr`      | Patch bump        |
-| `refactor`  | Patch bump        |
-| `perf`      | Patch bump        |
-| `docs`      | Patch bump        |
-| `style`     | Patch bump        |
-| `test`      | Patch bump        |
-| `build`     | Patch bump        |
-| `ci`        | Patch bump        |
-| `chore`     | Patch bump        |
+| Commit type | Effect     |
+| ----------- | ---------- |
+| `feat`      | Minor bump |
+| `fix`       | Patch bump |
+| `impr`      | Patch bump |
+| `refactor`  | Patch bump |
+| `perf`      | Patch bump |
+| `docs`      | Patch bump |
+| `style`     | Patch bump |
+| `test`      | Patch bump |
+| `build`     | Patch bump |
+| `ci`        | Patch bump |
+| `chore`     | Patch bump |
 
 `chore(release):` is excluded from the changelog. PR titles become the
 squash-merge commit, so the **PR title must follow this convention**.

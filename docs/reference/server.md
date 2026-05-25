@@ -15,12 +15,12 @@ spec:
 
 ## Fields
 
-| Field    | Type      | Required | Constraint                   | Description                                                       |
-|----------|-----------|:--------:|------------------------------|-------------------------------------------------------------------|
-| `port`   | `integer` |    ✓     | `1` ≤ port ≤ `65535`         | TCP port the server binds to.                                     |
-| `scheme` | `string`  |          | —                            | URL scheme (`http`, `https`). Influences emitted URLs in code.    |
-| `debug`  | `boolean` |          | —                            | Enable verbose debug logging in generated code.                   |
-| `auth`   | `object`  |          | see [Auth](#spec-server-auth) | Authentication block.                                            |
+| Field    | Type      | Required | Constraint                    | Description                                                    |
+| -------- | --------- | :------: | ----------------------------- | -------------------------------------------------------------- |
+| `port`   | `integer` |    ✓     | `1` ≤ port ≤ `65535`          | TCP port the server binds to.                                  |
+| `scheme` | `string`  |          | —                             | URL scheme (`http`, `https`). Influences emitted URLs in code. |
+| `debug`  | `boolean` |          | —                             | Enable verbose debug logging in generated code.                |
+| `auth`   | `object`  |          | see [Auth](#spec-server-auth) | Authentication block.                                          |
 
 ## `spec.server.auth` {#spec-server-auth}
 
@@ -31,8 +31,8 @@ spec:
       enabled: true
 ```
 
-| Field     | Type      | Required | Description                                                                                    |
-|-----------|-----------|:--------:|------------------------------------------------------------------------------------------------|
+| Field     | Type      | Required | Description                                                                                                        |
+| --------- | --------- | :------: | ------------------------------------------------------------------------------------------------------------------ |
 | `enabled` | `boolean` |          | If `true`, the generator wires authentication into the server pipeline; if `false` or omitted, the server is open. |
 
 The schema deliberately keeps `auth` minimal in v1: it carries the

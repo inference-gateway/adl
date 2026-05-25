@@ -16,11 +16,11 @@ spec:
 
 ## Fields
 
-| Field        | Type     | Required | Description                                                  |
-|--------------|----------|:--------:|--------------------------------------------------------------|
+| Field        | Type     | Required | Description                                                    |
+| ------------ | -------- | :------: | -------------------------------------------------------------- |
 | `type`       | `string` |          | enum: `kubernetes`, `cloudrun`. Selects the deployment target. |
-| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                               |
-| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                 |
+| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                 |
+| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                   |
 
 ## Kubernetes {#kubernetes}
 
@@ -35,9 +35,9 @@ spec:
         tag: v1.0.0
 ```
 
-| Field   | Description                                                  |
-|---------|--------------------------------------------------------------|
-| `image` | See [Image](#image).                                         |
+| Field   | Description          |
+| ------- | -------------------- |
+| `image` | See [Image](#image). |
 
 The Kubernetes block is intentionally minimal in v1 — it carries the
 **image** and leaves the rest (Deployment, Service, ConfigMap, …) to
@@ -73,45 +73,45 @@ spec:
         CACHE_TTL: "300"
 ```
 
-| Field         | Reference                                |
-|---------------|------------------------------------------|
-| `image`       | [Image](#image)                          |
-| `resources`   | [Resources](#cloud-run-resources)        |
-| `scaling`     | [Scaling](#cloud-run-scaling)            |
-| `service`     | [Service](#cloud-run-service)            |
-| `environment` | `{ [key: string]: string }` — env vars.  |
+| Field         | Reference                               |
+| ------------- | --------------------------------------- |
+| `image`       | [Image](#image)                         |
+| `resources`   | [Resources](#cloud-run-resources)       |
+| `scaling`     | [Scaling](#cloud-run-scaling)           |
+| `service`     | [Service](#cloud-run-service)           |
+| `environment` | `{ [key: string]: string }` — env vars. |
 
 ### Resources {#cloud-run-resources}
 
 | Field    | Type     | Description                                |
-|----------|----------|--------------------------------------------|
+| -------- | -------- | ------------------------------------------ |
 | `cpu`    | `string` | CPU allocation per instance (e.g. `"1"`).  |
 | `memory` | `string` | Memory per instance (e.g. `512Mi`, `2Gi`). |
 
 ### Scaling {#cloud-run-scaling}
 
-| Field          | Type      | Description                                   |
-|----------------|-----------|-----------------------------------------------|
-| `minInstances` | `integer` | Minimum number of instances kept warm.        |
-| `maxInstances` | `integer` | Cap on instances Cloud Run may spin up.       |
-| `concurrency`  | `integer` | Concurrent requests served per instance.      |
+| Field          | Type      | Description                              |
+| -------------- | --------- | ---------------------------------------- |
+| `minInstances` | `integer` | Minimum number of instances kept warm.   |
+| `maxInstances` | `integer` | Cap on instances Cloud Run may spin up.  |
+| `concurrency`  | `integer` | Concurrent requests served per instance. |
 
 ### Service {#cloud-run-service}
 
-| Field                  | Type      | Description                                                       |
-|------------------------|-----------|-------------------------------------------------------------------|
-| `timeout`              | `integer` | Per-request timeout in seconds.                                   |
-| `allowUnauthenticated` | `boolean` | If `true`, the service is publicly invokable.                     |
-| `serviceAccount`       | `string`  | GCP service-account email the service runs as.                    |
-| `executionEnvironment` | `string`  | Cloud Run execution environment (e.g. `gen1`, `gen2`).            |
+| Field                  | Type      | Description                                            |
+| ---------------------- | --------- | ------------------------------------------------------ |
+| `timeout`              | `integer` | Per-request timeout in seconds.                        |
+| `allowUnauthenticated` | `boolean` | If `true`, the service is publicly invokable.          |
+| `serviceAccount`       | `string`  | GCP service-account email the service runs as.         |
+| `executionEnvironment` | `string`  | Cloud Run execution environment (e.g. `gen1`, `gen2`). |
 
 ## Image {#image}
 
 Used by both the `kubernetes` and `cloudrun` sub-blocks.
 
-| Field           | Type      | Description                                                  |
-|-----------------|-----------|--------------------------------------------------------------|
-| `registry`      | `string`  | Image registry (e.g. `ghcr.io`).                             |
-| `repository`    | `string`  | Image repository within the registry.                        |
-| `tag`           | `string`  | Image tag.                                                   |
+| Field           | Type      | Description                                                                                                   |
+| --------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
+| `registry`      | `string`  | Image registry (e.g. `ghcr.io`).                                                                              |
+| `repository`    | `string`  | Image repository within the registry.                                                                         |
+| `tag`           | `string`  | Image tag.                                                                                                    |
 | `useCloudBuild` | `boolean` | If `true`, the generator wires in Google Cloud Build for image production. Most useful with `type: cloudrun`. |

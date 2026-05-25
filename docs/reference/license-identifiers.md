@@ -7,23 +7,23 @@ whole or to an individual skill.
 
 ## Accepted values
 
-| Identifier      | Notes                                       |
-|-----------------|---------------------------------------------|
-| `MIT`           | Permissive                                  |
-| `Apache-2.0`    | Permissive, patent grant                    |
-| `BSD-2-Clause`  | Permissive                                  |
-| `BSD-3-Clause`  | Permissive                                  |
-| `GPL-2.0`       | Copyleft                                    |
-| `GPL-3.0`       | Copyleft                                    |
-| `LGPL-2.1`      | Weak copyleft                               |
-| `LGPL-3.0`      | Weak copyleft                               |
-| `MPL-2.0`       | Weak copyleft                               |
-| `ISC`           | Permissive                                  |
-| `CC0-1.0`       | Public domain dedication                    |
-| `CC-BY-4.0`     | Creative Commons, attribution               |
-| `CC-BY-SA-4.0`  | Creative Commons, attribution + share-alike |
-| `Unlicense`     | Public domain dedication                    |
-| `Proprietary`   | Closed-source / all rights reserved         |
+| Identifier     | Notes                                       |
+| -------------- | ------------------------------------------- |
+| `MIT`          | Permissive                                  |
+| `Apache-2.0`   | Permissive, patent grant                    |
+| `BSD-2-Clause` | Permissive                                  |
+| `BSD-3-Clause` | Permissive                                  |
+| `GPL-2.0`      | Copyleft                                    |
+| `GPL-3.0`      | Copyleft                                    |
+| `LGPL-2.1`     | Weak copyleft                               |
+| `LGPL-3.0`     | Weak copyleft                               |
+| `MPL-2.0`      | Weak copyleft                               |
+| `ISC`          | Permissive                                  |
+| `CC0-1.0`      | Public domain dedication                    |
+| `CC-BY-4.0`    | Creative Commons, attribution               |
+| `CC-BY-SA-4.0` | Creative Commons, attribution + share-alike |
+| `Unlicense`    | Public domain dedication                    |
+| `Proprietary`  | Closed-source / all rights reserved         |
 
 ## Rules of the road
 

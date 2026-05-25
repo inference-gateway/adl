@@ -27,14 +27,18 @@ spec:
     - id: log_entry
       name: log_entry
       description: Record a time entry against a project
-      tags: [time, tracking]
+      tags:
+        - time
+        - tracking
       schema:
         type: object
         properties:
           project: { type: string }
           hours: { type: number, minimum: 0 }
           notes: { type: string }
-        required: [project, hours]
+        required:
+          - project
+          - hours
 
   server:
     port: 8080
@@ -78,10 +82,10 @@ spec:
 For each entry under `spec.language`, the generator emits a complete
 project tree using that language's idioms:
 
-| Target       | Output                                                     |
-|--------------|------------------------------------------------------------|
-| `go`         | A Go module, `go.mod` with the listed `vendor` packages, idiomatic exported types and acronyms. |
-| `typescript` | An npm package with the listed dependencies in `package.json`, plus tsconfig and test setup. |
+| Target       | Output                                                                                                     |
+| ------------ | ---------------------------------------------------------------------------------------------------------- |
+| `go`         | A Go module, `go.mod` with the listed `vendor` packages, idiomatic exported types and acronyms.            |
+| `typescript` | An npm package with the listed dependencies in `package.json`, plus tsconfig and test setup.               |
 | `rust`       | A Cargo crate with the listed crates in `Cargo.toml`, the requested edition, and default features enabled. |
 
 `vendor.deps` and `vendor.devdeps` follow each language's native syntax —

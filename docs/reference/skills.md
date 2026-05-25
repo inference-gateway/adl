@@ -17,7 +17,7 @@ spec:
 ```
 
 If you're new to skills, read [Tools vs Skills](/guide/tools-vs-skills)
-first — it explains *when* you want a skill instead of a tool.
+first — it explains _when_ you want a skill instead of a tool.
 
 ## Shape
 
@@ -26,16 +26,16 @@ first — it explains *when* you want a skill instead of a tool.
 
 ## Skill fields
 
-| Field         | Type       | Required | Description                                                                                                |
-|---------------|------------|:--------:|------------------------------------------------------------------------------------------------------------|
-| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` — kebab-case allowed.                          |
-| `version`     | `string`   |          | Version of the published skill to pull from the registry.                                                  |
-| `source`      | `string`   |          | Registry reference for a published skill.                                                                  |
-| `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry.                      |
-| `name`        | `string`   |          | Human-readable name. Typically matches `id`.                                                               |
-| `description` | `string`   |          | One-line summary of what the skill teaches.                                                                |
-| `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).                        |
-| `tags`        | `string[]` |          | Discoverability tags.                                                                                      |
+| Field         | Type       | Required | Description                                                                           |
+| ------------- | ---------- | :------: | ------------------------------------------------------------------------------------- |
+| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` — kebab-case allowed.      |
+| `version`     | `string`   |          | Version of the published skill to pull from the registry.                             |
+| `source`      | `string`   |          | Registry reference for a published skill.                                             |
+| `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry. |
+| `name`        | `string`   |          | Human-readable name. Typically matches `id`.                                          |
+| `description` | `string`   |          | One-line summary of what the skill teaches.                                           |
+| `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).   |
+| `tags`        | `string[]` |          | Discoverability tags.                                                                 |
 
 `additionalProperties` are not allowed.
 
@@ -69,7 +69,9 @@ spec:
       name: incident-response
       description: How to triage a paged production incident...
       license: Apache-2.0
-      tags: [operations, incident]
+      tags:
+        - operations
+        - incident
 ```
 
 Use `bare: true` when the playbook is proprietary or one-off. The

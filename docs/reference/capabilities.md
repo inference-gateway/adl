@@ -2,7 +2,7 @@
 
 Declares which protocol-level capabilities the agent supports. All three
 fields are required so the schema makes the agent's contract explicit —
-a runtime should never need to *guess* whether streaming is on.
+a runtime should never need to _guess_ whether streaming is on.
 
 ```yaml
 spec:
