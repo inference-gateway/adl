@@ -43,20 +43,8 @@ export default defineConfig({
       { text: "Examples", link: "/examples/", activeMatch: "/examples/" },
       {
         text: "v1",
-        items: [
-          {
-            text: "Schema (JSON)",
-            link: "https://github.com/inference-gateway/adl/blob/main/schema/v1/schema.json",
-          },
-          {
-            text: "Releases",
-            link: "https://github.com/inference-gateway/adl/releases",
-          },
-          {
-            text: "Changelog",
-            link: "https://github.com/inference-gateway/adl/blob/main/CHANGELOG.md",
-          },
-        ],
+        link: "/v1",
+        activeMatch: "^/v1$",
       },
     ],
     sidebar: {
