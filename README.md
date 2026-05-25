@@ -54,6 +54,14 @@ metadata:
   name: customer-support
   description: AI agent for handling customer inquiries
   version: "1.0.0"
+  author:
+    name: Acme Corp
+    email: agents@acme.example
+    url: https://acme.example
+  license: Apache-2.0
+  tags:
+    - support
+    - customer-service
 spec:
   capabilities:
     streaming: true
@@ -119,6 +127,31 @@ spec:
         enabled: false
       infer:
         enabled: false
+```
+
+### Agent metadata
+
+`metadata` is required and carries three mandatory fields — `name`, `description`, and `version` — plus three optional fields that travel with the manifest rather than being supplied by a downstream catalog or registry:
+
+- `metadata.author` — `{ name (required), email?, url? }`. Attribution and contact for whoever publishes the agent.
+- `metadata.license` — SPDX identifier (or `Proprietary`) the agent is distributed under. Uses the same accepted set as [`Skill.license`](#skill-licensing).
+- `metadata.tags` — `string[]`. Agent-level discoverability tags (e.g. `calendar`, `automation`). Consumers may merge these with tool- and skill-level tags when indexing.
+
+All three are optional and additive; manifests that omit them remain valid.
+
+```yaml
+metadata:
+  name: customer-support
+  description: AI agent for handling customer inquiries
+  version: "1.0.0"
+  author:
+    name: Acme Corp
+    email: agents@acme.example
+    url: https://acme.example
+  license: Apache-2.0
+  tags:
+    - support
+    - customer-service
 ```
 
 ### Skill licensing
