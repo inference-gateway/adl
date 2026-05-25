@@ -12,6 +12,8 @@ claude-code.pkg-group = "ai"
 codex.pkg-path = "codex"
 codex.version = "^0.133.0"
 codex.pkg-group = "ai"
+prettier.pkg-path = "prettier"
+prettier.version = "^3.8.3"
 
 [hook]
 on-activate = """

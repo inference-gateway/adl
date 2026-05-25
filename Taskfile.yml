@@ -10,6 +10,11 @@ tasks:
     cmds:
       - task --list
 
+  format:
+    desc: Format the JSON Schema
+    cmds:
+      - prettier --write .
+
   compile:
     desc: Compile the JSON Schema (same check CI runs)
     cmds:
