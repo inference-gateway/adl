@@ -8,4 +8,3 @@ with the same workflow described in
 | -------------------------------------------- | ------------------------------------------------------------------------ |
 | [Minimal Agent](./minimal)                   | The smallest valid manifest. Three required `spec` blocks, nothing else. |
 | [Customer Support Agent](./customer-support) | A realistic agent with tools, skills, services, dev sandbox, and CD.     |
-| [Multi-language Agent](./multi-language)     | One manifest, three language outputs (Go + TypeScript + Rust).           |

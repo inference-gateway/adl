@@ -150,7 +150,6 @@ export default defineConfig({
               link: "/examples/customer-support",
             },
             { text: "Minimal Agent", link: "/examples/minimal" },
-            { text: "Multi-language Agent", link: "/examples/multi-language" },
           ],
         },
       ],

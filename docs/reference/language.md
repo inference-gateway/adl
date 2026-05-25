@@ -14,26 +14,6 @@ spec:
           - github.com/google/uuid@v1.6.0
         devdeps:
           - github.com/stretchr/testify@v1.9.0
-    typescript:
-      packageName: customer-support-agent
-      nodeVersion: "20"
-      vendor:
-        deps:
-          - zod@3.23.0
-        devdeps:
-          - vitest@1.6.0
-          - "@types/node@20.11.0"
-    rust:
-      packageName: customer-support-agent
-      version: "0.1.0"
-      edition: "2021"
-      features:
-        - server
-      vendor:
-        deps:
-          - tokio@1.36.0
-        devdeps:
-          - mockall@0.12.1
 ```
 
 ## Supported languages
@@ -44,9 +24,9 @@ spec:
 | `typescript` | [TypeScriptConfig](#typescript-config) |
 | `rust`       | [RustConfig](#rust-config)             |
 
-You can configure more than one - the generator will emit a project for
-each. This is useful when an agent ships as both a service (Go) and an
-SDK (TypeScript, Rust).
+Configure exactly one. The schema permits more than one language key,
+but current consumers (e.g. `adl-cli`) generate code for a single
+language at a time and will reject manifests with more than one.
 
 ## `go` {#go-config}
 

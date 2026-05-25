@@ -224,25 +224,11 @@ spec:
         devdeps:
           - github.com/stretchr/testify@v1.9.0
           - go.uber.org/mock@v0.4.0
-    typescript:
-      packageName: customer-support-agent
-      nodeVersion: "20"
-      vendor:
-        deps:
-          - zod@3.23.0
-        devdeps:
-          - vitest@1.6.0
-          - "@types/node@20.11.0"
-    rust:
-      packageName: customer-support-agent
-      version: "0.1.0"
-      edition: "2021"
-      vendor:
-        deps:
-          - tokio@1.36.0
-        devdeps:
-          - mockall@0.12.1
 ```
+
+TypeScript and Rust accept the same `vendor` shape - see the
+[`spec.language` reference](./docs/reference/language.md) for their
+per-language fields.
 
 Both fields are optional and default to empty. The schema only
 validates the `<package>@<version>` shape - it intentionally does not
