@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0](https://github.com/inference-gateway/adl/compare/v0.10.0...v0.11.0) (2026-05-26)
+
+### ✨ Features
+
+* **docs:** Add social preview image and favicon ([c286f42](https://github.com/inference-gateway/adl/commit/c286f42c576fe9fb147ff0176689f8d15816d14a))
+* **docs:** Add VitePress documentation site under docs/ ([#21](https://github.com/inference-gateway/adl/issues/21)) ([bc3bddb](https://github.com/inference-gateway/adl/commit/bc3bddb5c2f7adb496de331f376a3939ff18ff1b)), closes [#18](https://github.com/inference-gateway/adl/issues/18)
+* **schema:** Add optional author, license, and tags to Metadata ([#20](https://github.com/inference-gateway/adl/issues/20)) ([0c192d2](https://github.com/inference-gateway/adl/commit/0c192d2dad4f3b2e3a0ad19e01aebe2a53b469b8)), closes [#19](https://github.com/inference-gateway/adl/issues/19)
+
+### ♻️ Improvements
+
+* Remove fictional feature ([96b6484](https://github.com/inference-gateway/adl/commit/96b648486bd0a7cc35988ec5b735c76cac9690c2))
+
+### 🐛 Bug Fixes
+
+* **ci:** Assets not served ([a571735](https://github.com/inference-gateway/adl/commit/a5717350c66fe9fa88109afe6c7e729e5bdd4e63))
+* **docs:** move v1 page into v1/index.md to fix SPA navigation ([#23](https://github.com/inference-gateway/adl/issues/23)) ([49410e8](https://github.com/inference-gateway/adl/commit/49410e806f88479884ccfc117b56a66e48ca0388))
+
+### 👷 CI
+
+* Add deploy workflow ([fa819be](https://github.com/inference-gateway/adl/commit/fa819be77923f797c77230716062293ddc519619))
+* Add format check ([c57f869](https://github.com/inference-gateway/adl/commit/c57f869425b5f576f06f5380ca56446a38ec43fc))
+* **claude:** add playwright mcp server so claude can verify frontend fixes ([e8252b2](https://github.com/inference-gateway/adl/commit/e8252b2ad977d73e07841c725389d458bcdb5358))
+* **claude:** remove custom system prompt ([7ffa311](https://github.com/inference-gateway/adl/commit/7ffa3118a4ff0e616486af8e3f3ce5fa7f2fa2e9))
+* **claude:** set effort to max ([cf8e0b0](https://github.com/inference-gateway/adl/commit/cf8e0b040cd261a3564f44837779a4558034df21))
+* **claude:** use unified config instead of inline instructions ([9ef2f61](https://github.com/inference-gateway/adl/commit/9ef2f618cb91154b54300e40af98310332ea9386))
+* **deps:** Bump claude-code-action  v1.0.131 -> v1.0.133 ([38eb72b](https://github.com/inference-gateway/adl/commit/38eb72b9cdb46c15da1323cb7c7c55ecaf492620))
+
+### 🔧 Miscellaneous
+
+* Add codex ([b361650](https://github.com/inference-gateway/adl/commit/b36165061b67d9a832d89cfae14f58729389548a))
+* Add robot.txt ([c579177](https://github.com/inference-gateway/adl/commit/c57917776171d093ed1a97bb4c0e978887aa9701))
+* Add v1 schema ([fe2e8d8](https://github.com/inference-gateway/adl/commit/fe2e8d8a968b0657a87630fb6e653038c36efa27))
+* Delete AGENTS.md ([3cacab1](https://github.com/inference-gateway/adl/commit/3cacab1ede74e336057803476bf2a704365d0510))
+* **deps:** Bump claude-code version ^2.1.141 -> ^2.1.148 ([9f130d6](https://github.com/inference-gateway/adl/commit/9f130d667e20d99202d26b6da0f1816b5851321f))
+* **docs:** Generate AGENTS.md file ([439a4aa](https://github.com/inference-gateway/adl/commit/439a4aab637ec8a7db0bcfe37f0384c2a30bd446))
+* Exclude README.md from deployment ([4be4402](https://github.com/inference-gateway/adl/commit/4be4402c55190b54a84c1add2c2920f17ad9eab4))
+* Fix formatting ([a9c6586](https://github.com/inference-gateway/adl/commit/a9c6586cd3592f7547f9806b64633ade48204ff0))
+* **flox:** Bump dev dependecies ([8a4bdd3](https://github.com/inference-gateway/adl/commit/8a4bdd342489ceeadacaa7a69a62c77ba6854775))
+* **flox:** Bump schema version ([a4778c2](https://github.com/inference-gateway/adl/commit/a4778c265cfb2f11b919068275cfbc27cb33ec6d))
+* Generate CLAUDE.md file ([5b8a9dc](https://github.com/inference-gateway/adl/commit/5b8a9dc76f6230561ce9a5b1f16665c230e6f235))
+* Regenerate AGENTS.md with codex ([c37d0e1](https://github.com/inference-gateway/adl/commit/c37d0e189966dad75b0ced940c810ff4bd14f533))
+* Remove CLAUDE.md file ([0354f34](https://github.com/inference-gateway/adl/commit/0354f349fe94a77d77be6c48b772fe21ad78e872))
+* Remove gitignore rule for package-lock.json ([40e15e1](https://github.com/inference-gateway/adl/commit/40e15e1ebbb30f73988043f531c5c67114624185))
+* Replace all em dashes with normal dashes ([5676bc8](https://github.com/inference-gateway/adl/commit/5676bc8ac0ed03dbe7f4f68c26b883d31f210a14))
+* Replace em dashes with normal dashes ([14cc642](https://github.com/inference-gateway/adl/commit/14cc642cf455f4913d7c710180c576e7fc2dfa90))
+* Run infer init for improved init prompt ([ef217df](https://github.com/inference-gateway/adl/commit/ef217dfde580d348378ec5d2e59d6acb18ef24a0))
+
 ## [0.10.0](https://github.com/inference-gateway/adl/compare/v0.9.0...v0.10.0) (2026-05-23)
 
 ### ✨ Features
