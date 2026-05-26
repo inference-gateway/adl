@@ -84,8 +84,8 @@ export default defineConfig({
       { text: "Examples", link: "/examples/", activeMatch: "/examples/" },
       {
         text: "v1",
-        link: "/v1",
-        activeMatch: "^/v1$",
+        link: "/v1/",
+        activeMatch: "^/v1/",
       },
     ],
     sidebar: {
