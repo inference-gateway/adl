@@ -89,6 +89,7 @@ jobs:
           base_branch: main
           branch_prefix: "claude/"
           claude_args: |
+            --effort max
             --model claude-opus-4-7
             --allowedTools "Bash(task:*),Bash(node:*),Bash(gh:*),Bash(git:*),mcp__playwright"
             --mcp-config '{"mcpServers":{"context7":{"command":"npx","args":["-y","@upstash/context7-mcp@latest"]}}}'
