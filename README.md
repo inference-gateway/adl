@@ -47,7 +47,7 @@ This repository is the **source of truth for the ADL schema**. The JSON Schema d
 ADL distinguishes two ways for an agent to act:
 
 - **Tools** (`spec.tools[]`) are function-call entrypoints. Each tool has a JSON Schema for its inputs and is generated as code in the target language. Use a tool when the agent needs to invoke a deterministic operation (query a database, send an email, call an API).
-- **Skills** (`spec.skills[]`) are markdown playbooks injected into the agent's system prompt at startup. They're either pulled from the skills registry or scaffolded blank with `bare: true`. Use a skill when you want to teach the agent a workflow, policy, or response pattern in natural language.
+- **Skills** (`spec.skills[]`) are markdown playbooks the agent discovers at runtime. Only each skill's metadata (name and description) lands in the system prompt at startup; the playbook body is read lazily when the model invokes the skill. Skills are either pulled from the skills registry or scaffolded blank with `bare: true`. Use a skill when you want to teach the agent a workflow, policy, or response pattern in natural language.
 
 ## Layout
 

@@ -216,7 +216,7 @@
     },
     "Skill": {
       "type": "object",
-      "description": "Markdown playbook injected into the agent's system prompt. Pulled from the skills registry or scaffolded blank with bare: true.",
+      "description": "Markdown playbook the agent can discover and load on demand at runtime. Each skill's metadata (name and description) is advertised to the model at startup; the SKILL.md body is read lazily when the model invokes the skill. Pulled from the skills registry or scaffolded blank with bare: true.",
       "required": ["id"],
       "additionalProperties": false,
       "properties": {

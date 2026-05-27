@@ -1,7 +1,9 @@
 # `spec.skills`
 
-Markdown playbooks injected into the agent's system prompt at startup.
-Sourced from the skills registry or scaffolded blank with `bare: true`.
+Markdown playbooks the agent can discover and load on demand. Each
+skill's metadata is advertised to the model at startup; the body is
+read at runtime only when the model decides to use it. Sourced from
+the skills registry or scaffolded blank with `bare: true`.
 
 ```yaml
 spec:
@@ -33,7 +35,7 @@ first - it explains _when_ you want a skill instead of a tool.
 | `source`      | `string`   |          | Registry reference for a published skill.                                             |
 | `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry. |
 | `name`        | `string`   |          | Human-readable name. Typically matches `id`.                                          |
-| `description` | `string`   |          | One-line summary of what the skill teaches.                                           |
+| `description` | `string`   |          | One-line summary of what the skill teaches. Surfaced to the model in the startup skill listing, so it should read as a recognizable trigger ("how to triage a paged incident", not "incident docs"). |
 | `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).   |
 | `tags`        | `string[]` |          | Discoverability tags.                                                                 |
 
@@ -97,8 +99,28 @@ channel expects it.
 
 ## How skills affect the agent at runtime
 
-At agent startup, the contents of each skill's `SKILL.md` are appended
-to the system prompt. The model therefore sees every skill as part of
-its initial instructions, and can follow them without any per-call
-overhead. This is the key trade-off vs. tools: skills are "free" at
-call time but expand the context window at startup.
+Skills use a two-stage, lazy-loading model:
+
+1. **At startup - metadata only.** The agent's system prompt is
+   augmented with a short index of every declared skill: each entry's
+   `name` and `description` (from `SKILL.md`'s frontmatter). The model
+   sees this as a "menu" of playbooks it can consult. The body of each
+   `SKILL.md` is **not** loaded.
+2. **At invocation - body on demand.** When the model decides a skill
+   is relevant to the current turn, the runtime reads that skill's
+   `SKILL.md` from disk and adds the rendered body to the
+   conversation. The body stays in context for the remainder of the
+   session.
+
+This inverts the cost model of an always-on system prompt: a manifest
+can declare many skills without bloating startup context, and only the
+skills the model actually reaches for spend tokens. Long reference
+material is effectively free until invoked.
+
+### Runtime requirement: the `read` built-in tool
+
+Lazy loading requires the agent to read files at runtime. `adl-cli`
+auto-wires the reserved built-in tool [`read`](./tools#user-defined-vs-built-in-tools)
+whenever `spec.skills[]` is non-empty, so you do not need to declare
+it explicitly - it is present in the generated project by virtue of
+having declared at least one skill.

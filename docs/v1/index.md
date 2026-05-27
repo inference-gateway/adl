@@ -23,7 +23,7 @@ Its `$id` is `https://adl.inference-gateway.com/schemas/agent/v1`.
 | [`spec.config`](/reference/config)             | Runtime configuration knobs                                  |
 | [`spec.services`](/reference/services)         | External services the agent talks to                         |
 | [`spec.tools`](/reference/tools)               | Function-call entrypoints (deterministic operations)         |
-| [`spec.skills`](/reference/skills)             | Markdown playbooks injected into the system prompt           |
+| [`spec.skills`](/reference/skills)             | Markdown playbooks discoverable at runtime (metadata at startup, body lazy-loaded) |
 | [`spec.server`](/reference/server)             | HTTP server settings                                         |
 | [`spec.language`](/reference/language)         | Target language (Go, Rust, TypeScript) and deps              |
 | [`spec.artifacts`](/reference/artifacts)       | Files emitted alongside the agent                            |

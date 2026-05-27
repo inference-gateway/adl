@@ -10,7 +10,7 @@ generators wire your manifest into runnable code.
 | ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- |
 | **Where it lives**        | `spec.tools[]`                                            | `spec.skills[]`                                                      |
 | **Shape**                 | Function call with a JSON Schema for inputs               | Markdown playbook                                                    |
-| **How the agent uses it** | The model calls it as a function                          | The text is injected into the system prompt at startup               |
+| **How the agent uses it** | The model calls it as a function                          | The model discovers it from a metadata listing and reads the playbook on demand at runtime |
 | **Generated as**          | Code stubs in the target language                         | A bundled `SKILL.md` (or scaffolded blank with `bare: true`)         |
 | **Best for**              | Deterministic operations (DB query, API call, send email) | Workflows, policies, response patterns expressed in natural language |
 | **Carries a license?**    | No                                                        | Yes (SPDX or `Proprietary`)                                          |
@@ -85,9 +85,17 @@ spec:
         - incident
 ```
 
-A skill is a markdown playbook. At agent startup, its contents are
-**injected into the system prompt** so the model sees the procedure as
-part of its instructions.
+A skill is a markdown playbook stored alongside the agent. At startup,
+only each skill's metadata (`name` and `description` from its
+`SKILL.md` frontmatter) is added to the system prompt - a short "menu"
+of what the agent knows how to do. When the model decides a skill is
+relevant, the runtime reads the full `SKILL.md` body and includes it
+in the conversation for the rest of the session.
+
+This makes skills cheap to declare: a manifest can list many skills
+without bloating the startup prompt - only the ones the model actually
+reaches for spend tokens. See [Reference: skills](/reference/skills)
+for the runtime mechanism.
 
 Two sources:
 
