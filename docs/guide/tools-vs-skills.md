@@ -6,14 +6,14 @@ generators wire your manifest into runnable code.
 
 ## The short version
 
-|                           | **Tool**                                                  | **Skill**                                                            |
-| ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------- |
-| **Where it lives**        | `spec.tools[]`                                            | `spec.skills[]`                                                      |
-| **Shape**                 | Function call with a JSON Schema for inputs               | Markdown playbook                                                    |
+|                           | **Tool**                                                  | **Skill**                                                                                  |
+| ------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Where it lives**        | `spec.tools[]`                                            | `spec.skills[]`                                                                            |
+| **Shape**                 | Function call with a JSON Schema for inputs               | Markdown playbook                                                                          |
 | **How the agent uses it** | The model calls it as a function                          | The model discovers it from a metadata listing and reads the playbook on demand at runtime |
-| **Generated as**          | Code stubs in the target language                         | A bundled `SKILL.md` (or scaffolded blank with `bare: true`)         |
-| **Best for**              | Deterministic operations (DB query, API call, send email) | Workflows, policies, response patterns expressed in natural language |
-| **Carries a license?**    | No                                                        | Yes (SPDX or `Proprietary`)                                          |
+| **Generated as**          | Code stubs in the target language                         | A bundled `SKILL.md` (or scaffolded blank with `bare: true`)                               |
+| **Best for**              | Deterministic operations (DB query, API call, send email) | Workflows, policies, response patterns expressed in natural language                       |
+| **Carries a license?**    | No                                                        | Yes (SPDX or `Proprietary`)                                                                |
 
 ## Why two concepts?
 

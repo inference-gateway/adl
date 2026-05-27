@@ -28,16 +28,16 @@ first - it explains _when_ you want a skill instead of a tool.
 
 ## Skill fields
 
-| Field         | Type       | Required | Description                                                                           |
-| ------------- | ---------- | :------: | ------------------------------------------------------------------------------------- |
-| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` - kebab-case allowed.      |
-| `version`     | `string`   |          | Version of the published skill to pull from the registry.                             |
-| `source`      | `string`   |          | Registry reference for a published skill.                                             |
-| `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry. |
-| `name`        | `string`   |          | Human-readable name. Typically matches `id`.                                          |
+| Field         | Type       | Required | Description                                                                                                                                                                                          |
+| ------------- | ---------- | :------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | `string`   |    ✓     | Unique identifier. Pattern: `^[a-zA-Z0-9_][a-zA-Z0-9_-]*$` - kebab-case allowed.                                                                                                                     |
+| `version`     | `string`   |          | Version of the published skill to pull from the registry.                                                                                                                                            |
+| `source`      | `string`   |          | Registry reference for a published skill.                                                                                                                                                            |
+| `bare`        | `boolean`  |          | If `true`, scaffold an empty `SKILL.md` locally instead of pulling from the registry.                                                                                                                |
+| `name`        | `string`   |          | Human-readable name. Typically matches `id`.                                                                                                                                                         |
 | `description` | `string`   |          | One-line summary of what the skill teaches. Surfaced to the model in the startup skill listing, so it should read as a recognizable trigger ("how to triage a paged incident", not "incident docs"). |
-| `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).   |
-| `tags`        | `string[]` |          | Discoverability tags.                                                                 |
+| `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).                                                                                                                  |
+| `tags`        | `string[]` |          | Discoverability tags.                                                                                                                                                                                |
 
 `additionalProperties` are not allowed.
 
