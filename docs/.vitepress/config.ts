@@ -17,8 +17,9 @@ export default defineConfig({
     hostname: "https://adl.inference-gateway.com/",
   },
   head: [
-    ["link", { rel: "icon", type: "image/png", href: "/logo.png" }],
-    ["link", { rel: "apple-touch-icon", href: "/logo.png" }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/adl-icon.svg" }],
+    ["link", { rel: "icon", type: "image/x-icon", href: "/adl-favicon.ico" }],
+    ["link", { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" }],
     ["meta", { name: "theme-color", content: "#3c8772" }],
     [
       "meta",

@@ -1,0 +1,65 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>ADL Icon</title>
+  <desc>Clean ADL icon with document outline, A-shaped mark, and connected agent nodes.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020B1D"/>
+      <stop offset="1" stop-color="#071B3E"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="320" y1="700" x2="704" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#05B7FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000814" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="112" fill="url(#bg)"/>
+
+  <g filter="url(#softShadow)">
+    <!-- Document outline -->
+    <path
+      d="M330 184H602C622 184 641 192 655 206L759 310C773 324 781 343 781 363V748C781 799 740 840 689 840H335C284 840 243 799 243 748V271C243 223 282 184 330 184Z"
+      stroke="#F8FAFC"
+      stroke-width="42"
+      stroke-linejoin="round"
+    />
+
+    <!-- Fold line -->
+    <path
+      d="M624 198V326C624 341 636 353 651 353H766"
+      stroke="#F8FAFC"
+      stroke-width="42"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- A mark -->
+    <path
+      d="M348 650L512 322L676 650"
+      stroke="#F8FAFC"
+      stroke-width="46"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Agent/network connections -->
+    <path
+      d="M512 525V650M512 650L360 725M512 650L664 725"
+      stroke="url(#cyan)"
+      stroke-width="42"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Nodes -->
+    <circle cx="512" cy="525" r="48" fill="url(#cyan)"/>
+    <circle cx="512" cy="525" r="22" fill="#071B3E"/>
+    <circle cx="360" cy="725" r="48" fill="url(#cyan)"/>
+    <circle cx="360" cy="725" r="22" fill="#071B3E"/>
+    <circle cx="664" cy="725" r="48" fill="url(#cyan)"/>
+    <circle cx="664" cy="725" r="22" fill="#071B3E"/>
+  </g>
+</svg>
