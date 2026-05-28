@@ -79,10 +79,10 @@ jobs:
 
       - name: Install maintainer skill
         run: |
-          mkdir -p ~/.claude/skills/maintainer
-          curl -fsSL \
-            https://raw.githubusercontent.com/inference-gateway/skills/main/skills/maintainer/SKILL.md \
-            -o ~/.claude/skills/maintainer/SKILL.md
+          mkdir -p ~/.claude/skills
+          rm -rf ~/.claude/skills/maintainer
+          curl -fsSL https://codeload.github.com/inference-gateway/skills/tar.gz/main |
+            tar -xz --strip-components=2 -C ~/.claude/skills skills-main/skills/maintainer
 
       - name: Run Claude Code
         id: claude
