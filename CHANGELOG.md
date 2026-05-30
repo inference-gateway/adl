@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.0](https://github.com/inference-gateway/adl/compare/v0.11.0...v0.12.0) (2026-05-30)
+
+### ✨ Features
+
+* **schema:** add MCP server config to spec.agent ([#28](https://github.com/inference-gateway/adl/issues/28)) ([9fa7101](https://github.com/inference-gateway/adl/commit/9fa71018962fa6d645ed792ced0c634e05f676c5))
+
+### ♻️ Improvements
+
+* **schema:** nest dev AI providers under ai.orchestrators ([#27](https://github.com/inference-gateway/adl/issues/27)) ([bfdf46c](https://github.com/inference-gateway/adl/commit/bfdf46c7414d67b940dcc119a87f702f5269f383))
+
+### 🐛 Bug Fixes
+
+* **docs:** clarify skills vs tools ([633f116](https://github.com/inference-gateway/adl/commit/633f116dad27f2a9556d209562c50639479cf526))
+
+### 👷 CI
+
+* centralize claude.yml via reusable workflow ([#29](https://github.com/inference-gateway/adl/issues/29)) ([b3a1cd1](https://github.com/inference-gateway/adl/commit/b3a1cd120feb535896ab07d94c6cbb56bb6c3fd2))
+* centralize claude.yml via reusable workflow ([#30](https://github.com/inference-gateway/adl/issues/30)) ([b46ad44](https://github.com/inference-gateway/adl/commit/b46ad448873219635b2c94f1fd5a9329f52ad57d))
+* **claude:** download all maintainer skill assets ([843193b](https://github.com/inference-gateway/adl/commit/843193bfea306d95da843e4fdcd99d3a4304b906))
+* **claude:** restore valid effort level and fix node-version input ([#26](https://github.com/inference-gateway/adl/issues/26)) ([6d52e87](https://github.com/inference-gateway/adl/commit/6d52e8777fcead2715366e67eab9ffe716cb8ddd))
+* **claude:** standardize workflow + task-based branch prefix ([c9863ab](https://github.com/inference-gateway/adl/commit/c9863abb48884c4bca16390467a6670ad8aa60a3))
+
+### 📚 Documentation
+
+* fix formatting ([dfb99e1](https://github.com/inference-gateway/adl/commit/dfb99e12d1605573fdf7204016a9877ae894d54a))
+
+### 🎨 Miscellaneous
+
+* improve icons ([ecc6a47](https://github.com/inference-gateway/adl/commit/ecc6a474e15c939db8ebb86fd8a03b877927e4df))
+* use proper icons ([4e1e402](https://github.com/inference-gateway/adl/commit/4e1e402e5312001220051d427ef5fbde08570270))
+
 ## [0.11.0](https://github.com/inference-gateway/adl/compare/v0.10.0...v0.11.0) (2026-05-26)
 
 ### ✨ Features
