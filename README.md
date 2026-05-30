@@ -185,7 +185,7 @@ metadata:
 ### MCP servers
 
 The whole `spec.agent` block is optional - an A2A agent can ship without
-an LLM at all, in which case you simply omit `agent`. When you *do*
+an LLM at all, in which case you simply omit `agent`. When you _do_
 configure an LLM-backed agent, `spec.agent.mcps[]` lets it connect to
 [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) servers
 at runtime, so the model can discover and call external capabilities
