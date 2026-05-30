@@ -88,6 +88,19 @@ spec:
       You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
+    mcps:
+      - name: filesystem
+        transport: stdio
+        command: npx
+        args:
+          - -y
+          - "@modelcontextprotocol/server-filesystem"
+          - /workspace
+      - name: github
+        transport: http
+        url: https://mcp.example.com/github
+        headers:
+          Authorization: Bearer ${GITHUB_MCP_TOKEN}
   tools:
     - id: knowledge_search
       name: knowledge_search
@@ -168,6 +181,53 @@ metadata:
     - support
     - customer-service
 ```
+
+### MCP servers
+
+The whole `spec.agent` block is optional - an A2A agent can ship without
+an LLM at all, in which case you simply omit `agent`. When you _do_
+configure an LLM-backed agent, `spec.agent.mcps[]` lets it connect to
+[MCP](https://modelcontextprotocol.io/) (Model Context Protocol) servers
+at runtime, so the model can discover and call external capabilities
+alongside the locally generated [`spec.tools`](#tools-vs-skills). MCP
+configuration lives under `spec.agent` rather than at the top level
+precisely because it only makes sense when there is a model driving the
+agent.
+
+```yaml
+spec:
+  agent:
+    provider: openai
+    model: gpt-4.1
+    mcps:
+      - name: filesystem
+        transport: stdio
+        command: npx
+        args:
+          - -y
+          - "@modelcontextprotocol/server-filesystem"
+          - /workspace
+      - name: github
+        transport: http
+        url: https://mcp.example.com/github
+        headers:
+          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+```
+
+Each entry requires a `name` (unique within the agent) and a
+`transport`:
+
+- `stdio` launches a local subprocess and talks to it over
+  stdin/stdout. Configure it with `command`, `args`, and `env`.
+- `http` and `sse` connect to a remote endpoint. Configure them with
+  `url` and optional `headers` (e.g. an `Authorization` header).
+
+Mirroring the rest of the schema, the connection fields stay lenient:
+the schema does not force a particular field combination per transport,
+so consumers (e.g. `adl-cli`) decide how strictly to interpret them and
+how to resolve any environment placeholders. New transports may be added
+in future minor versions, so readers should tolerate unknown `transport`
+values.
 
 ### Skill licensing
 
