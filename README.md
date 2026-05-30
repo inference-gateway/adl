@@ -131,16 +131,17 @@ spec:
       devcontainer:
         enabled: false
     ai:
-      claudecode:
-        enabled: true
-      codex:
-        enabled: false
-      gemini:
-        enabled: false
-      opencode:
-        enabled: false
-      infer:
-        enabled: false
+      orchestrators:
+        claudecode:
+          enabled: true
+        codex:
+          enabled: false
+        gemini:
+          enabled: false
+        opencode:
+          enabled: false
+        infer:
+          enabled: false
 ```
 
 ### Agent metadata
@@ -246,21 +247,22 @@ experience for an agent project:
   toggleable; consumers like `adl-cli` use these flags to scaffold the
   matching environment files.
 - `spec.development.ai` configures generation of AI-assistant
-  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of coding
-  agents inside the sandbox. Each supported coding agent is toggled
-  independently via its own subsection, and every agent is disabled by
-  default:
+  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of coding-agent
+  orchestrators inside the sandbox. The orchestrators live under
+  `spec.development.ai.orchestrators`; each supported orchestrator is
+  toggled independently via its own subsection, and every orchestrator is
+  disabled by default:
 
-  | Field                | Coding agent              |
-  | -------------------- | ------------------------- |
-  | `claudecode.enabled` | Anthropic Claude Code     |
-  | `codex.enabled`      | OpenAI Codex              |
-  | `gemini.enabled`     | Google Gemini             |
-  | `opencode.enabled`   | OpenCode                  |
-  | `infer.enabled`      | Inference Gateway `infer` |
+  | Field                              | Orchestrator              |
+  | ---------------------------------- | ------------------------- |
+  | `orchestrators.claudecode.enabled` | Anthropic Claude Code     |
+  | `orchestrators.codex.enabled`      | OpenAI Codex              |
+  | `orchestrators.gemini.enabled`     | Google Gemini             |
+  | `orchestrators.opencode.enabled`   | OpenCode                  |
+  | `orchestrators.infer.enabled`      | Inference Gateway `infer` |
 
-  Multiple agents can be enabled at once if a project wants to ship
-  configuration for more than one.
+  Multiple orchestrators can be enabled at once if a project wants to
+  ship configuration for more than one.
 
 - `spec.development.deps` declares extra packages to install into the
   development sandbox itself (flox, devcontainer, dockerCompose) on top

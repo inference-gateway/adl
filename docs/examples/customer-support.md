@@ -176,8 +176,9 @@ spec:
       devcontainer:
         enabled: false
     ai:
-      claudecode:
-        enabled: true
+      orchestrators:
+        claudecode:
+          enabled: true
     deps:
       - kubectl@1.31.0
 
