@@ -75,7 +75,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          version: "lts/*"
+          node-version: "lts/*"
 
       - name: Install maintainer skill
         run: |
@@ -113,7 +113,7 @@ jobs:
           base_branch: main
           branch_prefix: ${{ steps.prefix.outputs.value }}
           claude_args: |
-            --effort ultracode
+            --effort max
             --model claude-opus-4-8
             --allowedTools "Bash(task:*),Bash(node:*),Bash(gh:*),Bash(git:*),mcp__playwright,mcp__context7"
           prompt: |
