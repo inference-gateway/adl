@@ -84,6 +84,23 @@ jobs:
           curl -fsSL https://codeload.github.com/inference-gateway/skills/tar.gz/main |
             tar -xz --strip-components=2 -C ~/.claude/skills skills-main/skills/maintainer
 
+      - name: Determine branch prefix
+        id: prefix
+        env:
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ',') }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          text="$(printf '%s %s' "$ISSUE_LABELS" "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]')"
+          case "$text" in
+            *bug*|*fix*|*defect*|*regression*|*hotfix*) prefix="fix/" ;;
+            *feat*|*feature*|*enhancement*)             prefix="feat/" ;;
+            *docs*|*documentation*)                     prefix="docs/" ;;
+            *refactor*)                                 prefix="refactor/" ;;
+            *)                                          prefix="claude/" ;;
+          esac
+          echo "Resolved branch prefix: $prefix"
+          echo "value=$prefix" >> "$GITHUB_OUTPUT"
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1.0.133
@@ -94,8 +111,35 @@ jobs:
             actions: read
           use_commit_signing: true
           base_branch: main
-          branch_prefix: "claude/"
+          branch_prefix: ${{ steps.prefix.outputs.value }}
           claude_args: |
-            --effort max
-            --model claude-opus-4-7
+            --effort ultracode
+            --model claude-opus-4-8
             --allowedTools "Bash(task:*),Bash(node:*),Bash(gh:*),Bash(git:*),mcp__playwright,mcp__context7"
+          prompt: |
+            **IMPORTANT - WHEN WORKING ON ISSUES:**
+            After you finish implementing the code changes and committing them, create a pull request:
+            ```
+            gh pr create --title "Your descriptive title" --body "## Summary
+            Your summary of what was implemented.
+
+            Closes #${{ github.event.issue.number }}"
+            ```
+            Always include a summary of changes AND "Closes #${{ github.event.issue.number }}" in the body.
+
+            **COMMIT RULES:**
+            - Do NOT add "Co-authored-by" lines to commits
+            - Do NOT add "Generated with Claude Code" or similar attributions
+            - Keep commits clean and professional
+
+            **WHEN WORKING ON PR FEEDBACK:**
+            Make the requested changes and commit. The PR will automatically update - do NOT create a new PR.
+
+            **WHEN FIXING CI FAILURES:**
+            Fix the issues, commit the fix. The CI will automatically re-run.
+
+            **OUTPUT RULES:**
+
+            ## Commit Message Requirements (max 72 chars)
+            - Use conventional commit format with lowercase type (e.g., "fix:", "feat:", "refactor:")
+          track_progress: true
