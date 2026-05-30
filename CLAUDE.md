@@ -32,7 +32,7 @@ ADL distinguishes two ways an agent can act, and the schema models them as separ
 - **`spec.tools[]`** — function-call entrypoints with a JSON Schema for inputs. Consumers (e.g. `adl-cli`) generate code stubs in the target language. Use for deterministic operations (DB query, API call).
 - **`spec.skills[]`** — markdown playbooks injected into the agent's system prompt at startup. Sourced from the skills registry or scaffolded blank with `bare: true`. Carry an SPDX `license` field (or `Proprietary`). Use for workflows/policies expressed in natural language.
 
-Other notable shapes: `spec.language.<lang>.vendor.{deps,devdeps}` for extra packages per target language, and `spec.development.{sandbox,ai,deps}` for sandbox (flox/devcontainer/dockerCompose) and coding-agent (`claudecode`, `codex`, `gemini`, `opencode`, `infer`) provisioning. The schema only validates the `<package>@<version>` shape for dep entries — language- and sandbox-native package syntax is intentionally not constrained further.
+Other notable shapes: `spec.language.<lang>.vendor.{deps,devdeps}` for extra packages per target language, and `spec.development.{sandbox,ai,deps}` for sandbox (flox/devcontainer/dockerCompose) and coding-agent orchestrator (`ai.orchestrators.{claudecode,codex,gemini,opencode,infer}`) provisioning. The schema only validates the `<package>@<version>` shape for dep entries — language- and sandbox-native package syntax is intentionally not constrained further.
 
 ## Non-obvious rules (read before editing the schema)
 

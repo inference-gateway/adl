@@ -398,7 +398,14 @@
     },
     "AIConfig": {
       "type": "object",
-      "description": "Configures generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding agents (Claude Code, Codex, Gemini, OpenCode, Infer, ...) inside sandbox environments. Each coding agent is toggled independently via its own subsection; by default every agent is disabled.",
+      "description": "Configures AI-assistant integration for the agent project: generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding-agent orchestrators inside sandbox environments.",
+      "properties": {
+        "orchestrators": { "$ref": "#/definitions/OrchestratorsConfig" }
+      }
+    },
+    "OrchestratorsConfig": {
+      "type": "object",
+      "description": "Coding-agent orchestrators to provision inside the sandbox (Claude Code, Codex, Gemini, OpenCode, Infer, ...). Each orchestrator is toggled independently via its own subsection; by default every orchestrator is disabled.",
       "properties": {
         "claudecode": { "$ref": "#/definitions/ClaudeCodeConfig" },
         "codex": { "$ref": "#/definitions/CodexConfig" },
