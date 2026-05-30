@@ -162,6 +162,52 @@
           "type": "number",
           "minimum": 0,
           "maximum": 2
+        },
+        "mcps": {
+          "type": "array",
+          "description": "MCP (Model Context Protocol) servers the agent connects to at runtime to discover and call external tools and capabilities, in addition to the locally generated 'spec.tools'. Only meaningful for an LLM-backed agent: A2A itself does not require an LLM, so this lives under 'spec.agent'. Each entry declares a transport plus the connection details for that transport.",
+          "items": { "$ref": "#/definitions/MCP" }
+        }
+      }
+    },
+    "MCP": {
+      "type": "object",
+      "description": "A single MCP (Model Context Protocol) server the agent can connect to. 'stdio' launches a local subprocess and talks over stdin/stdout (use 'command', 'args', and 'env'); 'http' and 'sse' connect to a remote endpoint (use 'url' and 'headers'). Connection details that do not apply to the chosen transport are simply omitted; the schema does not constrain which combination is present so consumers can stay lenient.",
+      "required": ["name", "transport"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Identifier for the MCP server, unique within the agent. Consumers typically use it to namespace the tools the server exposes.",
+          "pattern": "^[a-zA-Z0-9_-]+$"
+        },
+        "transport": {
+          "type": "string",
+          "description": "How the agent connects to the MCP server. New transports may be added in future minor versions; consumers should be lenient about unknown values.",
+          "enum": ["stdio", "sse", "http"]
+        },
+        "command": {
+          "type": "string",
+          "description": "Executable to launch for a 'stdio' server (e.g. 'npx', 'uvx', 'docker'). Ignored by remote transports."
+        },
+        "args": {
+          "type": "array",
+          "description": "Arguments passed to 'command' when launching a 'stdio' server.",
+          "items": { "type": "string" }
+        },
+        "env": {
+          "type": "object",
+          "description": "Environment variables set when launching a 'stdio' server (e.g. API keys or tokens the server needs).",
+          "additionalProperties": { "type": "string" }
+        },
+        "url": {
+          "type": "string",
+          "description": "Endpoint URL for an 'http' or 'sse' server. Ignored by the 'stdio' transport."
+        },
+        "headers": {
+          "type": "object",
+          "description": "Extra HTTP headers sent when connecting to an 'http' or 'sse' server (e.g. 'Authorization').",
+          "additionalProperties": { "type": "string" }
         }
       }
     },

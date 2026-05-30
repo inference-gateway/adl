@@ -1,8 +1,8 @@
 # Customer Support Agent
 
 A realistic manifest with most of the optional blocks turned on:
-provider/model selection, tools, skills, services, a flox sandbox with
-Claude Code provisioned, and CD targeting Cloud Run.
+provider/model selection, MCP servers, tools, skills, services, a flox
+sandbox with Claude Code provisioned, and CD targeting Cloud Run.
 
 ```yaml
 apiVersion: adl.inference-gateway.com/v1
@@ -46,6 +46,19 @@ spec:
       `escalate_ticket` tool when you can't resolve an issue.
     maxTokens: 4096
     temperature: 0.3
+    mcps:
+      - name: filesystem
+        transport: stdio
+        command: npx
+        args:
+          - -y
+          - "@modelcontextprotocol/server-filesystem"
+          - /workspace
+      - name: docs
+        transport: http
+        url: https://mcp.acme.example/docs
+        headers:
+          Authorization: Bearer ${DOCS_MCP_TOKEN}
 
   services:
     customerRepo:
@@ -212,6 +225,9 @@ spec:
   retrieval call; `get_customer` and `escalate_ticket` use
   [`inject`](/reference/tools#inject) to receive typed service handles
   from `spec.services`.
+- **Two MCP servers, two transports.** `filesystem` runs locally over
+  `stdio`; `docs` is a remote `http` server reached with a bearer token.
+  See [`spec.agent.mcps`](/reference/agent#mcps).
 - **Two skills, two licences.** `incident-response` is open-source
   (Apache-2.0); `refund-policy` is `Proprietary`. The licences ride
   along in the generated `SKILL.md` frontmatter.
