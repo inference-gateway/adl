@@ -4,9 +4,9 @@ LLM-side configuration: which provider, which model, the system prompt,
 standard sampling knobs, and any [MCP servers](#mcps) the agent connects
 to.
 
-The whole block is **optional**. A2A does not require an LLM, so an agent
-can ship without one - just omit `spec.agent` entirely. Everything inside
-it is optional too, so a bare `agent: {}` is also valid.
+The whole block is **optional**. [A2A](/guide/a2a) does not require an LLM,
+so an agent can ship without one - just omit `spec.agent` entirely.
+Everything inside it is optional too, so a bare `agent: {}` is also valid.
 
 ```yaml
 spec:

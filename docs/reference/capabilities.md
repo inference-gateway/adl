@@ -4,6 +4,10 @@ Declares which protocol-level capabilities the agent supports. All three
 fields are required so the schema makes the agent's contract explicit -
 a runtime should never need to _guess_ whether streaming is on.
 
+These are the [A2A](/guide/a2a) `AgentCard` capability flags - what a
+caller reads off the agent's card before connecting. See
+[A2A & the Agent Card](/guide/a2a) for what each flag means to a client.
+
 ```yaml
 spec:
   capabilities:
