@@ -2,7 +2,8 @@
 
 Copy-pasteable ADL manifests for common shapes. Validate any of them
 with the same workflow described in
-[Getting Started](/guide/getting-started).
+[Getting Started](/guide/getting-started), then feed them to a generator
+to get a running agent - see [Generate & Run](/guide/generate).
 
 | Example                                            | What it shows                                                            |
 | -------------------------------------------------- | ------------------------------------------------------------------------ |

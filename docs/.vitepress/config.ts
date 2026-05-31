@@ -96,6 +96,7 @@ export default defineConfig({
           items: [
             { text: "What is ADL?", link: "/guide/introduction" },
             { text: "Getting Started", link: "/guide/getting-started" },
+            { text: "Generate & Run", link: "/guide/generate" },
             { text: "Tools vs Skills", link: "/guide/tools-vs-skills" },
             { text: "Versioning", link: "/guide/versioning" },
             { text: "Glossary", link: "/guide/glossary" },

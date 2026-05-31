@@ -85,6 +85,8 @@ load and execute the agent.
 
 - [Getting Started](/guide/getting-started) - install the validator and
   write your first manifest.
+- [Generate & Run](/guide/generate) - turn that manifest into a running
+  agent with `adl-cli`.
 - [Tools vs Skills](/guide/tools-vs-skills) - the single most important
   concept in ADL.
 - [Schema Reference](/reference/) - every field, what it does, and how it
