@@ -89,3 +89,5 @@ load and execute the agent.
   concept in ADL.
 - [Schema Reference](/reference/) - every field, what it does, and how it
   validates.
+- [Glossary](/guide/glossary) - one-line definitions of the cross-cutting
+  terms used throughout these docs.

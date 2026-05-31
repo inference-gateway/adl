@@ -2,6 +2,11 @@
 
 A list of acronyms the generator should respect when producing identifiers.
 
+> **Not a glossary.** This page documents a schema field. For one-line
+> definitions of the cross-cutting terms used across these docs -
+> consumer, generator, MCP, SPDX, and so on - see the
+> [Glossary](/guide/glossary).
+
 ```yaml
 spec:
   acronyms:

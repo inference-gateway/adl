@@ -98,6 +98,7 @@ export default defineConfig({
             { text: "Getting Started", link: "/guide/getting-started" },
             { text: "Tools vs Skills", link: "/guide/tools-vs-skills" },
             { text: "Versioning", link: "/guide/versioning" },
+            { text: "Glossary", link: "/guide/glossary" },
           ],
         },
       ],
