@@ -21,7 +21,7 @@ spec: # required
   language: { ... } # required
   # optional: card, agent, config, services, acronyms,
   #           tools, skills, artifacts, hooks, scm,
-  #           development, deployment
+  #           development, deployment, telemetry
 ```
 
 ## Top-level
@@ -52,6 +52,7 @@ spec: # required
 | `scm`          |          | [scm](./scm)                   |
 | `development`  |          | [development](./development)   |
 | `deployment`   |          | [deployment](./deployment)     |
+| `telemetry`    |          | [telemetry](./telemetry)       |
 
 ## Appendix
 
