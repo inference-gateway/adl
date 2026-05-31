@@ -229,6 +229,13 @@ how to resolve any environment placeholders. New transports may be added
 in future minor versions, so readers should tolerate unknown `transport`
 values.
 
+Placeholders such as `${GITHUB_MCP_TOKEN}` are resolved by the consumer
+at deploy/run time, not by the schema - and the LLM provider API key is
+never stored in the manifest either; it is supplied at runtime as an
+environment variable by the generated project. See
+[Secrets & interpolation](./docs/reference/secrets.md) for the full
+convention.
+
 ### Skill licensing
 
 Each entry in `spec.skills[]` accepts an optional `license` string. It carries the licence under which the skill is distributed and must be drawn from the schema's accepted set of [SPDX](https://spdx.org/licenses/) identifiers, or `Proprietary` for closed-source skills.

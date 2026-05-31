@@ -38,3 +38,10 @@ that doesn't fit a typed slot elsewhere. Generators pass the contents
 straight through to the agent's runtime config layer. If a particular
 key becomes common across agents, it's a candidate to graduate into a
 proper typed field in a future minor schema version.
+
+## Secrets & placeholders
+
+Because `config` accepts any value, it is a tempting place to drop an
+API key - don't. Reference secrets with `${VAR}` placeholders and let
+the consumer resolve them at runtime; the schema treats the placeholder
+as an opaque string. See [Secrets & interpolation](./secrets).

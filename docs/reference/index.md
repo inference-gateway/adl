@@ -55,5 +55,8 @@ spec: # required
 
 ## Appendix
 
+- [Secrets & interpolation](./secrets) - the `${VAR}` placeholder
+  convention, which fields carry it, and where the LLM provider
+  credential comes from (a runtime env var, not the manifest).
 - [License identifiers](./license-identifiers) - the accepted SPDX set
   for `metadata.license` and `spec.skills[].license`.
