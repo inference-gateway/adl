@@ -45,6 +45,11 @@ that defer provider selection to deploy time.
 New providers may be added in future **minor** schema versions. Consumers
 should be lenient about unknown values when reading newer manifests.
 
+There is no API-key field here. `provider` and `model` select _which_
+LLM to use; the credential is injected at runtime as an environment
+variable by the generated project, never stored in the manifest. See
+[Secrets & interpolation](./secrets).
+
 ## `model`
 
 - **Type:** `string`
@@ -138,6 +143,8 @@ Only `name` and `transport` are required; the remaining fields are the
 connection details for the chosen transport. The schema intentionally
 does **not** enforce which combination is present for a given transport,
 so consumers stay lenient and decide how to resolve environment
-placeholders such as `${GITHUB_MCP_TOKEN}`. New `transport` values may be
-added in future **minor** schema versions; consumers should tolerate
-unknown values when reading newer manifests.
+placeholders such as `${GITHUB_MCP_TOKEN}` - see
+[Secrets & interpolation](./secrets) for the convention and where
+credentials come from. New `transport` values may be added in future
+**minor** schema versions; consumers should tolerate unknown values when
+reading newer manifests.

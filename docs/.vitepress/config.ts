@@ -136,6 +136,10 @@ export default defineConfig({
           text: "Appendix",
           items: [
             {
+              text: "Secrets & interpolation",
+              link: "/reference/secrets",
+            },
+            {
               text: "License identifiers",
               link: "/reference/license-identifiers",
             },

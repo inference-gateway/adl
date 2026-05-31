@@ -62,7 +62,8 @@ spec:
 - **`http` reaches a remote endpoint.** `github` is a remote server
   addressed by `url`, with `headers` carrying an `Authorization` token.
   Placeholders like `${GITHUB_MCP_TOKEN}` are resolved by the consumer -
-  the schema doesn't interpret them.
+  the schema doesn't interpret them. See
+  [Secrets & interpolation](/reference/secrets).
 - **Only `name` + `transport` are required.** The remaining fields are
   the connection details for the chosen transport; the schema doesn't
   enforce which combination is present, so consumers stay lenient.

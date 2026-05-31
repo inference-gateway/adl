@@ -81,6 +81,13 @@ spec:
 | `service`     | [Service](#cloud-run-service)           |
 | `environment` | `{ [key: string]: string }` - env vars. |
 
+`environment` is injected into the running service and commonly carries
+both configuration and secrets. Never inline a real secret here -
+reference it with a `${VAR}` placeholder and let your deploy pipeline
+supply the value. See [Secrets & interpolation](./secrets). (The
+`kubernetes` target has no `environment` map of its own; the generator's
+templating owns the Deployment's `env` / `envFrom`.)
+
 ### Resources {#cloud-run-resources}
 
 | Field    | Type     | Description                                |
