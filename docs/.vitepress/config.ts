@@ -146,11 +146,22 @@ export default defineConfig({
           text: "Examples",
           items: [
             { text: "Overview", link: "/examples/" },
+            { text: "Minimal Agent", link: "/examples/minimal" },
+            { text: "A2A Agent Without an LLM", link: "/examples/no-llm" },
+            {
+              text: "Services & Injection",
+              link: "/examples/services-injection",
+            },
+            { text: "MCP-Connected Agent", link: "/examples/mcp" },
+            {
+              text: "Registry Skills & Bare Skills",
+              link: "/examples/skills-registry",
+            },
+            { text: "Deployment Targets", link: "/examples/deployment" },
             {
               text: "Customer Support Agent",
               link: "/examples/customer-support",
             },
-            { text: "Minimal Agent", link: "/examples/minimal" },
           ],
         },
       ],
