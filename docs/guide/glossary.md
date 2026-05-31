@@ -11,15 +11,16 @@ entry links to the page where the concept is covered in full.
 
 The agent-to-agent protocol that ADL manifests describe: how an agent
 advertises its capabilities and exchanges messages with clients and other
-agents. An A2A agent does not require an LLM. A dedicated A2A concepts
-page is planned; until then, [`spec.agent`](/reference/agent) shows where
-it surfaces.
+agents. An A2A agent does not require an LLM. See
+[A2A & the Agent Card](/guide/a2a).
 
 ## AgentCard
 
 The public, protocol-level description of a deployed agent - endpoint URL,
 protocol version, and supported input/output modes - surfaced to clients
-and registries. Declared under [`spec.card`](/reference/card).
+and registries. Declared under
+[`spec.capabilities`](/reference/capabilities) and
+[`spec.card`](/reference/card); see [A2A & the Agent Card](/guide/a2a).
 
 ## consumer
 

@@ -4,6 +4,10 @@ Optional protocol-card metadata. Surfaces information consumers need to
 _talk to_ the deployed agent - protocol version, endpoint URL, supported
 input/output modes, and documentation links.
 
+These fields populate the [A2A](/guide/a2a) `AgentCard` the generator
+serves at `/.well-known/agent-card.json`. See
+[A2A & the Agent Card](/guide/a2a) for the full ADL → `AgentCard` mapping.
+
 ```yaml
 spec:
   card:
