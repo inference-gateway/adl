@@ -71,12 +71,16 @@ spec:
 
 Feed that file into [`adl-cli`](https://github.com/inference-gateway/adl-cli) and
 get a complete agent project - server, handlers, tests, sandbox, CI, and
-deployment manifests - in the language of your choice.
+deployment manifests - in the language of your choice. The
+[Generate & Run](/guide/generate) guide walks the whole path, from
+install to a server answering on `localhost`.
 
 ## Where to go next
 
 - **New to ADL?** Start with [What is ADL?](/guide/introduction) and then
   [Getting Started](/guide/getting-started).
+- **Want a running agent?** Follow [Generate & Run](/guide/generate) from
+  manifest to `localhost`.
 - **Looking up a specific field?** Jump into the
   [Schema Reference](/reference/).
 - **Want to see real manifests?** Browse the

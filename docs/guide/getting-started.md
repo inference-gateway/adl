@@ -75,16 +75,34 @@ vars:
   ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_REF}}/schema/v1/schema.json
 ```
 
-## 4. Generate a project (optional)
+## 4. Generate and run a project
 
-If you want code, not just a manifest, feed your YAML to
-[`adl-cli`](https://github.com/inference-gateway/adl-cli) - the reference
-generator. It emits a complete agent project (server, handlers, tests,
-sandbox, CI, and deployment manifests) in the language you chose under
-`spec.language`.
+A valid manifest is the input to a **consumer** - a tool that turns ADL
+into something runnable. The reference consumer is
+[`adl-cli`](https://github.com/inference-gateway/adl-cli), which emits a
+complete agent project (server, tool stubs, skills, sandbox, CI, and
+deployment manifests) in the language you set under `spec.language`. The
+short version:
+
+```sh
+# install the generator
+curl -fsSL https://raw.githubusercontent.com/inference-gateway/adl-cli/main/install.sh | bash
+
+# manifest -> project
+adl generate --file agent.yaml --output ./hello-agent
+
+# build and run
+cd hello-agent && task build && task run
+```
+
+For the full walkthrough - what each generated file maps back to in your
+spec, and how to run the agent locally - continue to
+**[Generate & Run](/guide/generate)**.
 
 ## What to read next
 
+- [Generate & Run](/guide/generate) - take this manifest all the way to a
+  running agent.
 - [Tools vs Skills](/guide/tools-vs-skills) - the most important concept
   in ADL, and the one most people get wrong on first read.
 - [Reference: `metadata`](/reference/metadata) and
