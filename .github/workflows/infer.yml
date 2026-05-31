@@ -1,0 +1,34 @@
+---
+name: Infer
+
+# Thin caller for the org-wide reusable @infer workflow.
+# Source of truth: inference-gateway/.github/.github/workflows/infer.yml
+# Inputs are managed centrally in inference-gateway/.github/repos.yaml (the entry's orchestrators.infer block).
+# Do not hand-edit setup here; change the reusable workflow or repos.yaml instead.
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  infer:
+    if: |
+      github.event.sender.type != 'Bot' &&
+      !endsWith(github.actor, '[bot]') &&
+      (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@infer')) ||
+        (github.event_name == 'issues' && (contains(github.event.issue.body, '@infer') || contains(github.event.issue.title, '@infer')))
+      )
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    uses: inference-gateway/.github/.github/workflows/infer.yml@v0.3.2
+    with:
+      language: "node"
+    secrets: inherit
