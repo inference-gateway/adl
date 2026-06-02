@@ -4,3 +4,4 @@ CLAUDE.md
 .infer
 docs/.vitepress
 .github/workflows/claude.yml
+.github/workflows/infer.yml
