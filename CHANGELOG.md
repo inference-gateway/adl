@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.0](https://github.com/inference-gateway/adl/compare/v0.12.0...v0.13.0) (2026-06-02)
+
+### ✨ Features
+
+* add vercel as a deployment strategy (spec.deployment.type: vercel) ([#48](https://github.com/inference-gateway/adl/issues/48)) ([b1e74cd](https://github.com/inference-gateway/adl/commit/b1e74cd0c07c173f6d5efcffda697d2893d43d10))
+
+### 👷 CI
+
+* centralize claude.yml via reusable workflow ([#42](https://github.com/inference-gateway/adl/issues/42)) ([1227996](https://github.com/inference-gateway/adl/commit/12279964409af696be8f2b543b67d3755163dd7a))
+* centralize infer.yml + bump infer CLI and sync .infer config ([#46](https://github.com/inference-gateway/adl/issues/46)) ([70dc60a](https://github.com/inference-gateway/adl/commit/70dc60a9a3e56a42d8830cb8411861b4f2085ea5))
+* centralize infer.yml + sync .infer config ([#44](https://github.com/inference-gateway/adl/issues/44)) ([0db8d7a](https://github.com/inference-gateway/adl/commit/0db8d7a8c3024a2f49a4875e3bfbda26db4f6ef9))
+* centralize infer.yml via reusable workflow ([#43](https://github.com/inference-gateway/adl/issues/43)) ([b6c5477](https://github.com/inference-gateway/adl/commit/b6c54779221a7590d19d5db465e4836628e3ff36))
+* **infer:** centralize infer.yml + bump infer CLI and sync .infer config ([#47](https://github.com/inference-gateway/adl/issues/47)) ([2de1bf8](https://github.com/inference-gateway/adl/commit/2de1bf81ffa40d298c7199ef571a082887a08c01))
+
+### 📚 Documentation
+
+* add manifest-to-running-agent quickstart guide ([#38](https://github.com/inference-gateway/adl/issues/38)) ([196a3ed](https://github.com/inference-gateway/adl/commit/196a3ed969a50ce53ad00849c6c7f60f942b0ae6))
+* add no-LLM, services, deployment, skills, MCP examples ([#36](https://github.com/inference-gateway/adl/issues/36)) ([9953689](https://github.com/inference-gateway/adl/commit/995368921a0334ab1e4017b9b16ba77be71d7cd0))
+* add terminology glossary for cross-cutting concepts ([#37](https://github.com/inference-gateway/adl/issues/37)) ([d4ad470](https://github.com/inference-gateway/adl/commit/d4ad4709f7a18537091800656bdabb6c9d7d772e))
+* document secrets and env-var interpolation ([#39](https://github.com/inference-gateway/adl/issues/39)) ([4dc57b5](https://github.com/inference-gateway/adl/commit/4dc57b58e186d99916f85855e5b3b221cddbcf75))
+* explain the A2A protocol and how capabilities/card map to it ([#40](https://github.com/inference-gateway/adl/issues/40)) ([11abb9a](https://github.com/inference-gateway/adl/commit/11abb9a83f446ef0120f1a2d9bdbf5a2fe808c13))
+
+### 🔧 Miscellaneous
+
+* add infer.yml to prettier ignore list ([acf7758](https://github.com/inference-gateway/adl/commit/acf77584f00034a6e5a76f3720fc1c822d6cd359))
+* **deps:** bump infer CLI v0.117.0 -> v0.117.1, infer-action v0.9.1 -> v0.11.1 ([#49](https://github.com/inference-gateway/adl/issues/49)) ([9c16ea5](https://github.com/inference-gateway/adl/commit/9c16ea56a78a264d8a38c2625b033cafcf45420f))
+
 ## [0.12.0](https://github.com/inference-gateway/adl/compare/v0.11.0...v0.12.0) (2026-05-30)
 
 ### ✨ Features
