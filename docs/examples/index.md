@@ -12,5 +12,5 @@ to get a running agent - see [Generate & Run](/guide/generate).
 | [Services & Injection](./services-injection)       | Wire `spec.services` into tools with `inject` - the DI seam end to end.  |
 | [MCP-Connected Agent](./mcp)                       | An LLM agent reaching MCP servers over both `stdio` and `http`.          |
 | [Registry Skills & Bare Skills](./skills-registry) | Registry skills (`source` + `version`) next to a `bare: true` skill.     |
-| [Deployment Targets](./deployment)                 | `spec.deployment` for both Kubernetes and Cloud Run.                     |
+| [Deployment Targets](./deployment)                 | `spec.deployment` for Kubernetes, Cloud Run, and Vercel.                 |
 | [Customer Support Agent](./customer-support)       | A realistic agent with tools, skills, services, dev sandbox, and CD.     |
