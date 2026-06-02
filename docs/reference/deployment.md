@@ -16,12 +16,12 @@ spec:
 
 ## Fields
 
-| Field        | Type     | Required | Description                                                    |
-| ------------ | -------- | :------: | -------------------------------------------------------------- |
+| Field        | Type     | Required | Description                                                              |
+| ------------ | -------- | :------: | ------------------------------------------------------------------------ |
 | `type`       | `string` |          | enum: `kubernetes`, `cloudrun`, `vercel`. Selects the deployment target. |
-| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                 |
-| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                   |
-| `vercel`     | `object` |          | See [Vercel](#vercel).                                         |
+| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                           |
+| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                             |
+| `vercel`     | `object` |          | See [Vercel](#vercel).                                                   |
 
 ## Kubernetes {#kubernetes}
 
@@ -131,15 +131,15 @@ spec:
         LOG_LEVEL: info
 ```
 
-| Field         | Reference                                                     |
-| ------------- | ------------------------------------------------------------- |
-| `project`     | `string` - Vercel project name.                               |
-| `team`        | `string` - Vercel team ID or slug the project belongs to.     |
+| Field         | Reference                                                                 |
+| ------------- | ------------------------------------------------------------------------- |
+| `project`     | `string` - Vercel project name.                                           |
+| `team`        | `string` - Vercel team ID or slug the project belongs to.                 |
 | `framework`   | `string` - Framework identifier (e.g. `nextjs`). Omit for auto-detection. |
-| `runtime`     | `string` - enum: `nodejs`, `edge`. Vercel function runtime.   |
-| `regions`     | `string[]` - Region identifiers (e.g. `iad1`).                |
-| `functions`   | `object` - [Functions](#vercel-functions) configuration.       |
-| `environment` | `{ [key: string]: string }` - Environment variables.          |
+| `runtime`     | `string` - enum: `nodejs`, `edge`. Vercel function runtime.               |
+| `regions`     | `string[]` - Region identifiers (e.g. `iad1`).                            |
+| `functions`   | `object` - [Functions](#vercel-functions) configuration.                  |
+| `environment` | `{ [key: string]: string }` - Environment variables.                      |
 
 Unlike `kubernetes` and `cloudrun` which deploy a prebuilt container
 image, Vercel deploys from source via its own build pipeline. There is

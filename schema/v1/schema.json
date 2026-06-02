@@ -590,8 +590,14 @@
       "description": "Configuration for deploying to Vercel. Unlike kubernetes/cloudrun which deploy prebuilt container images, Vercel deploys from source via its own build pipeline.",
       "properties": {
         "project": { "type": "string", "description": "Vercel project name." },
-        "team": { "type": "string", "description": "Vercel team ID or slug the project belongs to." },
-        "framework": { "type": "string", "description": "Vercel framework identifier (e.g. \"nextjs\", \"nuxtjs\"). When omitted Vercel auto-detects." },
+        "team": {
+          "type": "string",
+          "description": "Vercel team ID or slug the project belongs to."
+        },
+        "framework": {
+          "type": "string",
+          "description": "Vercel framework identifier (e.g. \"nextjs\", \"nuxtjs\"). When omitted Vercel auto-detects."
+        },
         "runtime": {
           "type": "string",
           "description": "Vercel function runtime. \"nodejs\" for the serverless Node.js runtime (supports full Node API); \"edge\" for the Edge runtime (limited API, runs in V8 isolates at the edge).",
@@ -606,8 +612,14 @@
           "type": "object",
           "description": "Configuration for Vercel serverless functions.",
           "properties": {
-            "memory": { "type": "integer", "description": "Memory limit in MB (e.g. 1024)." },
-            "maxDuration": { "type": "integer", "description": "Maximum function execution time in seconds." }
+            "memory": {
+              "type": "integer",
+              "description": "Memory limit in MB (e.g. 1024)."
+            },
+            "maxDuration": {
+              "type": "integer",
+              "description": "Maximum function execution time in seconds."
+            }
           }
         },
         "environment": {
