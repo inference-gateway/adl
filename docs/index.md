@@ -31,7 +31,7 @@ features:
     details: First-class flox, devcontainer, and docker-compose support. Provision Claude Code, Codex, Gemini, OpenCode, or Infer into the sandbox out of the box.
   - icon: 🚀
     title: Deployment built-in
-    details: Generate Kubernetes manifests or Cloud Run service configs from the same source of truth, with image, scaling, and resource constraints declaratively expressed.
+    details: Generate Kubernetes manifests, Cloud Run service configs, or Vercel project configuration from the same source of truth, with image, scaling, and resource constraints declaratively expressed.
   - icon: 🔒
     title: Strict additive contract
     details: Inside a major version, only backwards-compatible additions are allowed. Tagged schema files are immutable. Consumers pin a tag and stay safe.

@@ -18,9 +18,10 @@ spec:
 
 | Field        | Type     | Required | Description                                                    |
 | ------------ | -------- | :------: | -------------------------------------------------------------- |
-| `type`       | `string` |          | enum: `kubernetes`, `cloudrun`. Selects the deployment target. |
+| `type`       | `string` |          | enum: `kubernetes`, `cloudrun`, `vercel`. Selects the deployment target. |
 | `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                 |
 | `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                   |
+| `vercel`     | `object` |          | See [Vercel](#vercel).                                         |
 
 ## Kubernetes {#kubernetes}
 
@@ -112,9 +113,54 @@ templating owns the Deployment's `env` / `envFrom`.)
 | `serviceAccount`       | `string`  | GCP service-account email the service runs as.         |
 | `executionEnvironment` | `string`  | Cloud Run execution environment (e.g. `gen1`, `gen2`). |
 
+## Vercel {#vercel}
+
+```yaml
+spec:
+  deployment:
+    type: vercel
+    vercel:
+      project: customer-support-agent
+      team: acme
+      runtime: nodejs
+      regions: [iad1]
+      functions:
+        memory: 1024
+        maxDuration: 60
+      environment:
+        LOG_LEVEL: info
+```
+
+| Field         | Reference                                                     |
+| ------------- | ------------------------------------------------------------- |
+| `project`     | `string` - Vercel project name.                               |
+| `team`        | `string` - Vercel team ID or slug the project belongs to.     |
+| `framework`   | `string` - Framework identifier (e.g. `nextjs`). Omit for auto-detection. |
+| `runtime`     | `string` - enum: `nodejs`, `edge`. Vercel function runtime.   |
+| `regions`     | `string[]` - Region identifiers (e.g. `iad1`).                |
+| `functions`   | `object` - [Functions](#vercel-functions) configuration.       |
+| `environment` | `{ [key: string]: string }` - Environment variables.          |
+
+Unlike `kubernetes` and `cloudrun` which deploy a prebuilt container
+image, Vercel deploys from source via its own build pipeline. There is
+no `image` sub-block – the build is managed by Vercel based on the
+project's framework and root directory.
+
+`environment` is injected at deploy time and commonly carries both
+configuration and secrets. Never inline a real secret here - reference
+it with a `${VAR}` placeholder and let your deploy pipeline supply the
+value. See [Secrets & interpolation](./secrets).
+
+### Functions {#vercel-functions}
+
+| Field         | Type      | Description                                             |
+| ------------- | --------- | ------------------------------------------------------- |
+| `memory`      | `integer` | Memory limit per function invocation in MB (e.g. 1024). |
+| `maxDuration` | `integer` | Maximum execution time in seconds.                      |
+
 ## Image {#image}
 
-Used by both the `kubernetes` and `cloudrun` sub-blocks.
+Used by the `kubernetes` and `cloudrun` sub-blocks only.
 
 | Field           | Type      | Description                                                                                                   |
 | --------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
