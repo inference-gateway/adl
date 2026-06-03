@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.0](https://github.com/inference-gateway/adl/compare/v0.13.0...v0.14.0) (2026-06-03)
+
+### ✨ Features
+
+* add spec.telemetry.enabled to toggle opentelemetry ([#41](https://github.com/inference-gateway/adl/issues/41)) ([73d6971](https://github.com/inference-gateway/adl/commit/73d6971d51ffff5e5dc124907fd27bbae98b816b))
+
 ## [0.13.0](https://github.com/inference-gateway/adl/compare/v0.12.0...v0.13.0) (2026-06-02)
 
 ### ✨ Features
