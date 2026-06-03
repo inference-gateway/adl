@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.15.0](https://github.com/inference-gateway/adl/compare/v0.14.0...v0.15.0) (2026-06-03)
+
+### ✨ Features
+
+* add cohere, cloudflare, moonshot, ollama_cloud providers ([#55](https://github.com/inference-gateway/adl/issues/55)) ([1ec1174](https://github.com/inference-gateway/adl/commit/1ec1174461f08d68d8dde574bf2734b07d534fbf))
+
+### 👷 CI
+
+* centralize claude.yml via reusable workflow ([#51](https://github.com/inference-gateway/adl/issues/51)) ([56e3be4](https://github.com/inference-gateway/adl/commit/56e3be46528607198744ec2ffda599ee819eb13a))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.148 -> 2.1.158 ([#50](https://github.com/inference-gateway/adl/issues/50)) ([935f9a2](https://github.com/inference-gateway/adl/commit/935f9a2f49600a05de552559fc4c34cab9882b40))
+
 ## [0.14.0](https://github.com/inference-gateway/adl/compare/v0.13.0...v0.14.0) (2026-06-03)
 
 ### ✨ Features
