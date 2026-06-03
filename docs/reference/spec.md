@@ -27,6 +27,7 @@ blocks and a long list of optional ones.
 | `scm`         | [scm](./scm)                               |
 | `development` | [development](./development)               |
 | `deployment`  | [deployment](./deployment)                 |
+| `telemetry`   | [telemetry](./telemetry)                   |
 
 ## Minimal valid `spec`
 

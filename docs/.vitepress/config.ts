@@ -132,6 +132,7 @@ export default defineConfig({
             { text: "scm", link: "/reference/scm" },
             { text: "development", link: "/reference/development" },
             { text: "deployment", link: "/reference/deployment" },
+            { text: "telemetry", link: "/reference/telemetry" },
           ],
         },
         {

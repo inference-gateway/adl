@@ -155,6 +155,8 @@ spec:
           enabled: false
         infer:
           enabled: false
+  telemetry:
+    enabled: true
 ```
 
 ### Agent metadata
@@ -360,6 +362,30 @@ experience for an agent project:
   apt/apk package or devcontainer feature for devcontainer, image
   layers for dockerCompose. The field is optional and defaults to
   empty.
+
+### Telemetry
+
+`spec.telemetry` toggles [OpenTelemetry](https://opentelemetry.io/)
+instrumentation for the generated agent. When `enabled` is `true`, the
+consumer (e.g. `adl-cli`) pulls OpenTelemetry dependencies into the
+project, instruments the built-in tool calls with spans so you can see
+how long each call takes, and turns on the ADK's telemetry/metrics
+server so traces, metrics, and logs can be exported.
+
+```yaml
+spec:
+  telemetry:
+    enabled: true
+```
+
+`spec.telemetry` is optional and telemetry is **off by default** - omit
+the block, or set `enabled: false`, to keep it disabled. Mirroring
+[`spec.artifacts`](#example-manifest), the schema exposes only the
+on/off switch: the exporter endpoint, metrics port, and sampling are
+deployment concerns the consumer and runtime resolve (via the ADK's
+`A2A_TELEMETRY_*` environment variables), not values pinned into the
+manifest. See the [`spec.telemetry` reference](./docs/reference/telemetry.md)
+for details.
 
 ## Consumers
 

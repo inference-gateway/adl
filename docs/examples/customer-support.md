@@ -168,6 +168,9 @@ spec:
   artifacts:
     enabled: true
 
+  telemetry:
+    enabled: true
+
   hooks:
     post:
       - go vet ./...
