@@ -150,7 +150,11 @@
             "deepseek",
             "google",
             "mistral",
-            "groq"
+            "groq",
+            "cohere",
+            "cloudflare",
+            "moonshot",
+            "ollama_cloud"
           ]
         },
         "model": { "type": "string" },
