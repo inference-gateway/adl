@@ -103,15 +103,65 @@ spec:
         CACHE_TTL: "300"
 ```
 
+## Vercel
+
+The same agent, retargeted at Vercel. Unlike `kubernetes` and
+`cloudrun`, Vercel deploys from source via its own build pipeline --
+there is no prebuilt container image.
+
+```yaml
+apiVersion: adl.inference-gateway.com/v1
+kind: Agent
+metadata:
+  name: analytics-agent
+  description: Analytics agent deployed to Vercel
+  version: "2.1.0"
+spec:
+  capabilities:
+    streaming: true
+    pushNotifications: false
+    stateTransitionHistory: false
+
+  agent:
+    provider: anthropic
+    model: claude-sonnet-4-7
+
+  server:
+    port: 8080
+    scheme: https
+
+  language:
+    typescript:
+      packageName: analytics-agent
+      nodeVersion: "20"
+
+  deployment:
+    type: vercel
+    vercel:
+      project: analytics-agent
+      team: acme
+      runtime: nodejs
+      regions: [iad1]
+      functions:
+        memory: 1024
+        maxDuration: 60
+      environment:
+        LOG_LEVEL: info
+```
+
 ## Highlights
 
 - **`type` selects one target.** Set it to
-  [`kubernetes`](/reference/deployment#kubernetes) or
-  [`cloudrun`](/reference/deployment#cloud-run); the generator reads the
+  [`kubernetes`](/reference/deployment#kubernetes),
+  [`cloudrun`](/reference/deployment#cloud-run), or
+  [`vercel`](/reference/deployment#vercel); the generator reads the
   matching sub-block and ignores the other.
-- **Shared `image` shape.** Both targets reuse the same
-  [`image`](/reference/deployment#image) object (`registry`,
-  `repository`, `tag`, `useCloudBuild`).
+- **`kubernetes` and `cloudrun` share the `image` shape.** Both targets
+  reuse the same [`image`](/reference/deployment#image) object
+  (`registry`, `repository`, `tag`, `useCloudBuild`).
+- **Vercel deploys from source, not from an image.** There is no
+  `image` sub-block; Vercel manages its own build pipeline via the
+  project's framework and root directory.
 - **Cloud Run carries more knobs.** `resources`, `scaling`, and
   `service` give Cloud Run typed control over CPU/memory, instance
   counts, and request handling. `scaling.minInstances: 0` lets it scale

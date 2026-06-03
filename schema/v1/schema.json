@@ -535,10 +535,11 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["kubernetes", "cloudrun"]
+          "enum": ["kubernetes", "cloudrun", "vercel"]
         },
         "cloudrun": { "$ref": "#/definitions/CloudRunConfig" },
-        "kubernetes": { "$ref": "#/definitions/KubernetesConfig" }
+        "kubernetes": { "$ref": "#/definitions/KubernetesConfig" },
+        "vercel": { "$ref": "#/definitions/VercelConfig" }
       }
     },
     "CloudRunConfig": {
@@ -591,6 +592,50 @@
         "allowUnauthenticated": { "type": "boolean" },
         "serviceAccount": { "type": "string" },
         "executionEnvironment": { "type": "string" }
+      }
+    },
+    "VercelConfig": {
+      "type": "object",
+      "description": "Configuration for deploying to Vercel. Unlike kubernetes/cloudrun which deploy prebuilt container images, Vercel deploys from source via its own build pipeline.",
+      "properties": {
+        "project": { "type": "string", "description": "Vercel project name." },
+        "team": {
+          "type": "string",
+          "description": "Vercel team ID or slug the project belongs to."
+        },
+        "framework": {
+          "type": "string",
+          "description": "Vercel framework identifier (e.g. \"nextjs\", \"nuxtjs\"). When omitted Vercel auto-detects."
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Vercel function runtime. \"nodejs\" for the serverless Node.js runtime (supports full Node API); \"edge\" for the Edge runtime (limited API, runs in V8 isolates at the edge).",
+          "enum": ["nodejs", "edge"]
+        },
+        "regions": {
+          "type": "array",
+          "description": "Vercel region identifiers where the function is deployed (e.g. \"iad1\", \"gru1\", \"hkg1\"). Omitting lets Vercel decide.",
+          "items": { "type": "string" }
+        },
+        "functions": {
+          "type": "object",
+          "description": "Configuration for Vercel serverless functions.",
+          "properties": {
+            "memory": {
+              "type": "integer",
+              "description": "Memory limit in MB (e.g. 1024)."
+            },
+            "maxDuration": {
+              "type": "integer",
+              "description": "Maximum function execution time in seconds."
+            }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "description": "Environment variables injected into the Vercel deployment. Values can use the ${VAR} placeholder convention for secrets; never inline a real secret here. See docs/reference/secrets.md.",
+          "additionalProperties": { "type": "string" }
+        }
       }
     }
   }
