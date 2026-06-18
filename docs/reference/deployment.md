@@ -16,12 +16,13 @@ spec:
 
 ## Fields
 
-| Field        | Type     | Required | Description                                                              |
-| ------------ | -------- | :------: | ------------------------------------------------------------------------ |
-| `type`       | `string` |          | enum: `kubernetes`, `cloudrun`, `vercel`. Selects the deployment target. |
-| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                           |
-| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                             |
-| `vercel`     | `object` |          | See [Vercel](#vercel).                                                   |
+| Field        | Type     | Required | Description                                                                            |
+| ------------ | -------- | :------: | -------------------------------------------------------------------------------------- |
+| `type`       | `string` |          | enum: `kubernetes`, `cloudrun`, `vercel`, `cloudflare`. Selects the deployment target. |
+| `kubernetes` | `object` |          | See [Kubernetes](#kubernetes).                                                         |
+| `cloudrun`   | `object` |          | See [Cloud Run](#cloud-run).                                                           |
+| `vercel`     | `object` |          | See [Vercel](#vercel).                                                                 |
+| `cloudflare` | `object` |          | See [Cloudflare](#cloudflare).                                                         |
 
 ## Kubernetes {#kubernetes}
 
@@ -157,6 +158,48 @@ value. See [Secrets & interpolation](./secrets).
 | ------------- | --------- | ------------------------------------------------------- |
 | `memory`      | `integer` | Memory limit per function invocation in MB (e.g. 1024). |
 | `maxDuration` | `integer` | Maximum execution time in seconds.                      |
+
+## Cloudflare {#cloudflare}
+
+```yaml
+spec:
+  deployment:
+    type: cloudflare
+    cloudflare:
+      name: customer-support-agent
+      accountId: ${CLOUDFLARE_ACCOUNT_ID}
+      compatibilityDate: "2025-01-01"
+      compatibilityFlags: [nodejs_compat]
+      routes:
+        - agent.example.com/*
+      workersDev: false
+      environment:
+        LOG_LEVEL: info
+```
+
+| Field                | Reference                                                          |
+| -------------------- | ------------------------------------------------------------------ |
+| `name`               | `string` - Worker (script) name registered with Cloudflare.        |
+| `accountId`          | `string` - Cloudflare account ID. Prefer a `${VAR}` placeholder.   |
+| `compatibilityDate`  | `string` - Workers runtime compatibility date (e.g. `2025-01-01`). |
+| `compatibilityFlags` | `string[]` - Runtime compatibility flags (e.g. `nodejs_compat`).   |
+| `routes`             | `string[]` - Custom routes / domains (e.g. `agent.example.com/*`). |
+| `workersDev`         | `boolean` - Expose the Worker on its `*.workers.dev` subdomain.    |
+| `environment`        | `{ [key: string]: string }` - Plain-text vars (wrangler `vars`).   |
+
+Like `vercel` and unlike `kubernetes`/`cloudrun`, Cloudflare Workers
+deploy from source via wrangler rather than a prebuilt container image,
+so there is no `image` sub-block. This target models **Workers** (the
+server/serverless product, the right fit for an A2A agent server), not
+Pages. Workers always run on the V8-isolate edge runtime, so there is no
+`runtime` enum as on Vercel - Node.js API needs are met with the
+`nodejs_compat` compatibility flag. `compatibilityDate` is effectively
+required by wrangler; when omitted the generator supplies a default.
+
+`environment` carries plain-text wrangler `vars`. Never inline a real
+secret here - reference it with a `${VAR}` placeholder, and set true
+secrets out-of-band with `wrangler secret put`.
+See [Secrets & interpolation](./secrets).
 
 ## Image {#image}
 

@@ -2,7 +2,7 @@
 
 [`spec.deployment`](/reference/deployment) tells the generator where the
 agent ships. You pick one target with `type` and fill in the matching
-sub-block. Both supported targets are shown below as complete,
+sub-block. All supported targets are shown below as complete,
 copy-pasteable manifests for the same agent.
 
 ## Kubernetes
@@ -149,19 +149,70 @@ spec:
         LOG_LEVEL: info
 ```
 
+## Cloudflare
+
+The same agent, retargeted at Cloudflare Workers. Like `vercel` and
+unlike `kubernetes`/`cloudrun`, Workers deploy from source via wrangler
+-- there is no prebuilt container image. Workers run on the V8-isolate
+edge runtime, so Node.js APIs are enabled with the `nodejs_compat`
+compatibility flag rather than a `runtime` choice.
+
+```yaml
+apiVersion: adl.inference-gateway.com/v1
+kind: Agent
+metadata:
+  name: analytics-agent
+  description: Analytics agent deployed to Cloudflare Workers
+  version: "2.1.0"
+spec:
+  capabilities:
+    streaming: true
+    pushNotifications: false
+    stateTransitionHistory: false
+
+  agent:
+    provider: anthropic
+    model: claude-sonnet-4-7
+
+  server:
+    port: 8080
+    scheme: https
+
+  language:
+    typescript:
+      packageName: analytics-agent
+      nodeVersion: "20"
+
+  deployment:
+    type: cloudflare
+    cloudflare:
+      name: analytics-agent
+      accountId: ${CLOUDFLARE_ACCOUNT_ID}
+      compatibilityDate: "2025-01-01"
+      compatibilityFlags: [nodejs_compat]
+      routes:
+        - analytics.example.com/*
+      workersDev: false
+      environment:
+        LOG_LEVEL: info
+```
+
 ## Highlights
 
 - **`type` selects one target.** Set it to
   [`kubernetes`](/reference/deployment#kubernetes),
-  [`cloudrun`](/reference/deployment#cloud-run), or
-  [`vercel`](/reference/deployment#vercel); the generator reads the
-  matching sub-block and ignores the other.
+  [`cloudrun`](/reference/deployment#cloud-run),
+  [`vercel`](/reference/deployment#vercel), or
+  [`cloudflare`](/reference/deployment#cloudflare); the generator reads
+  the matching sub-block and ignores the others.
 - **`kubernetes` and `cloudrun` share the `image` shape.** Both targets
   reuse the same [`image`](/reference/deployment#image) object
   (`registry`, `repository`, `tag`, `useCloudBuild`).
-- **Vercel deploys from source, not from an image.** There is no
-  `image` sub-block; Vercel manages its own build pipeline via the
-  project's framework and root directory.
+- **Vercel and Cloudflare deploy from source, not from an image.**
+  Neither has an `image` sub-block; Vercel manages its own build
+  pipeline, and Cloudflare Workers build and ship via wrangler. Workers
+  run on the V8-isolate edge runtime, so Node.js APIs come from the
+  `nodejs_compat` compatibility flag rather than a runtime choice.
 - **Cloud Run carries more knobs.** `resources`, `scaling`, and
   `service` give Cloud Run typed control over CPU/memory, instance
   counts, and request handling. `scaling.minInstances: 0` lets it scale
