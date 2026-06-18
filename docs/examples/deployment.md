@@ -189,7 +189,8 @@ spec:
       name: analytics-agent
       accountId: ${CLOUDFLARE_ACCOUNT_ID}
       compatibilityDate: "2025-01-01"
-      compatibilityFlags: [nodejs_compat]
+      compatibilityFlags:
+        - nodejs_compat
       routes:
         - analytics.example.com/*
       workersDev: false
