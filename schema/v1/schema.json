@@ -539,11 +539,12 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["kubernetes", "cloudrun", "vercel"]
+          "enum": ["kubernetes", "cloudrun", "vercel", "cloudflare"]
         },
         "cloudrun": { "$ref": "#/definitions/CloudRunConfig" },
         "kubernetes": { "$ref": "#/definitions/KubernetesConfig" },
-        "vercel": { "$ref": "#/definitions/VercelConfig" }
+        "vercel": { "$ref": "#/definitions/VercelConfig" },
+        "cloudflare": { "$ref": "#/definitions/CloudflareConfig" }
       }
     },
     "CloudRunConfig": {
@@ -638,6 +639,43 @@
         "environment": {
           "type": "object",
           "description": "Environment variables injected into the Vercel deployment. Values can use the ${VAR} placeholder convention for secrets; never inline a real secret here. See docs/reference/secrets.md.",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "CloudflareConfig": {
+      "type": "object",
+      "description": "Configuration for deploying to Cloudflare Workers. Like vercel and unlike kubernetes/cloudrun, Workers deploy from source via wrangler rather than a prebuilt container image, so there is no image sub-block. This models Workers (the server/serverless product, the right target for an A2A agent server), not Pages. Consumers (e.g. adl-cli) translate this block into wrangler configuration (wrangler.toml / wrangler.jsonc).",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Worker name - the script name registered with Cloudflare (e.g. \"customer-support-agent\"). Surfaces as the wrangler \"name\" field."
+        },
+        "accountId": {
+          "type": "string",
+          "description": "Cloudflare account ID that owns the Worker. Prefer a ${VAR} placeholder over inlining the value."
+        },
+        "compatibilityDate": {
+          "type": "string",
+          "description": "Workers runtime compatibility date in YYYY-MM-DD form (e.g. \"2025-01-01\"). Effectively required by wrangler; when omitted the generator supplies a default. See https://developers.cloudflare.com/workers/configuration/compatibility-dates/."
+        },
+        "compatibilityFlags": {
+          "type": "array",
+          "description": "Workers runtime compatibility flags (e.g. \"nodejs_compat\" to enable Node.js API compatibility). Workers always run on the V8-isolate edge runtime, so Node API needs are met via flags rather than a runtime enum.",
+          "items": { "type": "string" }
+        },
+        "routes": {
+          "type": "array",
+          "description": "Custom routes / domains the Worker is served on (e.g. \"agent.example.com/*\"). Omit to rely on the workers.dev subdomain.",
+          "items": { "type": "string" }
+        },
+        "workersDev": {
+          "type": "boolean",
+          "description": "Whether the Worker is exposed on its *.workers.dev subdomain. Set false when serving exclusively via custom routes."
+        },
+        "environment": {
+          "type": "object",
+          "description": "Plain-text environment variables (wrangler \"vars\") injected into the Worker. Values can use the ${VAR} placeholder convention; never inline a real secret here - Cloudflare secrets are set out-of-band with \"wrangler secret put\". See docs/reference/secrets.md.",
           "additionalProperties": { "type": "string" }
         }
       }
