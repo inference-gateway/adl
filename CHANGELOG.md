@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.16.0](https://github.com/inference-gateway/adl/compare/v0.15.1...v0.16.0) (2026-06-18)
+
+### ✨ Features
+
+* add cloudflare workers deployment target ([#74](https://github.com/inference-gateway/adl/issues/74)) ([01dd4e6](https://github.com/inference-gateway/adl/commit/01dd4e67afb81f0b53d1e2ecb2a87934280e237a)), closes [#57](https://github.com/inference-gateway/adl/issues/57)
+
+### 👷 CI
+
+* centralize claude.yml via reusable workflow ([#67](https://github.com/inference-gateway/adl/issues/67)) ([b99427c](https://github.com/inference-gateway/adl/commit/b99427cefee42c636f40a6065a7d1b5ab357c59b))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.161 -> 2.1.170, claude-code-action v1.0.135 -> v1.0.142 ([#68](https://github.com/inference-gateway/adl/issues/68)) ([1a8c233](https://github.com/inference-gateway/adl/commit/1a8c233d37bf80425c3e93bea4fdcc774d9d3afe))
+* **deps:** bump claude-code 2.1.170 -> 2.1.177, claude-code-action v1.0.142 -> v1.0.150 ([#71](https://github.com/inference-gateway/adl/issues/71)) ([f30b63d](https://github.com/inference-gateway/adl/commit/f30b63d2744efe8ce75a1e4e0b914ef7451b447f))
+* **deps:** bump infer CLI v0.121.0 -> v0.121.1, infer-action v0.12.1 -> v0.13.1 ([#69](https://github.com/inference-gateway/adl/issues/69)) ([3e58be8](https://github.com/inference-gateway/adl/commit/3e58be887aeb3b48de40ce0e19517d49fbcbb3ac))
+* **deps:** bump infer-action v0.11.7 -> v0.12.1 ([#66](https://github.com/inference-gateway/adl/issues/66)) ([cc96104](https://github.com/inference-gateway/adl/commit/cc96104bb6f9e5640b67c1c611e3de9ffa39c262))
+* **deps:** bump infer-action v0.13.1 -> v0.15.1 ([#73](https://github.com/inference-gateway/adl/issues/73)) ([0f62856](https://github.com/inference-gateway/adl/commit/0f6285641101204b12d0d2741b2de5f2c8db0918))
+
 ## [0.15.1](https://github.com/inference-gateway/adl/compare/v0.15.0...v0.15.1) (2026-06-09)
 
 ### 🔧 Miscellaneous
