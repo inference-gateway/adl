@@ -43,7 +43,7 @@ jobs:
       issues: write
       id-token: write
       actions: read
-    uses: inference-gateway/.github/.github/workflows/claude.yml@v0.11.3
+    uses: inference-gateway/.github/.github/workflows/claude.yml@v0.12.1
     with:
       language: "node"
       playwright: true
