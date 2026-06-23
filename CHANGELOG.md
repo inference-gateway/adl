@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.16.1](https://github.com/inference-gateway/adl/compare/v0.16.0...v0.16.1) (2026-06-23)
+
+### 👷 CI
+
+* **deps:** upgrade actions/checkout from v6.0.3 to v7.0.0 across workflows ([dbe9abe](https://github.com/inference-gateway/adl/commit/dbe9abe6af18eccda0f0709e305c87f7e5770358))
+* **infer:** centralize infer.yml + sync .infer config ([#76](https://github.com/inference-gateway/adl/issues/76)) ([4e1c2df](https://github.com/inference-gateway/adl/commit/4e1c2df64d94d2f64644a98faa01dba1beff4e38))
+
+### 📚 Documentation
+
+* add development sandbox and config/telemetry examples ([#79](https://github.com/inference-gateway/adl/issues/79)) ([749b1b1](https://github.com/inference-gateway/adl/commit/749b1b11bd89abf74dac28356a2562e97c566f39))
+
+### 🔧 Miscellaneous
+
+* add permissions for reading contents in workflow ([17932a6](https://github.com/inference-gateway/adl/commit/17932a6cbfc86d3b96658c333db1e19c3ce3a1d9))
+* **deps:** bump claude-code-action v1.0.150 -> v1.0.152 ([#75](https://github.com/inference-gateway/adl/issues/75)) ([bcd1d65](https://github.com/inference-gateway/adl/commit/bcd1d65c5cc16b768149070340a9be860088abe3))
+* **deps:** bump infer CLI v0.121.1 -> v0.122.2, infer-action v0.15.1 -> v0.15.4 ([#77](https://github.com/inference-gateway/adl/issues/77)) ([6089653](https://github.com/inference-gateway/adl/commit/6089653e33294d5637606fb3e86da801bb02282d))
+* **deps:** bump inference-gateway/.github/.github/workflows/claude.yml ([#78](https://github.com/inference-gateway/adl/issues/78)) ([d33371f](https://github.com/inference-gateway/adl/commit/d33371fca13538626d2136dcbbdd8fc533d1d649))
+* **deps:** update schema version and bump codex version to ^0.139.0 in manifest files ([d6d2357](https://github.com/inference-gateway/adl/commit/d6d2357e3fc6ea5e59688d3bd4006f55ac6b5ee0))
+* **infer:** remove default configuration ([b1f75a8](https://github.com/inference-gateway/adl/commit/b1f75a892ef4cf51e1226728fc3374b528f6b399))
+
 ## [0.16.0](https://github.com/inference-gateway/adl/compare/v0.15.1...v0.16.0) (2026-06-18)
 
 ### ✨ Features
