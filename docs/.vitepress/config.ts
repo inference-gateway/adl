@@ -167,6 +167,14 @@ export default defineConfig({
             },
             { text: "Deployment Targets", link: "/examples/deployment" },
             {
+              text: "Development Sandbox",
+              link: "/examples/development-sandbox",
+            },
+            {
+              text: "Config, Telemetry & Artifacts",
+              link: "/examples/config-telemetry",
+            },
+            {
               text: "Customer Support Agent",
               link: "/examples/customer-support",
             },

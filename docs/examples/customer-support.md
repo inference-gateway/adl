@@ -236,5 +236,7 @@ spec:
   along in the generated `SKILL.md` frontmatter.
 - **Flox sandbox + Claude Code.** A developer can `flox activate` and
   drop straight into a working dev shell with Claude Code provisioned.
+  See the [Development Sandbox](/examples/development-sandbox) example
+  for a focused look at `spec.development`.
 - **Cloud Run target.** CD ships the agent as a Cloud Run service with
   pinned scaling and resource limits.
