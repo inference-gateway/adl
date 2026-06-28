@@ -49,32 +49,34 @@ pass `--overwrite` to force regeneration of everything else.
 A few flags layer on optional artifacts - they map directly to the spec
 blocks below:
 
-| Flag                      | Adds                                                       |
-| ------------------------- | ---------------------------------------------------------- |
-| `--ci`                    | GitHub Actions CI workflow (or set `spec.scm.ci: true`).   |
-| `--cd`                    | CD pipeline + `semantic-release` (or `spec.scm.cd: true`). |
-| `--deployment kubernetes` | `k8s/deployment.yaml` (or set `spec.deployment`).          |
-| `--deployment cloudrun`   | A Cloud Run `deploy` task (or set `spec.deployment`).      |
+| Flag                      | Adds                                                               |
+| ------------------------- | ------------------------------------------------------------------ |
+| `--ci`                    | GitHub Actions CI workflow (or set `spec.scm.ci: true`).           |
+| `--cd`                    | CD pipeline + `semantic-release` (or `spec.scm.cd: true`).         |
+| `--deployment kubernetes` | `k8s/deployment.yaml` (or set `spec.deployment`).                  |
+| `--deployment cloudrun`   | A Cloud Run `deploy` task (or set `spec.deployment`).              |
+| `--deployment vercel`     | A Vercel project + build config (or set `spec.deployment`).        |
+| `--deployment cloudflare` | A Cloudflare Workers `wrangler` config (or set `spec.deployment`). |
 
 ## 3. What you get
 
 The generator emits **only what your spec asks for**. Each generated piece
 traces back to a block in the manifest:
 
-| `spec.*` block                       | What the generator emits                                                            |
-| ------------------------------------ | ----------------------------------------------------------------------------------- |
-| `metadata` + `capabilities` + `card` | `.well-known/agent-card.json` - the A2A discovery + capabilities manifest.          |
-| `language.<lang>`                    | Project skeleton (`go.mod`/`Cargo.toml`, `main.*`), `Dockerfile`, `Taskfile.yml`.   |
-| `server`                             | HTTP server wiring (listen port, debug) in the entry point.                         |
-| `agent`                              | LLM provider/model wiring. Omitted entirely for a [no-LLM agent](/examples/no-llm). |
-| `tools[]`                            | One stub per tool under `tools/`, each with a `TODO` for you to implement.          |
-| `skills[]`                           | One directory per skill under `skills/` (`SKILL.md` + assets), listed on the card.  |
-| `services`                           | Typed dependency-injection interfaces and factory functions.                        |
-| `config`                             | A `config/` package with environment-variable mapping.                              |
-| `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell.                      |
-| `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.              |
-| `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                        |
-| `deployment`                         | `k8s/deployment.yaml` (Kubernetes) or a Cloud Run `deploy` task.                    |
+| `spec.*` block                       | What the generator emits                                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `metadata` + `capabilities` + `card` | `.well-known/agent-card.json` - the A2A discovery + capabilities manifest.                                                                 |
+| `language.<lang>`                    | Project skeleton (`go.mod`/`Cargo.toml`, `main.*`), `Dockerfile`, `Taskfile.yml`.                                                          |
+| `server`                             | HTTP server wiring (listen port, debug) in the entry point.                                                                                |
+| `agent`                              | LLM provider/model wiring. Omitted entirely for a [no-LLM agent](/examples/no-llm).                                                        |
+| `tools[]`                            | One stub per tool under `tools/`, each with a `TODO` for you to implement.                                                                 |
+| `skills[]`                           | One directory per skill under `skills/` (`SKILL.md` + assets), listed on the card.                                                         |
+| `services`                           | Typed dependency-injection interfaces and factory functions.                                                                               |
+| `config`                             | A `config/` package with environment-variable mapping.                                                                                     |
+| `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell.                                                                             |
+| `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.                                                                     |
+| `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                                                                               |
+| `deployment`                         | `k8s/deployment.yaml` (Kubernetes), a Cloud Run `deploy` task, a Vercel project + build config, or a Cloudflare Workers `wrangler` config. |
 
 Blocks you leave out simply produce nothing. The minimal manifest from
 Getting Started - no `tools`, `skills`, `services`, or `deployment` - yields

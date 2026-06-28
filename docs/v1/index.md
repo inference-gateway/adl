@@ -30,7 +30,7 @@ Its `$id` is `https://adl.inference-gateway.com/schemas/agent/v1`.
 | [`spec.hooks`](/reference/hooks)               | Lifecycle hooks                                                                    |
 | [`spec.scm`](/reference/scm)                   | Source-control metadata                                                            |
 | [`spec.development`](/reference/development)   | Sandbox (flox / devcontainer / dockerCompose) and AI tooling                       |
-| [`spec.deployment`](/reference/deployment)     | Kubernetes / Cloud Run deployment manifests                                        |
+| [`spec.deployment`](/reference/deployment)     | Kubernetes / Cloud Run / Vercel / Cloudflare deployment targets                    |
 
 See the full field-by-field [Schema Reference](/reference/).
 

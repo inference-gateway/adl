@@ -45,5 +45,5 @@ The schema demands four top-level fields - `apiVersion`, `kind`,
 - [`skills`](/reference/skills) for markdown playbooks.
 - A [`development`](/reference/development) block to enable a flox or
   devcontainer sandbox, and optionally a coding agent inside it.
-- A [`deployment`](/reference/deployment) block to target Kubernetes or
-  Cloud Run.
+- A [`deployment`](/reference/deployment) block to target Kubernetes,
+  Cloud Run, Vercel, or Cloudflare.
