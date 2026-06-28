@@ -54,15 +54,20 @@ exist to carry secrets and runtime configuration:
 | `spec.agent.mcps[].env`                | Env vars for a `stdio` MCP server - API keys or tokens the subprocess needs.   |
 | `spec.agent.mcps[].headers`            | Headers for an `http`/`sse` MCP server - e.g. an `Authorization` bearer token. |
 | `spec.deployment.cloudrun.environment` | Env vars injected into the deployed Cloud Run service.                         |
+| `spec.deployment.vercel.environment`   | Env vars injected into the Vercel deployment.                                  |
 | `spec.config`                          | Free-form runtime config - reference secrets here, never inline them.          |
 
-See [agent](./agent#mcps), [deployment](./deployment#cloud-run), and
-[config](./config) for the full definitions of those fields.
+See [agent](./agent#mcps), [deployment](./deployment#cloud-run) (also
+[Vercel](./deployment#vercel)), and [config](./config) for the full
+definitions of those fields.
 
 `spec.deployment.kubernetes` has no `environment` map of its own in v1:
 it carries only the image, and the generator's templating owns the
 Deployment's `env` / `envFrom` (for example, wiring values from a
-`Secret`).
+`Secret`). The `cloudrun` and `vercel` targets each carry their own
+`environment` map for injecting config and secrets - those are the fields
+the table above lists. (Cloudflare's `environment` is plain-text wrangler
+`vars` only; set true secrets out-of-band with `wrangler secret put`.)
 
 ## The LLM provider credential is not in the manifest
 

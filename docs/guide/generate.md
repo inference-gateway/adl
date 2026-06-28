@@ -55,6 +55,8 @@ blocks below:
 | `--cd`                    | CD pipeline + `semantic-release` (or `spec.scm.cd: true`). |
 | `--deployment kubernetes` | `k8s/deployment.yaml` (or set `spec.deployment`).          |
 | `--deployment cloudrun`   | A Cloud Run `deploy` task (or set `spec.deployment`).      |
+| `--deployment vercel`     | A Vercel project + build config (or set `spec.deployment`). |
+| `--deployment cloudflare` | A Cloudflare Workers `wrangler` config (or set `spec.deployment`). |
 
 ## 3. What you get
 
@@ -74,7 +76,7 @@ traces back to a block in the manifest:
 | `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell.                      |
 | `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.              |
 | `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                        |
-| `deployment`                         | `k8s/deployment.yaml` (Kubernetes) or a Cloud Run `deploy` task.                    |
+| `deployment`                         | `k8s/deployment.yaml` (Kubernetes), a Cloud Run `deploy` task, a Vercel project + build config, or a Cloudflare Workers `wrangler` config. |
 
 Blocks you leave out simply produce nothing. The minimal manifest from
 Getting Started - no `tools`, `skills`, `services`, or `deployment` - yields
