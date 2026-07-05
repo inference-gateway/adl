@@ -154,7 +154,8 @@
             "cohere",
             "cloudflare",
             "moonshot",
-            "ollama_cloud"
+            "ollama_cloud",
+            "nvidia"
           ]
         },
         "model": { "type": "string" },
