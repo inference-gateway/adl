@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.17.0](https://github.com/inference-gateway/adl/compare/v0.16.1...v0.17.0) (2026-07-05)
+
 ## [0.16.1](https://github.com/inference-gateway/adl/compare/v0.16.0...v0.16.1) (2026-06-23)
 
 ### 👷 CI
