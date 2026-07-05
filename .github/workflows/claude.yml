@@ -13,6 +13,11 @@ on:
         description: 'Free-text task for Claude to work on in this repo'
         required: true
         type: string
+      browser:
+        description: 'Install Chromium + enable the browser MCP (mcp__playwright) for this run'
+        required: false
+        type: boolean
+        default: false
   issue_comment:
     types:
       - created
@@ -46,6 +51,6 @@ jobs:
     uses: inference-gateway/.github/.github/workflows/claude.yml@v0.15.1
     with:
       language: "node"
-      playwright: true
+      browser: ${{ inputs.browser || true }}
       prompt: ${{ inputs.prompt }}
     secrets: inherit
