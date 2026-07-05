@@ -155,7 +155,8 @@
             "cloudflare",
             "moonshot",
             "ollama_cloud",
-            "nvidia"
+            "nvidia",
+            "minimax"
           ]
         },
         "model": { "type": "string" },
