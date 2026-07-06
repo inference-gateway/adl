@@ -54,11 +54,26 @@ jobs:
 
       - name: Install semantic release and plugins
         run: |
-          npm install -g semantic-release@v25.0.2 \
-            conventional-changelog-conventionalcommits \
-            @semantic-release/changelog \
-            @semantic-release/git \
-            @semantic-release/github
+          mkdir -p "$RUNNER_TEMP/semantic-release"
+          cat > "$RUNNER_TEMP/semantic-release/package.json" <<'EOF'
+          {
+            "private": true,
+            "devDependencies": {
+              "semantic-release": "25.0.5",
+              "@semantic-release/commit-analyzer": "13.0.1",
+              "@semantic-release/release-notes-generator": "14.1.1",
+              "@semantic-release/changelog": "6.0.3",
+              "@semantic-release/git": "10.0.1",
+              "@semantic-release/github": "12.0.9",
+              "conventional-changelog-conventionalcommits": "10.2.0"
+            },
+            "overrides": {
+              "conventional-changelog-writer": "^9.1.0"
+            }
+          }
+          EOF
+          npm install --prefix "$RUNNER_TEMP/semantic-release"
+          echo "$RUNNER_TEMP/semantic-release/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Create a release if needed
         id: semantic
