@@ -2,8 +2,9 @@
 
 Three small operational blocks round out a manifest without describing
 what the agent _does_: free-form runtime [`config`](/reference/config),
-and the two on/off switches [`telemetry`](/reference/telemetry) and
-[`artifacts`](/reference/artifacts). This agent turns on all three.
+observability via [`telemetry`](/reference/telemetry), and the
+[`artifacts`](/reference/artifacts) on/off switch. This agent turns on all
+three.
 
 ```yaml
 apiVersion: adl.inference-gateway.com/v1
@@ -48,6 +49,16 @@ spec:
 
   telemetry:
     enabled: true
+    traces:
+      exporter:
+        otlp:
+          endpoint: http://localhost:4318
+          protocol: http/protobuf
+    metrics:
+      exporter:
+        prometheus:
+          host: ""
+          port: 9464
 
   artifacts:
     enabled: true
@@ -67,11 +78,14 @@ spec:
   let the consumer resolve them at runtime; the schema treats the
   placeholder as an opaque string. See
   [Secrets & interpolation](/reference/secrets).
-- **`telemetry` is a single switch.** `enabled: true` tells the consumer
-  to pull in OpenTelemetry and turn on the ADK telemetry server (it maps
-  to `A2A_TELEMETRY_ENABLE=true`). The exporter endpoint, port, and
-  sampling are deployment concerns resolved at runtime, not pinned in the
-  manifest. See [`spec.telemetry`](/reference/telemetry).
+- **`telemetry` starts with one switch, then opts into exporters.**
+  `enabled: true` maps to `A2A_TELEMETRY_ENABLE=true` and turns on the ADK
+  telemetry server. The optional `traces`/`metrics` blocks select a
+  per-signal exporter - the single key under `exporter` picks it (`otlp`
+  to push, `prometheus` to pull) - and every field maps 1:1 to a standard
+  `OTEL_*` env var the consumer emits as an `.env.example` default.
+  Headers, credentials, and sampling stay runtime-only. See
+  [`spec.telemetry`](/reference/telemetry).
 - **`artifacts` is the same shape.** Like `telemetry`, it exposes only an
   `enabled` boolean; `true` tells the generator to emit CI/CD wiring that
   produces build artifacts (container images, archives) - the consumer's
