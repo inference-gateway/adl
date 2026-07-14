@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.18.1](https://github.com/inference-gateway/adl/compare/v0.18.0...v0.18.1) (2026-07-14)
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#100](https://github.com/inference-gateway/adl/issues/100)) ([7dabb30](https://github.com/inference-gateway/adl/commit/7dabb308455cfad93b1b00dc4d5e625279950405))
+* **infer:** centralize infer.yml via reusable workflow ([#97](https://github.com/inference-gateway/adl/issues/97)) ([ce0b5e2](https://github.com/inference-gateway/adl/commit/ce0b5e252919b189f31709de9e25c7b3a6e9a1f2))
+* **infer:** centralize infer.yml via reusable workflow ([#98](https://github.com/inference-gateway/adl/issues/98)) ([31b7957](https://github.com/inference-gateway/adl/commit/31b79571d779892dca3947988a26d0212dc58f57))
+* **release:** update semantic release and plugins to latest versions with local installation ([5693db5](https://github.com/inference-gateway/adl/commit/5693db5e7622a308c6b886729e3e49600fa406b5))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.197 -> 2.1.201 ([#91](https://github.com/inference-gateway/adl/issues/91)) ([1e87301](https://github.com/inference-gateway/adl/commit/1e87301460295d6e2264074dca6367d331a7f9e9))
+* **deps:** bump claude-code-action v1.0.165 -> v1.0.169 ([#99](https://github.com/inference-gateway/adl/issues/99)) ([39b7de4](https://github.com/inference-gateway/adl/commit/39b7de46fc5156c9b5cab12155236f4ecdee93ff))
+* **deps:** bump infer CLI v0.130.1 -> v0.133.0, infer-action v0.24.0 -> v0.26.0 ([#92](https://github.com/inference-gateway/adl/issues/92)) ([6bac340](https://github.com/inference-gateway/adl/commit/6bac340e2d845f960c87d20405cd4e70e7a6713d))
+* **deps:** bump infer CLI v0.133.0 -> v0.133.1, infer-action v0.26.0 -> v0.27.1 ([#94](https://github.com/inference-gateway/adl/issues/94)) ([9fb56b8](https://github.com/inference-gateway/adl/commit/9fb56b88f53c32c67f431dbd96d62fa6beb7e72e))
+* **deps:** bump infer CLI v0.133.1 -> v0.137.0, infer-action v0.27.1 -> v0.29.0 ([#95](https://github.com/inference-gateway/adl/issues/95)) ([e461552](https://github.com/inference-gateway/adl/commit/e46155254ab2d97dfc418c78f15fe65a5fffbccc))
+* **deps:** bump infer CLI v0.137.0 -> v0.138.0, infer-action v0.29.0 -> v0.30.1 ([#96](https://github.com/inference-gateway/adl/issues/96)) ([25b2cfc](https://github.com/inference-gateway/adl/commit/25b2cfc6054f0d8c5fde23a3b4220ace4aa7a519))
+* **deps:** bump infer CLI v0.138.0 -> v0.141.0 ([#101](https://github.com/inference-gateway/adl/issues/101)) ([17c968a](https://github.com/inference-gateway/adl/commit/17c968a1b4e4704a08947dc105e32d66565ec415))
+* **deps:** bump inference-gateway/.github/.github/workflows/infer.yml ([#93](https://github.com/inference-gateway/adl/issues/93)) ([2b8b79b](https://github.com/inference-gateway/adl/commit/2b8b79b29fa43ae9aaf411d33e048fc53b8735f1))
+
 ## [0.18.0](https://github.com/inference-gateway/adl/compare/v0.17.0...v0.18.0) (2026-07-05)
 
 ## [0.17.0](https://github.com/inference-gateway/adl/compare/v0.16.1...v0.17.0) (2026-07-05)
