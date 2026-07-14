@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.19.0](https://github.com/inference-gateway/adl/compare/v0.18.1...v0.19.0) (2026-07-14)
+
+### ✨ Features
+
+* nest telemetry exporters under each signal (otlp/prometheus) ([#104](https://github.com/inference-gateway/adl/issues/104)) ([1ed87b6](https://github.com/inference-gateway/adl/commit/1ed87b6ff5ffef49c74826d19275918162db9f12))
+
 ## [0.18.1](https://github.com/inference-gateway/adl/compare/v0.18.0...v0.18.1) (2026-07-14)
 
 ### 👷 CI
