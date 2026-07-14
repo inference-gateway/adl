@@ -48,6 +48,16 @@ spec:
 
   telemetry:
     enabled: true
+    metrics:
+      exporter: prometheus
+      prometheus:
+        host: ""
+        port: 9464
+    traces:
+      exporter: otlp
+    otlp:
+      endpoint: http://localhost:4318
+      protocol: http/protobuf
 
   artifacts:
     enabled: true
@@ -67,14 +77,18 @@ spec:
   let the consumer resolve them at runtime; the schema treats the
   placeholder as an opaque string. See
   [Secrets & interpolation](/reference/secrets).
-- **`telemetry` is a single switch.** `enabled: true` tells the consumer
-  to pull in OpenTelemetry and turn on the ADK telemetry server (it maps
-  to `A2A_TELEMETRY_ENABLE=true`). The exporter endpoint, port, and
-  sampling are deployment concerns resolved at runtime, not pinned in the
-  manifest. See [`spec.telemetry`](/reference/telemetry).
-- **`artifacts` is the same shape.** Like `telemetry`, it exposes only an
-  `enabled` boolean; `true` tells the generator to emit CI/CD wiring that
-  produces build artifacts (container images, archives) - the consumer's
-  pipeline decides what an artifact looks like. Both blocks default to
-  off, so omit them entirely if you don't need them. See
+- **`telemetry` selects an exporter per signal.** `enabled: true` pulls
+  in OpenTelemetry and turns on the ADK telemetry server (maps to
+  `A2A_TELEMETRY_ENABLE=true`); the optional `metrics`, `traces`, and
+  `otlp` blocks then pick each signal's exporter (push vs pull) and the
+  collector endpoint. Every field maps 1:1 to a standard `OTEL_*`
+  environment variable and becomes a default in the generated
+  `.env.example`; headers, credentials, and sampling stay runtime-only.
+  `enabled` is the only required field, so `telemetry: { enabled: true }`
+  on its own is still valid. See [`spec.telemetry`](/reference/telemetry).
+- **`artifacts` is a single switch.** It exposes only an `enabled`
+  boolean; `true` tells the generator to emit CI/CD wiring that produces
+  build artifacts (container images, archives) - the consumer's pipeline
+  decides what an artifact looks like. Like `telemetry`, it defaults to
+  off, so omit it entirely if you don't need it. See
   [`spec.artifacts`](/reference/artifacts).

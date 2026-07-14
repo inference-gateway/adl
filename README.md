@@ -157,6 +157,16 @@ spec:
           enabled: false
   telemetry:
     enabled: true
+    metrics:
+      exporter: prometheus
+      prometheus:
+        host: ""
+        port: 9464
+    traces:
+      exporter: otlp
+    otlp:
+      endpoint: http://localhost:4318
+      protocol: http/protobuf
 ```
 
 ### Agent metadata
@@ -365,27 +375,56 @@ experience for an agent project:
 
 ### Telemetry
 
-`spec.telemetry` toggles [OpenTelemetry](https://opentelemetry.io/)
+`spec.telemetry` configures [OpenTelemetry](https://opentelemetry.io/)
 instrumentation for the generated agent. When `enabled` is `true`, the
 consumer (e.g. `adl-cli`) pulls OpenTelemetry dependencies into the
 project, instruments the built-in tool calls with spans so you can see
 how long each call takes, and turns on the ADK's telemetry/metrics
 server so traces, metrics, and logs can be exported.
 
+Beyond the master switch, three optional blocks select the per-signal
+exporter (push vs pull) and the collector connection, following the
+[OpenTelemetry SDK configuration](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/)
+model:
+
 ```yaml
 spec:
   telemetry:
     enabled: true
+    metrics:
+      exporter: prometheus # prometheus | otlp | none
+      prometheus:
+        host: "" # empty binds all interfaces
+        port: 9464
+    traces:
+      exporter: otlp # otlp | none
+    otlp:
+      endpoint: http://localhost:4318 # shared by every otlp signal
+      protocol: http/protobuf # http/protobuf | grpc
 ```
 
+Every field maps 1:1 to a standard `OTEL_*` environment variable, and
+`adl-cli` emits each as a default in the generated `.env.example`:
+
+| Manifest field            | Environment variable            |
+| ------------------------- | ------------------------------- |
+| `metrics.exporter`        | `OTEL_METRICS_EXPORTER`         |
+| `metrics.prometheus.host` | `OTEL_EXPORTER_PROMETHEUS_HOST` |
+| `metrics.prometheus.port` | `OTEL_EXPORTER_PROMETHEUS_PORT` |
+| `traces.exporter`         | `OTEL_TRACES_EXPORTER`          |
+| `otlp.endpoint`           | `OTEL_EXPORTER_OTLP_ENDPOINT`   |
+| `otlp.protocol`           | `OTEL_EXPORTER_OTLP_PROTOCOL`   |
+
+Because those defaults are plain environment variables, a deployment can
+override any of them at runtime without regenerating. Sensitive and
+per-environment concerns - exporter headers, credentials, and sampling -
+are deliberately kept out of the manifest and stay runtime-only.
+
 `spec.telemetry` is optional and telemetry is **off by default** - omit
-the block, or set `enabled: false`, to keep it disabled. Mirroring
-[`spec.artifacts`](#example-manifest), the schema exposes only the
-on/off switch: the exporter endpoint, metrics port, and sampling are
-deployment concerns the consumer and runtime resolve (via the ADK's
-`A2A_TELEMETRY_*` environment variables), not values pinned into the
-manifest. See the [`spec.telemetry` reference](./docs/reference/telemetry.md)
-for details.
+the block, or set `enabled: false`, to keep it disabled. Every field
+except `enabled` is optional too, so an existing
+`telemetry: { enabled: true }` manifest stays valid unchanged. See the
+[`spec.telemetry` reference](./docs/reference/telemetry.md) for details.
 
 ## Consumers
 

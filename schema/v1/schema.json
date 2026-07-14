@@ -402,10 +402,70 @@
     },
     "TelemetryConfig": {
       "type": "object",
-      "description": "Toggles OpenTelemetry instrumentation for the generated agent. When enabled, the consumer (e.g. adl-cli) pulls OpenTelemetry dependencies into the project, instruments the built-in tool calls with spans, and turns on the ADK's telemetry/metrics server (the A2A_TELEMETRY_ENABLE switch) so traces, metrics, and logs can be exported. As with spec.artifacts the schema deliberately exposes only the on/off switch; the exporter endpoint, metrics port, and sampling are resolved by the consumer and the runtime environment rather than pinned in the manifest. Telemetry is disabled by default - omit the block or set 'enabled: false' to keep it off.",
+      "description": "Configures OpenTelemetry (OTel) instrumentation for the generated agent. When 'enabled' is true, the consumer (e.g. adl-cli) pulls OpenTelemetry dependencies into the project, instruments the built-in tool calls with spans, and turns on the ADK's telemetry/metrics server so traces, metrics, and logs can be exported. The optional 'metrics', 'traces', and 'otlp' blocks refine that: they select the per-signal exporter (push vs pull) and the collector connection, following the OpenTelemetry SDK configuration model. Every field below maps 1:1 to a standard OTEL_* environment variable and is emitted by the consumer as a default in the generated .env.example; the running agent reads the live OTEL_* variables, so a deployment can still override any of them without regenerating. Per-environment and sensitive concerns - exporter headers, credentials, and sampling - are deliberately left out of the manifest and stay runtime-only. Every field except 'enabled' is optional, so a bare 'telemetry: { enabled: true }' manifest stays valid and unchanged. Telemetry is disabled by default - omit the block or set 'enabled: false' to keep it off.",
       "required": ["enabled"],
       "properties": {
-        "enabled": { "type": "boolean" }
+        "enabled": {
+          "type": "boolean",
+          "description": "Master switch for telemetry. When true, the generator wires in OpenTelemetry and turns on the ADK telemetry/metrics server (maps to the ADK's A2A_TELEMETRY_ENABLE switch). Off by default."
+        },
+        "metrics": { "$ref": "#/definitions/TelemetryMetricsConfig" },
+        "traces": { "$ref": "#/definitions/TelemetryTracesConfig" },
+        "otlp": { "$ref": "#/definitions/TelemetryOTLPConfig" }
+      }
+    },
+    "TelemetryMetricsConfig": {
+      "type": "object",
+      "description": "Metrics-signal configuration. Selects how metrics leave the agent - scraped from a Prometheus endpoint (pull) or pushed to an OTLP collector - and maps to the OTEL_METRICS_EXPORTER family of environment variables. Optional; omit to leave the metrics exporter at its runtime default.",
+      "properties": {
+        "exporter": {
+          "type": "string",
+          "description": "Which metrics exporter the agent uses. 'prometheus' exposes a pull endpoint for Prometheus to scrape; 'otlp' pushes metrics to the OTLP collector configured under 'spec.telemetry.otlp'; 'none' disables metric export. Maps 1:1 to OTEL_METRICS_EXPORTER. New exporters may be added in future minor versions; consumers should tolerate unknown values.",
+          "enum": ["prometheus", "otlp", "none"]
+        },
+        "prometheus": { "$ref": "#/definitions/TelemetryPrometheusConfig" }
+      }
+    },
+    "TelemetryPrometheusConfig": {
+      "type": "object",
+      "description": "Bind address for the built-in Prometheus scrape endpoint, used when 'spec.telemetry.metrics.exporter' is 'prometheus'. Ignored by other exporters.",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Host/interface the Prometheus metrics endpoint binds to. An empty string (the default) binds all interfaces. Maps 1:1 to OTEL_EXPORTER_PROMETHEUS_HOST."
+        },
+        "port": {
+          "type": "integer",
+          "description": "TCP port the Prometheus metrics endpoint listens on. Maps 1:1 to OTEL_EXPORTER_PROMETHEUS_PORT (OpenTelemetry's default is 9464).",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      }
+    },
+    "TelemetryTracesConfig": {
+      "type": "object",
+      "description": "Traces-signal configuration. Selects how spans leave the agent and maps to the OTEL_TRACES_EXPORTER family of environment variables. Optional; omit to leave the traces exporter at its runtime default.",
+      "properties": {
+        "exporter": {
+          "type": "string",
+          "description": "Which traces exporter the agent uses. 'otlp' pushes spans to the OTLP collector configured under 'spec.telemetry.otlp'; 'none' disables trace export. Maps 1:1 to OTEL_TRACES_EXPORTER. New exporters may be added in future minor versions; consumers should tolerate unknown values.",
+          "enum": ["otlp", "none"]
+        }
+      }
+    },
+    "TelemetryOTLPConfig": {
+      "type": "object",
+      "description": "Connection to the OpenTelemetry Collector (or any OTLP receiver) shared by every signal whose exporter is 'otlp'. Maps to the OTEL_EXPORTER_OTLP_* family of environment variables. Exporter headers, credentials, and sampling are intentionally not modelled here and stay runtime-only - set them directly through OTEL_* variables at deploy time.",
+      "properties": {
+        "endpoint": {
+          "type": "string",
+          "description": "Base endpoint of the OTLP receiver, e.g. 'http://localhost:4318' for the http/protobuf protocol or 'http://localhost:4317' for grpc. Maps 1:1 to OTEL_EXPORTER_OTLP_ENDPOINT."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "OTLP wire protocol used to reach the collector. 'http/protobuf' sends protobuf over HTTP; 'grpc' uses gRPC. Maps 1:1 to OTEL_EXPORTER_OTLP_PROTOCOL.",
+          "enum": ["http/protobuf", "grpc"]
+        }
       }
     },
     "Hooks": {
