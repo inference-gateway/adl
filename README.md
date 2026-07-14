@@ -365,12 +365,14 @@ experience for an agent project:
 
 ### Telemetry
 
-`spec.telemetry` toggles [OpenTelemetry](https://opentelemetry.io/)
-instrumentation for the generated agent. When `enabled` is `true`, the
-consumer (e.g. `adl-cli`) pulls OpenTelemetry dependencies into the
-project, instruments the built-in tool calls with spans so you can see
-how long each call takes, and turns on the ADK's telemetry/metrics
-server so traces, metrics, and logs can be exported.
+`spec.telemetry` configures [OpenTelemetry](https://opentelemetry.io/)
+instrumentation for the generated agent. `enabled` is the master switch:
+when `true`, the consumer (e.g. `adl-cli`) pulls OpenTelemetry
+dependencies into the project, instruments the built-in tool calls with
+spans so you can see how long each call takes, and turns on the ADK's
+telemetry/metrics server.
+
+The simplest manifest is still a single switch:
 
 ```yaml
 spec:
@@ -378,14 +380,41 @@ spec:
     enabled: true
 ```
 
+Optionally, the `traces` and `metrics` blocks select a **per-signal
+exporter** following the OpenTelemetry SDK declarative-configuration
+model - the exporter is nested under each signal and the single key
+beneath `exporter` picks it (`otlp` to push, `prometheus` to pull), so
+there is no separate exporter enum:
+
+```yaml
+spec:
+  telemetry:
+    enabled: true
+    traces:
+      exporter:
+        otlp:
+          endpoint: http://localhost:4318 # -> OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+          protocol: http/protobuf # http/protobuf | grpc
+    metrics:
+      exporter:
+        prometheus: # pull; or use `otlp:` to push
+          host: ""
+          port: 9464
+```
+
+Every field maps 1:1 to a standard `OTEL_*` environment variable, which
+`adl-cli` emits as a generated `.env.example` default. Omitting a signal
+(or its `exporter` block) disables it - `OTEL_TRACES_EXPORTER=none` /
+`OTEL_METRICS_EXPORTER=none`. `traces` accepts `otlp`; `metrics` accepts
+`otlp` or `prometheus`.
+
 `spec.telemetry` is optional and telemetry is **off by default** - omit
-the block, or set `enabled: false`, to keep it disabled. Mirroring
-[`spec.artifacts`](#example-manifest), the schema exposes only the
-on/off switch: the exporter endpoint, metrics port, and sampling are
-deployment concerns the consumer and runtime resolve (via the ADK's
-`A2A_TELEMETRY_*` environment variables), not values pinned into the
-manifest. See the [`spec.telemetry` reference](./docs/reference/telemetry.md)
-for details.
+the block, or set `enabled: false`, to keep it disabled. Headers,
+credentials, and sampling deliberately stay out of the manifest and are
+resolved at runtime through the environment. Everything beyond `enabled`
+is additive, so an existing `telemetry: { enabled: true }` manifest stays
+valid. See the [`spec.telemetry` reference](./docs/reference/telemetry.md)
+for the full field list and env-var mapping.
 
 ## Consumers
 
