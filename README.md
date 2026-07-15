@@ -163,6 +163,11 @@ spec:
         path: docs/getting-started.md
       - title: Configuration
         path: docs/configuration.md
+  examples:
+    - title: Basic chat
+      description: A simple question-and-answer interaction
+    - title: Tool use
+      description: Booking a flight through the booking tool
 ```
 
 ### Agent metadata
@@ -448,6 +453,27 @@ list at least one page. `spec.documentation` is optional and additive -
 manifests that omit it stay valid. See the
 [`spec.documentation` reference](./docs/reference/documentation.md) for the
 full field list.
+
+### Examples
+
+`spec.examples` lists curated examples that demonstrate the agent's
+capabilities. Each entry has a `title` and a `description`; consumers
+(e.g. `adl-cli`) use these to render an "Examples" section in the
+generated README.md, linking each example to a scratchpad or playground
+for the agent.
+
+```yaml
+spec:
+  examples:
+    - title: Basic chat
+      description: A simple question-and-answer interaction
+    - title: Tool use
+      description: Booking a flight through the booking tool
+```
+
+`spec.examples` is optional and additive - manifests that omit it stay
+valid. Both `title` and `description` are required on every entry, and
+no other fields are accepted.
 
 ## Consumers
 
