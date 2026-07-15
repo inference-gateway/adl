@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.22.0](https://github.com/inference-gateway/adl/compare/v0.21.0...v0.22.0) (2026-07-15)
+
+### ✨ Features
+
+* allow configuring GitHub App secret names for the release workflow ([#113](https://github.com/inference-gateway/adl/issues/113)) ([73b1078](https://github.com/inference-gateway/adl/commit/73b10782e8bf8bbfcef163a648d99feebc96e879))
+
 ## [0.21.0](https://github.com/inference-gateway/adl/compare/v0.20.1...v0.21.0) (2026-07-15)
 
 ### ✨ Features
