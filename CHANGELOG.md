@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.21.0](https://github.com/inference-gateway/adl/compare/v0.20.1...v0.21.0) (2026-07-15)
+
+### ✨ Features
+
+* allow configuring GitHub App secret names for claudecode and infer orchestrators ([#112](https://github.com/inference-gateway/adl/issues/112)) ([ba47a70](https://github.com/inference-gateway/adl/commit/ba47a7082736f5a1dec566f20e12a2b49f4ac7c9))
+
 ## [0.20.1](https://github.com/inference-gateway/adl/compare/v0.20.0...v0.20.1) (2026-07-15)
 
 ### ♻️ Improvements
