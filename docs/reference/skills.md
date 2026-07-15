@@ -38,6 +38,8 @@ first - it explains _when_ you want a skill instead of a tool.
 | `description` | `string`   |          | One-line summary of what the skill teaches. Surfaced to the model in the startup skill listing, so it should read as a recognizable trigger ("how to triage a paged incident", not "incident docs"). |
 | `license`     | `string`   |          | SPDX identifier or `Proprietary`. See [License identifiers](./license-identifiers).                                                                                                                  |
 | `tags`        | `string[]` |          | Discoverability tags.                                                                                                                                                                                |
+| `documentation` | `object` |          | Hand-authored documentation pages specific to this skill. Same shape as [`spec.documentation`](./documentation): a `pages` array of `{ title, path }` entries. The consumer (e.g. `adl-cli`) scaffolds each page as a stub markdown file. Optional and additive. |
+| `examples`    | `array`   |          | Curated examples that demonstrate this skill's capabilities. Same shape as [`spec.examples`](#): an array of `{ title, description }` entries. Consumers use these to render an Examples section in the generated skill documentation. Optional and additive. |
 
 `additionalProperties` are not allowed.
 

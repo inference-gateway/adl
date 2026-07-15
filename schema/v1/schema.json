@@ -357,6 +357,14 @@
         "tags": {
           "type": "array",
           "items": { "type": "string" }
+        },
+        "documentation": {
+          "$ref": "#/definitions/Documentation",
+          "description": "Hand-authored documentation pages specific to this skill. Each entry in 'pages' declares a page the consumer (e.g. adl-cli) scaffolds as a stub markdown file at 'path' with the given 'title', to be filled in by the maintainers. Optional and additive."
+        },
+        "examples": {
+          "$ref": "#/definitions/Examples",
+          "description": "Curated examples that demonstrate this skill's capabilities. Each entry has a 'title' and 'description'; consumers (e.g. adl-cli) use these to render an 'Examples' section in the generated skill documentation. Optional and additive."
         }
       }
     },

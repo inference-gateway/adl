@@ -125,6 +125,15 @@ spec:
       tags:
         - operations
         - incident
+      documentation:
+        pages:
+          - title: Incident Response Guide
+            path: docs/incident-response.md
+      examples:
+        - title: Triage a P1 incident
+          description: Walk through the full incident triage workflow from page to postmortem
+        - title: Draft stakeholder update
+          description: Generate a status update for executives during an active incident
   server:
     port: 8080
     debug: false
