@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.20.0](https://github.com/inference-gateway/adl/compare/v0.19.0...v0.20.0) (2026-07-15)
+
+### ✨ Features
+
+* add spec.documentation.pages to schema ([#107](https://github.com/inference-gateway/adl/issues/107)) ([cc76267](https://github.com/inference-gateway/adl/commit/cc76267a49d2a2128d6b4256b219bef1f171db96))
+* **schema:** add spec.examples to schema ([#109](https://github.com/inference-gateway/adl/issues/109)) ([183f6d1](https://github.com/inference-gateway/adl/commit/183f6d143d5c71de9426e79dfe36494f07c98b03))
+
 ## [0.19.0](https://github.com/inference-gateway/adl/compare/v0.18.1...v0.19.0) (2026-07-14)
 
 ### ✨ Features
