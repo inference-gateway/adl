@@ -77,11 +77,7 @@
         "capabilities": { "$ref": "#/definitions/Capabilities" },
         "card": { "$ref": "#/definitions/Card" },
         "documentation": { "$ref": "#/definitions/Documentation" },
-        "examples": {
-          "type": "array",
-          "description": "Curated examples that demonstrate the agent's capabilities. Each entry has a 'title' and 'description'; consumers (e.g. adl-cli) use these to render an 'Examples' section in the generated README.md, linking each example to a scratchpad or playground for the agent.",
-          "items": { "$ref": "#/definitions/Example" }
-        },
+        "examples": { "$ref": "#/definitions/Examples" },
         "agent": { "$ref": "#/definitions/Agent" },
         "config": {
           "type": "object",
@@ -155,6 +151,11 @@
           "items": { "$ref": "#/definitions/DocumentationPage" }
         }
       }
+    },
+    "Examples": {
+      "type": "array",
+      "description": "Curated examples that demonstrate the agent's capabilities. Each entry has a 'title' and 'description'; consumers (e.g. adl-cli) use these to render an 'Examples' section in the generated README.md, linking each example to a scratchpad or playground for the agent.",
+      "items": { "$ref": "#/definitions/Example" }
     },
     "Example": {
       "type": "object",
