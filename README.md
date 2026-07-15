@@ -344,6 +344,14 @@ experience for an agent project:
   Multiple orchestrators can be enabled at once if a project wants to
   ship configuration for more than one.
 
+  The `claudecode` and `infer` orchestrators additionally accept
+  `appIdSecret` and `appPrivateKeySecret`, the names of the repository
+  secrets holding the GitHub App client ID and private key used by the
+  generated workflows. They default to `CLAUDE_APP_ID` /
+  `CLAUDE_APP_PRIVATE_KEY` and `INFER_APP_ID` / `INFER_APP_PRIVATE_KEY`
+  respectively; set them when your organization uses different secret
+  names.
+
 - `spec.development.deps` declares extra packages to install into the
   development sandbox itself (flox, devcontainer, dockerCompose) on top
   of whatever the generator pulls in by default. Use this for

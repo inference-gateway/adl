@@ -604,7 +604,17 @@
       "description": "Provision Anthropic's Claude Code coding agent inside the sandbox.",
       "required": ["enabled"],
       "properties": {
-        "enabled": { "type": "boolean" }
+        "enabled": { "type": "boolean" },
+        "appIdSecret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App client ID used by the generated Claude Code workflow.",
+          "default": "CLAUDE_APP_ID"
+        },
+        "appPrivateKeySecret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App private key used by the generated Claude Code workflow.",
+          "default": "CLAUDE_APP_PRIVATE_KEY"
+        }
       }
     },
     "CodexConfig": {
@@ -636,7 +646,17 @@
       "description": "Provision the Inference Gateway 'infer' coding agent inside the sandbox.",
       "required": ["enabled"],
       "properties": {
-        "enabled": { "type": "boolean" }
+        "enabled": { "type": "boolean" },
+        "appIdSecret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App client ID used by the generated infer workflow.",
+          "default": "INFER_APP_ID"
+        },
+        "appPrivateKeySecret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App private key used by the generated infer workflow.",
+          "default": "INFER_APP_PRIVATE_KEY"
+        }
       }
     },
     "FloxConfig": {
