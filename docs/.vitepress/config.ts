@@ -119,6 +119,7 @@ export default defineConfig({
           items: [
             { text: "capabilities", link: "/reference/capabilities" },
             { text: "card", link: "/reference/card" },
+            { text: "documentation", link: "/reference/documentation" },
             { text: "agent", link: "/reference/agent" },
             { text: "config", link: "/reference/config" },
             { text: "services", link: "/reference/services" },

@@ -157,6 +157,12 @@ spec:
           enabled: false
   telemetry:
     enabled: true
+  documentation:
+    pages:
+      - title: Getting Started
+        path: docs/getting-started.md
+      - title: Configuration
+        path: docs/configuration.md
 ```
 
 ### Agent metadata
@@ -415,6 +421,33 @@ resolved at runtime through the environment. Everything beyond `enabled`
 is additive, so an existing `telemetry: { enabled: true }` manifest stays
 valid. See the [`spec.telemetry` reference](./docs/reference/telemetry.md)
 for the full field list and env-var mapping.
+
+### Documentation pages
+
+`spec.documentation` lists hand-authored documentation pages the generated
+project owns and ships itself. Each entry in `pages` has a `title` and a
+`path`; the consumer (e.g. `adl-cli`) scaffolds a stub markdown file at
+`path` with that `title`, for the maintainers to fill in.
+
+```yaml
+spec:
+  documentation:
+    pages:
+      - title: Getting Started
+        path: docs/getting-started.md
+      - title: Configuration
+        path: docs/configuration.md
+```
+
+This is distinct from
+[`spec.card.documentationUrl`](./docs/reference/card.md), which is a single
+link to _already-published_ external docs. `documentation.pages` instead
+describes docs the project generates and maintains in-tree. Both `title`
+and `path` are required on every page, and a `documentation` block must
+list at least one page. `spec.documentation` is optional and additive -
+manifests that omit it stay valid. See the
+[`spec.documentation` reference](./docs/reference/documentation.md) for the
+full field list.
 
 ## Consumers
 
