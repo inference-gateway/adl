@@ -77,6 +77,11 @@
         "capabilities": { "$ref": "#/definitions/Capabilities" },
         "card": { "$ref": "#/definitions/Card" },
         "documentation": { "$ref": "#/definitions/Documentation" },
+        "examples": {
+          "type": "array",
+          "description": "Curated examples that demonstrate the agent's capabilities. Each entry has a 'title' and 'description'; consumers (e.g. adl-cli) use these to render an 'Examples' section in the generated README.md, linking each example to a scratchpad or playground for the agent.",
+          "items": { "$ref": "#/definitions/Example" }
+        },
         "agent": { "$ref": "#/definitions/Agent" },
         "config": {
           "type": "object",
@@ -148,6 +153,22 @@
           "description": "Documentation pages to scaffold. At least one page is required when the 'documentation' block is present.",
           "minItems": 1,
           "items": { "$ref": "#/definitions/DocumentationPage" }
+        }
+      }
+    },
+    "Example": {
+      "type": "object",
+      "description": "A single example entry. 'title' is the human-readable heading shown in the generated README's Examples section; 'description' explains what the example demonstrates.",
+      "required": ["title", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Short, descriptive title for the example (e.g. 'Basic chat', 'Tool use')."
+        },
+        "description": {
+          "type": "string",
+          "description": "One- or two-sentence explanation of what the example demonstrates."
         }
       }
     },
