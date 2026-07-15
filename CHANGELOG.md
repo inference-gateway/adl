@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.20.1](https://github.com/inference-gateway/adl/compare/v0.20.0...v0.20.1) (2026-07-15)
+
+### ♻️ Improvements
+
+* **schema:** extract examples array into Examples definition ([#110](https://github.com/inference-gateway/adl/issues/110)) ([30e8b90](https://github.com/inference-gateway/adl/commit/30e8b90666610afd4fe06cd4dacf0e42be66a602))
+
 ## [0.20.0](https://github.com/inference-gateway/adl/compare/v0.19.0...v0.20.0) (2026-07-15)
 
 ### ✨ Features
