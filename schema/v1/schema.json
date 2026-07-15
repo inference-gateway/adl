@@ -550,6 +550,16 @@
         },
         "url": { "type": "string" },
         "github_app": { "type": "boolean" },
+        "app_id_secret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App client ID used by the generated release (CD) workflow when github_app is enabled.",
+          "default": "RELEASER_APP_ID"
+        },
+        "app_private_key_secret": {
+          "type": "string",
+          "description": "Name of the repository secret holding the GitHub App private key used by the generated release (CD) workflow when github_app is enabled.",
+          "default": "RELEASER_APP_PRIVATE_KEY"
+        },
         "issue_templates": { "type": "boolean" },
         "dependabot": { "type": "boolean" },
         "ci": { "type": "boolean" },
