@@ -13,21 +13,22 @@ blocks and a long list of optional ones.
 
 ## Optional
 
-| Field         | Reference                                  |
-| ------------- | ------------------------------------------ |
-| `card`        | [card](./card)                             |
-| `agent`       | [agent](./agent) - provider, model, prompt |
-| `config`      | [config](./config)                         |
-| `services`    | [services](./services)                     |
-| `acronyms`    | [acronyms](./acronyms)                     |
-| `tools`       | [tools](./tools)                           |
-| `skills`      | [skills](./skills)                         |
-| `artifacts`   | [artifacts](./artifacts)                   |
-| `hooks`       | [hooks](./hooks)                           |
-| `scm`         | [scm](./scm)                               |
-| `development` | [development](./development)               |
-| `deployment`  | [deployment](./deployment)                 |
-| `telemetry`   | [telemetry](./telemetry)                   |
+| Field           | Reference                                  |
+| --------------- | ------------------------------------------ |
+| `card`          | [card](./card)                             |
+| `documentation` | [documentation](./documentation)           |
+| `agent`         | [agent](./agent) - provider, model, prompt |
+| `config`        | [config](./config)                         |
+| `services`      | [services](./services)                     |
+| `acronyms`      | [acronyms](./acronyms)                     |
+| `tools`         | [tools](./tools)                           |
+| `skills`        | [skills](./skills)                         |
+| `artifacts`     | [artifacts](./artifacts)                   |
+| `hooks`         | [hooks](./hooks)                           |
+| `scm`           | [scm](./scm)                               |
+| `development`   | [development](./development)               |
+| `deployment`    | [deployment](./deployment)                 |
+| `telemetry`     | [telemetry](./telemetry)                   |
 
 ## Minimal valid `spec`
 

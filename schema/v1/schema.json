@@ -76,6 +76,7 @@
       "properties": {
         "capabilities": { "$ref": "#/definitions/Capabilities" },
         "card": { "$ref": "#/definitions/Card" },
+        "documentation": { "$ref": "#/definitions/Documentation" },
         "agent": { "$ref": "#/definitions/Agent" },
         "config": {
           "type": "object",
@@ -135,6 +136,34 @@
         },
         "documentationUrl": { "type": "string" },
         "iconUrl": { "type": "string" }
+      }
+    },
+    "Documentation": {
+      "type": "object",
+      "description": "Hand-authored documentation pages the generated project owns and ships itself. Each entry in 'pages' declares a page the consumer (e.g. adl-cli) scaffolds as a stub markdown file at 'path' with the given 'title', to be filled in by the maintainers. This is distinct from 'spec.card.documentationUrl', which is a single link to already-published external docs: 'documentation.pages' describes the docs the project generates and maintains in-tree.",
+      "required": ["pages"],
+      "properties": {
+        "pages": {
+          "type": "array",
+          "description": "Documentation pages to scaffold. At least one page is required when the 'documentation' block is present.",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/DocumentationPage" }
+        }
+      }
+    },
+    "DocumentationPage": {
+      "type": "object",
+      "description": "A single documentation page. 'title' is the human-readable heading; 'path' is where the consumer writes the stub file, relative to the generated project's docs root (e.g. 'docs/getting-started.md').",
+      "required": ["title", "path"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Human-readable page title, used as the heading and in navigation."
+        },
+        "path": {
+          "type": "string",
+          "description": "Destination path for the generated stub file, relative to the generated project's docs root (e.g. 'docs/getting-started.md')."
+        }
       }
     },
     "Agent": {
