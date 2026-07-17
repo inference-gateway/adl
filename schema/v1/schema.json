@@ -159,7 +159,7 @@
     },
     "Example": {
       "type": "object",
-      "description": "A single example entry. 'title' is the human-readable heading shown in the generated README's Examples section; 'description' explains what the example demonstrates.",
+      "description": "A single example entry. 'title' is the human-readable heading shown in the generated README's Examples section; 'description' explains what the example demonstrates; 'path' optionally names a directory where the consumer scaffolds the example once.",
       "required": ["title", "description"],
       "additionalProperties": false,
       "properties": {
@@ -170,6 +170,10 @@
         "description": {
           "type": "string",
           "description": "One- or two-sentence explanation of what the example demonstrates."
+        },
+        "path": {
+          "type": "string",
+          "description": "Optional directory for the example, relative to the generated project root (e.g. 'examples/basic-chat'). Consumers seed a stub README there once and never overwrite it, and link the Examples table entry to it."
         }
       }
     },

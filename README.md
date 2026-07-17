@@ -468,20 +468,24 @@ full field list.
 capabilities. Each entry has a `title` and a `description`; consumers
 (e.g. `adl-cli`) use these to render an "Examples" section in the
 generated README.md, linking each example to a scratchpad or playground
-for the agent.
+for the agent. An entry may also carry an optional `path` naming a
+directory relative to the generated project root; consumers seed a stub
+README there once (never overwriting user edits) and link the Examples
+table entry to it.
 
 ```yaml
 spec:
   examples:
     - title: Basic chat
       description: A simple question-and-answer interaction
+      path: examples/basic-chat
     - title: Tool use
       description: Booking a flight through the booking tool
 ```
 
 `spec.examples` is optional and additive - manifests that omit it stay
-valid. Both `title` and `description` are required on every entry, and
-no other fields are accepted.
+valid. Both `title` and `description` are required on every entry;
+`path` is the only other accepted field.
 
 ## Consumers
 
