@@ -149,3 +149,68 @@ placeholders such as `${GITHUB_MCP_TOKEN}` - see
 credentials come from. New `transport` values may be added in future
 **minor** schema versions; consumers should tolerate unknown values when
 reading newer manifests.
+
+## `mcp`
+
+- **Type:** `object`
+- **Required:** no
+
+Runtime configuration for the agent's built-in MCP client. Where
+[`mcps`](#mcps) declares _which_ servers to connect to, `mcp` is the
+_how_: the enable toggle plus the connection, refresh, and retry knobs,
+applied globally across those servers. The MCP client is **disabled by
+default** - omit this block or set `enabled: false` and no MCP client is
+wired in (and no MCP code is generated), even if `mcps` lists servers.
+
+Every field maps 1:1 to an `A2A_MCP_*` environment variable the
+generated agent reads, and its value here becomes the **default** the
+generated project emits (e.g. in `.env.example`); the matching
+environment variable **overrides** it at runtime. The list of server
+base URLs the client connects to (`A2A_MCP_SERVERS`) is derived from the
+`mcps` entries, not set here.
+
+The client models the Go ADK's connection/retry config, which is
+HTTP-only with a single endpoint and one timeout/retry set - there is no
+per-server override, which is why these knobs live in one block rather
+than on each `mcps` entry.
+
+| Field              | Env var                      | Type      | Default | Meaning                                                            |
+| ------------------ | ---------------------------- | --------- | ------- | ------------------------------------------------------------------ |
+| `enabled`          | `A2A_MCP_ENABLE`             | `boolean` | `false` | Master switch. When false, no MCP client is generated or wired in. |
+| `endpoint`         | `A2A_MCP_ENDPOINT`           | `string`  | `/mcp`  | Path appended to each server base URL to reach its MCP endpoint.   |
+| `refreshInterval`  | `A2A_MCP_REFRESH_INTERVAL`   | `string`  | `5m`    | How often the client re-discovers the tools each server exposes.   |
+| `dialTimeout`      | `A2A_MCP_DIAL_TIMEOUT`       | `string`  | `30s`   | Timeout for establishing a connection to a server.                 |
+| `callTimeout`      | `A2A_MCP_CALL_TIMEOUT`       | `string`  | `30s`   | Timeout for a single MCP tool call.                                |
+| `maxRetries`       | `A2A_MCP_MAX_RETRIES`        | `integer` | `0`     | Max retries for a failed operation. `0` means retry forever.       |
+| `retryInterval`    | `A2A_MCP_RETRY_INTERVAL`     | `string`  | `2s`    | Initial backoff between retries.                                   |
+| `retryMaxInterval` | `A2A_MCP_RETRY_MAX_INTERVAL` | `string`  | `30s`   | Maximum backoff between retries once the interval has grown.       |
+
+The interval and timeout fields are [Go duration
+strings](https://pkg.go.dev/time#ParseDuration) (e.g. `5m`, `30s`,
+`1h30m`); the schema keeps them as free-form strings and does not
+validate the duration syntax.
+
+`enabled` is `required` when the `mcp` block is present, so the intent to
+turn the client on or off is always explicit.
+
+```yaml
+spec:
+  agent:
+    provider: openai
+    model: gpt-4.1
+    mcps:
+      - name: github
+        transport: http
+        url: https://mcp.example.com/github
+        headers:
+          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      endpoint: /mcp
+      refreshInterval: 5m
+      dialTimeout: 30s
+      callTimeout: 30s
+      maxRetries: 0
+      retryInterval: 2s
+      retryMaxInterval: 30s
+```

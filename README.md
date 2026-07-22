@@ -249,6 +249,32 @@ environment variable by the generated project. See
 [Secrets & interpolation](./docs/reference/secrets.md) for the full
 convention.
 
+`mcps` declares _which_ servers to connect to; the sibling
+[`spec.agent.mcp`](./docs/reference/agent.md#mcp) block is the client's
+runtime config - the enable toggle plus refresh/timeout/retry knobs. The
+MCP client is **disabled by default**: with `mcp` omitted or
+`enabled: false`, no MCP client is generated even if `mcps` lists
+servers. When enabled, each field is the default for the matching
+`A2A_MCP_*` environment variable, which overrides it at runtime:
+
+```yaml
+spec:
+  agent:
+    mcps:
+      - name: github
+        transport: http
+        url: https://mcp.example.com/github
+    mcp:
+      enabled: true # A2A_MCP_ENABLE; off by default
+      endpoint: /mcp # A2A_MCP_ENDPOINT
+      refreshInterval: 5m # A2A_MCP_REFRESH_INTERVAL
+      dialTimeout: 30s # A2A_MCP_DIAL_TIMEOUT
+      callTimeout: 30s # A2A_MCP_CALL_TIMEOUT
+      maxRetries: 0 # A2A_MCP_MAX_RETRIES (0 = retry forever)
+      retryInterval: 2s # A2A_MCP_RETRY_INTERVAL
+      retryMaxInterval: 30s # A2A_MCP_RETRY_MAX_INTERVAL
+```
+
 ### Skill licensing
 
 Each entry in `spec.skills[]` accepts an optional `license` string. It carries the licence under which the skill is distributed and must be drawn from the schema's accepted set of [SPDX](https://spdx.org/licenses/) identifiers, or `Proprietary` for closed-source skills.
