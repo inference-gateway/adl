@@ -18,12 +18,14 @@ names an environment variable to substitute at deploy/run time:
 ```yaml
 spec:
   agent:
-    mcps:
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
 ```
 
 Two things are true of that `${GITHUB_MCP_TOKEN}`:
@@ -51,13 +53,13 @@ exist to carry secrets and runtime configuration:
 
 | Field                                  | Carries                                                                        |
 | -------------------------------------- | ------------------------------------------------------------------------------ |
-| `spec.agent.mcps[].env`                | Env vars for a `stdio` MCP server - API keys or tokens the subprocess needs.   |
-| `spec.agent.mcps[].headers`            | Headers for an `http`/`sse` MCP server - e.g. an `Authorization` bearer token. |
+| `spec.agent.mcp.servers[].env`         | Env vars for a `stdio` MCP server - API keys or tokens the subprocess needs.   |
+| `spec.agent.mcp.servers[].headers`     | Headers for an `http`/`sse` MCP server - e.g. an `Authorization` bearer token. |
 | `spec.deployment.cloudrun.environment` | Env vars injected into the deployed Cloud Run service.                         |
 | `spec.deployment.vercel.environment`   | Env vars injected into the Vercel deployment.                                  |
 | `spec.config`                          | Free-form runtime config - reference secrets here, never inline them.          |
 
-See [agent](./agent#mcps), [deployment](./deployment#cloud-run) (also
+See [agent](./agent#mcp), [deployment](./deployment#cloud-run) (also
 [Vercel](./deployment#vercel)), and [config](./config) for the full
 definitions of those fields.
 

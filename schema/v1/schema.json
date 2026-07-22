@@ -221,15 +221,63 @@
           "minimum": 0,
           "maximum": 2
         },
-        "mcps": {
-          "type": "array",
-          "description": "MCP (Model Context Protocol) servers the agent connects to at runtime to discover and call external tools and capabilities, in addition to the locally generated 'spec.tools'. Only meaningful for an LLM-backed agent: A2A itself does not require an LLM, so this lives under 'spec.agent'. Each entry declares a transport plus the connection details for that transport.",
-          "items": { "$ref": "#/definitions/MCP" }
-        },
-        "mcp": { "$ref": "#/definitions/MCPClientConfig" }
+        "mcp": { "$ref": "#/definitions/MCP" }
       }
     },
     "MCP": {
+      "type": "object",
+      "description": "MCP (Model Context Protocol) configuration for the agent: the servers it connects to at runtime plus the runtime settings for the ADK's built-in MCP client. Only meaningful for an LLM-backed agent - A2A itself does not require an LLM - so this lives under 'spec.agent'. 'servers' declares *which* servers to connect to; the remaining fields are the *how* (enable toggle, endpoint, refresh, timeouts, retry/backoff), applied globally across those servers. They mirror the connection/retry model the Go ADK exposes, which is HTTP-only with a single endpoint and one timeout/retry set (there is no per-server override). 'enabled' is the master switch, mapped to 'A2A_MCP_ENABLE': when false (the default) no MCP client is wired in and no MCP code is generated, even if 'servers' lists servers. Every config field maps 1:1 to an 'A2A_MCP_*' environment variable, and its value in the manifest becomes the default the generated project emits (e.g. in .env.example); the matching environment variable overrides it at runtime. The list of server base URLs the client connects to ('A2A_MCP_SERVERS') is derived from the 'servers' entries, not set here. The MCP client is disabled by default - omit this block or set 'enabled: false' to keep it off.",
+      "required": ["enabled"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Master switch for the MCP client, mapped to 'A2A_MCP_ENABLE'. When false (the default) no MCP client is generated or wired in, regardless of any servers listed in 'servers'."
+        },
+        "servers": {
+          "type": "array",
+          "description": "MCP servers the agent connects to at runtime to discover and call external tools and capabilities, in addition to the locally generated 'spec.tools'. Each entry declares a transport plus the connection details for that transport.",
+          "items": { "$ref": "#/definitions/MCPServer" }
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Path appended to each server base URL to reach its MCP endpoint. Maps 1:1 to 'A2A_MCP_ENDPOINT'.",
+          "default": "/mcp"
+        },
+        "refreshInterval": {
+          "type": "string",
+          "description": "How often the client re-discovers the tools each server exposes, as a Go duration string (e.g. '5m', '30s', '1h30m'). Maps 1:1 to 'A2A_MCP_REFRESH_INTERVAL'.",
+          "default": "5m"
+        },
+        "dialTimeout": {
+          "type": "string",
+          "description": "Timeout for establishing a connection to an MCP server, as a Go duration string. Maps 1:1 to 'A2A_MCP_DIAL_TIMEOUT'.",
+          "default": "30s"
+        },
+        "callTimeout": {
+          "type": "string",
+          "description": "Timeout for a single MCP tool call, as a Go duration string. Maps 1:1 to 'A2A_MCP_CALL_TIMEOUT'.",
+          "default": "30s"
+        },
+        "maxRetries": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum number of retries for a failed MCP operation. '0' means retry forever. Maps 1:1 to 'A2A_MCP_MAX_RETRIES'.",
+          "default": 0
+        },
+        "retryInterval": {
+          "type": "string",
+          "description": "Initial backoff between retries, as a Go duration string. Maps 1:1 to 'A2A_MCP_RETRY_INTERVAL'.",
+          "default": "2s"
+        },
+        "retryMaxInterval": {
+          "type": "string",
+          "description": "Maximum backoff between retries once the interval has grown, as a Go duration string. Maps 1:1 to 'A2A_MCP_RETRY_MAX_INTERVAL'.",
+          "default": "30s"
+        }
+      }
+    },
+    "MCPServer": {
       "type": "object",
       "description": "A single MCP (Model Context Protocol) server the agent can connect to. 'stdio' launches a local subprocess and talks over stdin/stdout (use 'command', 'args', and 'env'); 'http' and 'sse' connect to a remote endpoint (use 'url' and 'headers'). Connection details that do not apply to the chosen transport are simply omitted; the schema does not constrain which combination is present so consumers can stay lenient.",
       "required": ["name", "transport"],
@@ -267,54 +315,6 @@
           "type": "object",
           "description": "Extra HTTP headers sent when connecting to an 'http' or 'sse' server (e.g. 'Authorization').",
           "additionalProperties": { "type": "string" }
-        }
-      }
-    },
-    "MCPClientConfig": {
-      "type": "object",
-      "description": "Runtime configuration for the ADK's built-in MCP client - the flat 'A2A_MCP_*' config the generated agent boots the client with. Distinct from 'mcps', which declares *which* servers to connect to: this block is the *how* (enable toggle, endpoint, refresh, timeouts, retry/backoff), applied globally across those servers. It mirrors the connection/retry model the Go ADK exposes, which is HTTP-only with a single endpoint and one timeout/retry set (there is no per-server override). 'enabled' is the master switch, mapped to 'A2A_MCP_ENABLE': when false (the default) no MCP client is wired in and no MCP code is generated, even if 'mcps' lists servers. Every field maps 1:1 to an 'A2A_MCP_*' environment variable, and its value in the manifest becomes the default the generated project emits (e.g. in .env.example); the matching environment variable overrides it at runtime. The list of server base URLs the client connects to ('A2A_MCP_SERVERS') is derived from the 'mcps' entries, not set here. The MCP client is disabled by default - omit this block or set 'enabled: false' to keep it off.",
-      "required": ["enabled"],
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Master switch for the MCP client, mapped to 'A2A_MCP_ENABLE'. When false (the default) no MCP client is generated or wired in, regardless of any servers listed in 'mcps'."
-        },
-        "endpoint": {
-          "type": "string",
-          "description": "Path appended to each server base URL to reach its MCP endpoint. Maps 1:1 to 'A2A_MCP_ENDPOINT'.",
-          "default": "/mcp"
-        },
-        "refreshInterval": {
-          "type": "string",
-          "description": "How often the client re-discovers the tools each server exposes, as a Go duration string (e.g. '5m', '30s', '1h30m'). Maps 1:1 to 'A2A_MCP_REFRESH_INTERVAL'.",
-          "default": "5m"
-        },
-        "dialTimeout": {
-          "type": "string",
-          "description": "Timeout for establishing a connection to an MCP server, as a Go duration string. Maps 1:1 to 'A2A_MCP_DIAL_TIMEOUT'.",
-          "default": "30s"
-        },
-        "callTimeout": {
-          "type": "string",
-          "description": "Timeout for a single MCP tool call, as a Go duration string. Maps 1:1 to 'A2A_MCP_CALL_TIMEOUT'.",
-          "default": "30s"
-        },
-        "maxRetries": {
-          "type": "integer",
-          "minimum": 0,
-          "description": "Maximum number of retries for a failed MCP operation. '0' means retry forever. Maps 1:1 to 'A2A_MCP_MAX_RETRIES'.",
-          "default": 0
-        },
-        "retryInterval": {
-          "type": "string",
-          "description": "Initial backoff between retries, as a Go duration string. Maps 1:1 to 'A2A_MCP_RETRY_INTERVAL'.",
-          "default": "2s"
-        },
-        "retryMaxInterval": {
-          "type": "string",
-          "description": "Maximum backoff between retries once the interval has grown, as a Go duration string. Maps 1:1 to 'A2A_MCP_RETRY_MAX_INTERVAL'.",
-          "default": "30s"
         }
       }
     },

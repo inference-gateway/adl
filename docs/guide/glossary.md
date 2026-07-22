@@ -46,7 +46,7 @@ in a target language - for example
 
 An open protocol for connecting an agent to external tool and context
 servers at runtime, configured under
-[`spec.agent.mcps`](/reference/agent#mcps). See
+[`spec.agent.mcp`](/reference/agent#mcp). See
 [modelcontextprotocol.io](https://modelcontextprotocol.io/).
 
 ## orchestrator

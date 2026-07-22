@@ -46,19 +46,21 @@ spec:
       `escalate_ticket` tool when you can't resolve an issue.
     maxTokens: 4096
     temperature: 0.3
-    mcps:
-      - name: filesystem
-        transport: stdio
-        command: npx
-        args:
-          - -y
-          - "@modelcontextprotocol/server-filesystem"
-          - /workspace
-      - name: docs
-        transport: http
-        url: https://mcp.acme.example/docs
-        headers:
-          Authorization: Bearer ${DOCS_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: filesystem
+          transport: stdio
+          command: npx
+          args:
+            - -y
+            - "@modelcontextprotocol/server-filesystem"
+            - /workspace
+        - name: docs
+          transport: http
+          url: https://mcp.acme.example/docs
+          headers:
+            Authorization: Bearer ${DOCS_MCP_TOKEN}
 
   services:
     customerRepo:
@@ -230,7 +232,7 @@ spec:
   from `spec.services`.
 - **Two MCP servers, two transports.** `filesystem` runs locally over
   `stdio`; `docs` is a remote `http` server reached with a bearer token.
-  See [`spec.agent.mcps`](/reference/agent#mcps).
+  See [`spec.agent.mcp`](/reference/agent#mcp).
 - **Two skills, two licences.** `incident-response` is open-source
   (Apache-2.0); `refund-policy` is `Proprietary`. The licences ride
   along in the generated `SKILL.md` frontmatter.

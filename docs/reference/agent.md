@@ -1,8 +1,8 @@
 # `spec.agent`
 
 LLM-side configuration: which provider, which model, the system prompt,
-standard sampling knobs, and any [MCP servers](#mcps) the agent connects
-to.
+standard sampling knobs, and the [MCP](#mcp) servers and client the agent
+connects with.
 
 The whole block is **optional**. [A2A](/guide/a2a) does not require an LLM,
 so an agent can ship without one - just omit `spec.agent` entirely.
@@ -17,19 +17,21 @@ spec:
       You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
-    mcps:
-      - name: filesystem
-        transport: stdio
-        command: npx
-        args:
-          - -y
-          - "@modelcontextprotocol/server-filesystem"
-          - /workspace
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: filesystem
+          transport: stdio
+          command: npx
+          args:
+            - -y
+            - "@modelcontextprotocol/server-filesystem"
+            - /workspace
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
 ```
 
 ## `provider`
@@ -91,19 +93,36 @@ Sampling temperature. `0` makes the model maximally deterministic, `2`
 maximally creative. The clamp matches what most providers actually
 accept.
 
-## `mcps`
+## `mcp`
+
+- **Type:** `object`
+- **Required:** no
+
+[MCP](https://modelcontextprotocol.io/) (Model Context Protocol)
+configuration for the agent: the servers it connects to plus the runtime
+settings for its built-in MCP client. This is what bridges an A2A agent
+to the MCP ecosystem. It lives under `spec.agent` - rather than at the
+top of `spec` - because it only makes sense once an LLM is driving the
+agent.
+
+`mcp.servers` declares _which_ servers to connect to; the surrounding
+fields are the _how_: the enable toggle plus the connection, refresh, and
+retry knobs, applied globally across those servers. The MCP client is
+**disabled by default** - omit this block or set `enabled: false` and no
+MCP client is wired in (and no MCP code is generated), even if `servers`
+lists servers.
+
+`enabled` is `required` when the `mcp` block is present, so the intent to
+turn the client on or off is always explicit.
+
+### `mcp.servers`
 
 - **Type:** `array` of MCP server objects
 - **Required:** no
 
-[MCP](https://modelcontextprotocol.io/) (Model Context Protocol) servers
-the agent connects to at runtime to discover and call external tools and
-capabilities, on top of the locally generated [`spec.tools`](./tools).
-This is what bridges an A2A agent to the MCP ecosystem. It lives under
-`spec.agent` - rather than at the top of `spec` - because it only makes
-sense once an LLM is driving the agent.
-
-Each entry takes:
+The MCP servers the agent connects to at runtime to discover and call
+external tools and capabilities, on top of the locally generated
+[`spec.tools`](./tools). Each entry takes:
 
 - `name` - **required** `string`. Identifier, unique within the agent.
   Pattern `^[a-zA-Z0-9_-]+$`.
@@ -123,21 +142,23 @@ spec:
   agent:
     provider: openai
     model: gpt-4.1
-    mcps:
-      - name: filesystem
-        transport: stdio
-        command: npx
-        args:
-          - -y
-          - "@modelcontextprotocol/server-filesystem"
-          - /workspace
-        env:
-          LOG_LEVEL: info
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: filesystem
+          transport: stdio
+          command: npx
+          args:
+            - -y
+            - "@modelcontextprotocol/server-filesystem"
+            - /workspace
+          env:
+            LOG_LEVEL: info
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
 ```
 
 Only `name` and `transport` are required; the remaining fields are the
@@ -150,29 +171,20 @@ credentials come from. New `transport` values may be added in future
 **minor** schema versions; consumers should tolerate unknown values when
 reading newer manifests.
 
-## `mcp`
+### Client runtime config
 
-- **Type:** `object`
-- **Required:** no
-
-Runtime configuration for the agent's built-in MCP client. Where
-[`mcps`](#mcps) declares _which_ servers to connect to, `mcp` is the
-_how_: the enable toggle plus the connection, refresh, and retry knobs,
-applied globally across those servers. The MCP client is **disabled by
-default** - omit this block or set `enabled: false` and no MCP client is
-wired in (and no MCP code is generated), even if `mcps` lists servers.
-
-Every field maps 1:1 to an `A2A_MCP_*` environment variable the
-generated agent reads, and its value here becomes the **default** the
-generated project emits (e.g. in `.env.example`); the matching
-environment variable **overrides** it at runtime. The list of server
-base URLs the client connects to (`A2A_MCP_SERVERS`) is derived from the
-`mcps` entries, not set here.
+Alongside `servers`, the `mcp` block carries the runtime configuration
+for the built-in MCP client. Every field maps 1:1 to an `A2A_MCP_*`
+environment variable the generated agent reads, and its value here
+becomes the **default** the generated project emits (e.g. in
+`.env.example`); the matching environment variable **overrides** it at
+runtime. The list of server base URLs the client connects to
+(`A2A_MCP_SERVERS`) is derived from the `servers` entries, not set here.
 
 The client models the Go ADK's connection/retry config, which is
 HTTP-only with a single endpoint and one timeout/retry set - there is no
-per-server override, which is why these knobs live in one block rather
-than on each `mcps` entry.
+per-server override, which is why these knobs live once on the `mcp`
+block rather than on each `servers` entry.
 
 | Field              | Env var                      | Type      | Default | Meaning                                                            |
 | ------------------ | ---------------------------- | --------- | ------- | ------------------------------------------------------------------ |
@@ -190,20 +202,11 @@ strings](https://pkg.go.dev/time#ParseDuration) (e.g. `5m`, `30s`,
 `1h30m`); the schema keeps them as free-form strings and does not
 validate the duration syntax.
 
-`enabled` is `required` when the `mcp` block is present, so the intent to
-turn the client on or off is always explicit.
-
 ```yaml
 spec:
   agent:
     provider: openai
     model: gpt-4.1
-    mcps:
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
     mcp:
       enabled: true
       endpoint: /mcp
@@ -213,4 +216,10 @@ spec:
       maxRetries: 0
       retryInterval: 2s
       retryMaxInterval: 30s
+      servers:
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
 ```
