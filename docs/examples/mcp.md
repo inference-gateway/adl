@@ -43,6 +43,15 @@ spec:
         url: https://mcp.example.com/github
         headers:
           Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      endpoint: /mcp
+      refreshInterval: 5m
+      dialTimeout: 30s
+      callTimeout: 30s
+      maxRetries: 0
+      retryInterval: 2s
+      retryMaxInterval: 30s
 
   server:
     port: 8080
@@ -71,3 +80,11 @@ spec:
 - **MCP complements `spec.tools`.** Generated tools are deterministic
   entrypoints you own; MCP servers are external capabilities discovered
   at runtime. An agent can use either or both.
+- **`mcp` turns the client on and sets the defaults.** `mcps` lists the
+  servers; the sibling [`mcp`](/reference/agent#mcp) block is the client
+  runtime config. It is disabled by default - here `enabled: true` wires
+  it in. Each field is the default for the matching `A2A_MCP_*`
+  environment variable, which overrides it at runtime; the values shown
+  are the built-in defaults, so this block is equivalent to just
+  `enabled: true`. With `enabled: false` (or the block omitted) no MCP
+  client is generated at all.
