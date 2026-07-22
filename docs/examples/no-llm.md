@@ -76,7 +76,7 @@ spec:
 
 - **No `spec.agent`.** There is no provider, model, or system prompt -
   nothing calls an LLM. The agent's contract is purely its tools, and it
-  still speaks A2A. (`spec.agent.mcps` lives under `agent` for exactly
+  still speaks A2A. (`spec.agent.mcp` lives under `agent` for exactly
   this reason: it only makes sense once a model is driving.)
 - **Deterministic tools do the work.** `route_event` switches on an
   `eventType` enum; `healthcheck` reports reachability. Both are plain

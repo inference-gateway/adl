@@ -88,19 +88,21 @@ spec:
       You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
-    mcps:
-      - name: filesystem
-        transport: stdio
-        command: npx
-        args:
-          - -y
-          - "@modelcontextprotocol/server-filesystem"
-          - /workspace
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: filesystem
+          transport: stdio
+          command: npx
+          args:
+            - -y
+            - "@modelcontextprotocol/server-filesystem"
+            - /workspace
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
   tools:
     - id: knowledge_search
       name: knowledge_search
@@ -199,32 +201,34 @@ metadata:
 
 The whole `spec.agent` block is optional - an A2A agent can ship without
 an LLM at all, in which case you simply omit `agent`. When you _do_
-configure an LLM-backed agent, `spec.agent.mcps[]` lets it connect to
-[MCP](https://modelcontextprotocol.io/) (Model Context Protocol) servers
-at runtime, so the model can discover and call external capabilities
-alongside the locally generated [`spec.tools`](#tools-vs-skills). MCP
-configuration lives under `spec.agent` rather than at the top level
-precisely because it only makes sense when there is a model driving the
-agent.
+configure an LLM-backed agent, `spec.agent.mcp.servers[]` lets it connect
+to [MCP](https://modelcontextprotocol.io/) (Model Context Protocol)
+servers at runtime, so the model can discover and call external
+capabilities alongside the locally generated
+[`spec.tools`](#tools-vs-skills). MCP configuration lives under
+`spec.agent` rather than at the top level precisely because it only makes
+sense when there is a model driving the agent.
 
 ```yaml
 spec:
   agent:
     provider: openai
     model: gpt-4.1
-    mcps:
-      - name: filesystem
-        transport: stdio
-        command: npx
-        args:
-          - -y
-          - "@modelcontextprotocol/server-filesystem"
-          - /workspace
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
-        headers:
-          Authorization: Bearer ${GITHUB_MCP_TOKEN}
+    mcp:
+      enabled: true
+      servers:
+        - name: filesystem
+          transport: stdio
+          command: npx
+          args:
+            - -y
+            - "@modelcontextprotocol/server-filesystem"
+            - /workspace
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
+          headers:
+            Authorization: Bearer ${GITHUB_MCP_TOKEN}
 ```
 
 Each entry requires a `name` (unique within the agent) and a
@@ -249,21 +253,17 @@ environment variable by the generated project. See
 [Secrets & interpolation](./docs/reference/secrets.md) for the full
 convention.
 
-`mcps` declares _which_ servers to connect to; the sibling
-[`spec.agent.mcp`](./docs/reference/agent.md#mcp) block is the client's
+`mcp.servers` declares _which_ servers to connect to; the surrounding
+[`spec.agent.mcp`](./docs/reference/agent.md#mcp) fields are the client's
 runtime config - the enable toggle plus refresh/timeout/retry knobs. The
 MCP client is **disabled by default**: with `mcp` omitted or
-`enabled: false`, no MCP client is generated even if `mcps` lists
+`enabled: false`, no MCP client is generated even if `servers` lists
 servers. When enabled, each field is the default for the matching
 `A2A_MCP_*` environment variable, which overrides it at runtime:
 
 ```yaml
 spec:
   agent:
-    mcps:
-      - name: github
-        transport: http
-        url: https://mcp.example.com/github
     mcp:
       enabled: true # A2A_MCP_ENABLE; off by default
       endpoint: /mcp # A2A_MCP_ENDPOINT
@@ -273,6 +273,10 @@ spec:
       maxRetries: 0 # A2A_MCP_MAX_RETRIES (0 = retry forever)
       retryInterval: 2s # A2A_MCP_RETRY_INTERVAL
       retryMaxInterval: 30s # A2A_MCP_RETRY_MAX_INTERVAL
+      servers:
+        - name: github
+          transport: http
+          url: https://mcp.example.com/github
 ```
 
 ### Skill licensing
