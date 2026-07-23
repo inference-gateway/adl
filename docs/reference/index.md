@@ -19,8 +19,8 @@ spec: # required
   capabilities: { ... } # required
   server: { ... } # required
   language: { ... } # required
-  # optional: card, agent, config, services, acronyms,
-  #           tools, skills, artifacts, hooks, scm,
+  # optional: card, documentation, agent, config, services,
+  #           acronyms, tools, skills, artifacts, hooks, scm,
   #           development, deployment, telemetry
 ```
 
@@ -35,24 +35,25 @@ spec: # required
 
 ## `spec.*`
 
-| Field          | Required | Reference                      |
-| -------------- | :------: | ------------------------------ |
-| `capabilities` |    ✓     | [capabilities](./capabilities) |
-| `card`         |          | [card](./card)                 |
-| `agent`        |          | [agent](./agent)               |
-| `config`       |          | [config](./config)             |
-| `services`     |          | [services](./services)         |
-| `acronyms`     |          | [acronyms](./acronyms)         |
-| `tools`        |          | [tools](./tools)               |
-| `skills`       |          | [skills](./skills)             |
-| `server`       |    ✓     | [server](./server)             |
-| `language`     |    ✓     | [language](./language)         |
-| `artifacts`    |          | [artifacts](./artifacts)       |
-| `hooks`        |          | [hooks](./hooks)               |
-| `scm`          |          | [scm](./scm)                   |
-| `development`  |          | [development](./development)   |
-| `deployment`   |          | [deployment](./deployment)     |
-| `telemetry`    |          | [telemetry](./telemetry)       |
+| Field           | Required | Reference                        |
+| --------------- | :------: | -------------------------------- |
+| `capabilities`  |    ✓     | [capabilities](./capabilities)   |
+| `card`          |          | [card](./card)                   |
+| `documentation` |          | [documentation](./documentation) |
+| `agent`         |          | [agent](./agent)                 |
+| `config`        |          | [config](./config)               |
+| `services`      |          | [services](./services)           |
+| `acronyms`      |          | [acronyms](./acronyms)           |
+| `tools`         |          | [tools](./tools)                 |
+| `skills`        |          | [skills](./skills)               |
+| `server`        |    ✓     | [server](./server)               |
+| `language`      |    ✓     | [language](./language)           |
+| `artifacts`     |          | [artifacts](./artifacts)         |
+| `hooks`         |          | [hooks](./hooks)                 |
+| `scm`           |          | [scm](./scm)                     |
+| `development`   |          | [development](./development)     |
+| `deployment`    |          | [deployment](./deployment)       |
+| `telemetry`     |          | [telemetry](./telemetry)         |
 
 ## Appendix
 
