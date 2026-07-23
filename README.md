@@ -98,11 +98,13 @@ spec:
             - -y
             - "@modelcontextprotocol/server-filesystem"
             - /workspace
-        - name: github
+          env:
+            LOG_LEVEL: info
+        - name: docs
           transport: http
-          url: https://mcp.example.com/github
+          url: https://mcp.acme.example/docs
           headers:
-            Authorization: Bearer ${GITHUB_MCP_TOKEN}
+            Authorization: Bearer ${DOCS_MCP_TOKEN}
   tools:
     - id: knowledge_search
       name: knowledge_search
@@ -129,7 +131,10 @@ spec:
         - incident
   server:
     port: 8080
+    scheme: https
     debug: false
+    auth:
+      enabled: true
   language:
     go:
       module: github.com/company/customer-support-agent
@@ -145,6 +150,8 @@ spec:
         enabled: true
       devcontainer:
         enabled: false
+      dockerCompose:
+        enabled: false
     ai:
       orchestrators:
         claudecode:
@@ -157,6 +164,8 @@ spec:
           enabled: false
         infer:
           enabled: false
+    deps:
+      - kubectl@1.31.0
   telemetry:
     enabled: true
   documentation:
