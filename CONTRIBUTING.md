@@ -42,6 +42,16 @@ npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
 
 These are the same package versions CI installs. There is no `package.json` on purpose: the install is one-off and local to your working tree.
 
+### Pre-commit hook (recommended)
+
+This repo ships a `.githooks/pre-commit` hook that runs Prettier formatting checks on staged files. Activate it once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+If the hook blocks a commit due to formatting, fix with `npx prettier@3.8.3 --write <file>` or bypass with `git commit --no-verify` (not recommended).
+
 ## Development Process
 
 1. Create a new branch:

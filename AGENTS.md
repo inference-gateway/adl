@@ -8,10 +8,33 @@ This repository is the source of truth for the ADL JSON Schema. The canonical sc
 
 - `task`: list available repository tasks.
 - `task compile`: compile `schema/v1/schema.json` with AJV Draft-07 and `ajv-formats`; this is the same validation path CI uses.
+- `task format:check`: check that all files are formatted with Prettier (same check CI runs).
+- `task format`: auto-format all files with Prettier.
 - `task validate -- path/to/manifest.yaml`: validate a manifest file against the schema.
 - `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json`: manual equivalent when `go-task` is unavailable.
 
 Use `flox activate` for the recommended local environment. Manual setup requires Node.js 24.x and `npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3`.
+
+## Pre-commit Hook
+
+This repo ships a `.githooks/pre-commit` hook that runs `prettier --check` on staged files before every commit. Activate it once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+If the hook blocks a commit due to formatting, fix with `npx prettier@3.8.3 --write <file>` or bypass with `git commit --no-verify` (not recommended).
+
+## Working on a Task
+
+1. **Read the task fully** before writing any code. Understand the problem, the existing code it touches, and the real flow end to end.
+2. **Check CI expectations.** This repo has two CI checks: `Compile JSON Schema` (AJV) and `Check formatting` (Prettier). Both must pass.
+3. **Before every commit**, run both checks:
+   - `task compile` - validates the JSON Schema compiles
+   - `task format:check` - validates Prettier formatting
+4. **Fix failures before committing.** If `task format:check` fails, run `task format` to auto-fix, then re-check.
+5. **Commit and push** after each logical step. Do not batch commits - unpushed work is lost when the runner ends.
+6. **Update AGENTS.md** if you add new tooling, commands, or conventions that future agents should know about.
 
 ## Coding Style & Naming Conventions
 
@@ -25,7 +48,12 @@ There is no separate unit test suite; schema compilation is the required test. R
 
 Use Conventional Commits because semantic-release derives versions from commit titles. Common examples are `feat(schema): add metadata labels`, `fix(schema): relax skill license validation`, and `docs: update manifest example`. Recent history also uses `chore:` for maintenance-only changes.
 
-Before opening a PR, confirm `task compile` passes, include a short description of the schema impact, link any relevant issue or discussion, and note any manifest examples you validated. PR titles should follow the same commit convention because squash merges use the title as the final commit message.
+Before opening a PR, confirm:
+- `task compile` passes
+- `task format:check` passes (all files formatted with Prettier)
+- Include a short description of the schema impact, link any relevant issue or discussion, and note any manifest examples you validated.
+
+PR titles should follow the same commit convention because squash merges use the title as the final commit message.
 
 ## Making a schema change (end to end)
 
