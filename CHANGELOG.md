@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.23.2](https://github.com/inference-gateway/adl/compare/v0.23.1...v0.23.2) (2026-07-23)
+
+### 📚 Documentation
+
+* update README examples to match current schema ([#128](https://github.com/inference-gateway/adl/issues/128)) ([e38a9ef](https://github.com/inference-gateway/adl/commit/e38a9ef4ee4635488668de6a7b170186d29b8c2c))
+
 ## [0.23.1](https://github.com/inference-gateway/adl/compare/v0.23.0...v0.23.1) (2026-07-23)
 
 ### 📚 Documentation
