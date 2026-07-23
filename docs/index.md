@@ -23,9 +23,15 @@ features:
   - icon: 🧰
     title: Tools and Skills
     details: Function-call entrypoints (tools) and markdown playbooks (skills) live side-by-side, so deterministic operations and natural-language workflows are first-class citizens.
+  - icon: 🔗
+    title: MCP-connected
+    details: Declare the Model Context Protocol servers an agent connects to at runtime under spec.agent.mcp, so it can discover and call external tools on top of its own, with connection and retry knobs mapped to A2A_MCP_* variables.
   - icon: 🔌
     title: Vendor-agnostic
     details: Swap providers (OpenAI, Anthropic, DeepSeek, Google, Mistral, Ollama, Groq) without rewriting your agent. ADL stays portable across platforms.
+  - icon: 📊
+    title: Observability built-in
+    details: Declare OpenTelemetry the same way as everything else. spec.telemetry configures OTLP and Prometheus exporters per signal, so traces and metrics ship from the generated agent without hand-wiring.
   - icon: 📦
     title: Reproducible dev sandboxes
     details: First-class flox, devcontainer, and docker-compose support. Provision Claude Code, Codex, Gemini, OpenCode, or Infer into the sandbox out of the box.
