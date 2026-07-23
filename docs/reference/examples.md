@@ -21,10 +21,10 @@ spec:
 
 ### `Example`
 
-| Field         | Type     | Description                                                                        |
-| ------------- | -------- | ---------------------------------------------------------------------------------- |
+| Field         | Type     | Description                                                                         |
+| ------------- | -------- | ----------------------------------------------------------------------------------- |
 | `title`       | `string` | Short, descriptive title for the example (e.g. `Basic chat`, `Tool use`). Required. |
-| `description` | `string` | One- or two-sentence explanation of what the example demonstrates. Required.       |
+| `description` | `string` | One- or two-sentence explanation of what the example demonstrates. Required.        |
 
 The whole block is optional - omit `spec.examples` if the agent ships no
 curated examples. When present, every entry requires both `title` and
