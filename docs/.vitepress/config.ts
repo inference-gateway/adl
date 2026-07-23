@@ -98,6 +98,7 @@ export default defineConfig({
             { text: "Getting Started", link: "/guide/getting-started" },
             { text: "Generate & Run", link: "/guide/generate" },
             { text: "Tools vs Skills", link: "/guide/tools-vs-skills" },
+            { text: "Connecting to MCP Servers", link: "/guide/mcp" },
             { text: "A2A & the Agent Card", link: "/guide/a2a" },
             { text: "Versioning", link: "/guide/versioning" },
             { text: "Glossary", link: "/guide/glossary" },
