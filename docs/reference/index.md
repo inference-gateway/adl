@@ -19,7 +19,7 @@ spec: # required
   capabilities: { ... } # required
   server: { ... } # required
   language: { ... } # required
-  # optional: card, agent, config, services, acronyms,
+  # optional: card, examples, agent, config, services, acronyms,
   #           tools, skills, artifacts, hooks, scm,
   #           development, deployment, telemetry
 ```
@@ -39,6 +39,7 @@ spec: # required
 | -------------- | :------: | ------------------------------ |
 | `capabilities` |    ✓     | [capabilities](./capabilities) |
 | `card`         |          | [card](./card)                 |
+| `examples`     |          | [examples](./examples)         |
 | `agent`        |          | [agent](./agent)               |
 | `config`       |          | [config](./config)             |
 | `services`     |          | [services](./services)         |
