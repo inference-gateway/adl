@@ -49,16 +49,16 @@ in the manifest becomes the **default** the generated project emits (e.g. in
 `.env.example`); the matching environment variable **overrides** it at
 runtime.
 
-| Field             | Env var                    | Default | What it controls                             |
-| ----------------- | -------------------------- | ------- | -------------------------------------------- |
-| `enabled`         | `A2A_MCP_ENABLE`           | `false` | Master switch - no client generated if off.  |
-| `endpoint`        | `A2A_MCP_ENDPOINT`         | `/mcp`  | Path appended to each server URL.            |
-| `refreshInterval` | `A2A_MCP_REFRESH_INTERVAL` | `5m`    | How often tools are re-discovered.           |
-| `dialTimeout`     | `A2A_MCP_DIAL_TIMEOUT`     | `30s`   | Connection timeout.                          |
-| `callTimeout`     | `A2A_MCP_CALL_TIMEOUT`     | `30s`   | Single tool-call timeout.                    |
-| `maxRetries`      | `A2A_MCP_MAX_RETRIES`      | `0`     | Retries on failure (`0` = retry forever).    |
-| `retryInterval`   | `A2A_MCP_RETRY_INTERVAL`   | `2s`    | Initial backoff between retries.             |
-| `retryMaxInterval`| `A2A_MCP_RETRY_MAX_INTERVAL` | `30s` | Ceiling for the backoff.                     |
+| Field              | Env var                      | Default | What it controls                            |
+| ------------------ | ---------------------------- | ------- | ------------------------------------------- |
+| `enabled`          | `A2A_MCP_ENABLE`             | `false` | Master switch - no client generated if off. |
+| `endpoint`         | `A2A_MCP_ENDPOINT`           | `/mcp`  | Path appended to each server URL.           |
+| `refreshInterval`  | `A2A_MCP_REFRESH_INTERVAL`   | `5m`    | How often tools are re-discovered.          |
+| `dialTimeout`      | `A2A_MCP_DIAL_TIMEOUT`       | `30s`   | Connection timeout.                         |
+| `callTimeout`      | `A2A_MCP_CALL_TIMEOUT`       | `30s`   | Single tool-call timeout.                   |
+| `maxRetries`       | `A2A_MCP_MAX_RETRIES`        | `0`     | Retries on failure (`0` = retry forever).   |
+| `retryInterval`    | `A2A_MCP_RETRY_INTERVAL`     | `2s`    | Initial backoff between retries.            |
+| `retryMaxInterval` | `A2A_MCP_RETRY_MAX_INTERVAL` | `30s`   | Ceiling for the backoff.                    |
 
 Interval and timeout fields are [Go duration
 strings](https://pkg.go.dev/time#ParseDuration) (`5m`, `30s`, `1h30m`). Every

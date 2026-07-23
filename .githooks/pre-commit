@@ -1,0 +1,28 @@
+#!/bin/sh
+# Pre-commit hook: check formatting with Prettier before every commit.
+# Skips if npx/prettier is not installed (CI and fresh clones).
+#
+# Install with: git config core.hooksPath .githooks
+
+set -eu
+
+if ! command -v npx >/dev/null 2>&1; then
+  exit 0
+fi
+
+PRETTIER_VERSION="3.8.3"
+
+# Only check staged files (the files that would be committed).
+staged=$(git diff --cached --name-only --diff-filter=ACMRT | head -c 4096)
+if [ -z "$staged" ]; then
+  exit 0
+fi
+
+# Let prettier check only the staged subset.
+echo "$staged" | xargs npx --yes "prettier@$PRETTIER_VERSION" --check 2>/dev/null || {
+  echo ""
+  echo "ERROR: Prettier formatting check failed for one or more staged files."
+  echo "       Run 'npx prettier@$PRETTIER_VERSION --write <file>' to fix,"
+  echo "       or 'git commit --no-verify' to bypass (not recommended)."
+  exit 1
+}
