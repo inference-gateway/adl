@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: 'Schema git tag to sync (e.g. v0.22.0). Defaults to the latest adl release.'
+        description: "Schema git tag to sync (e.g. v0.22.0). Defaults to the latest adl release."
         required: false
         type: string
 
