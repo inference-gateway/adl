@@ -82,12 +82,10 @@ spec:
     pushNotifications: true
     stateTransitionHistory: true
   agent:
-    provider: anthropic
-    model: claude-sonnet-4-7
+    provider: deepseek
+    model: deepseek-v4-flash
     systemPrompt: |
-      You are a professional customer support agent for Acme Corp.
-      Be concise, empathetic, and accurate. Escalate via the
-      `escalate_ticket` tool when you can't resolve an issue.
+      You are a professional customer support agent.
     maxTokens: 4096
     temperature: 0.3
     mcp:
@@ -158,6 +156,14 @@ spec:
       orchestrators:
         claudecode:
           enabled: true
+        codex:
+          enabled: false
+        gemini:
+          enabled: false
+        opencode:
+          enabled: false
+        infer:
+          enabled: false
     deps:
       - kubectl@1.31.0
   telemetry:
