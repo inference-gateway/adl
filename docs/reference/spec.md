@@ -17,6 +17,7 @@ blocks and a long list of optional ones.
 | --------------- | ------------------------------------------ |
 | `card`          | [card](./card)                             |
 | `documentation` | [documentation](./documentation)           |
+| `examples`      | [examples](./examples)                     |
 | `agent`         | [agent](./agent) - provider, model, prompt |
 | `config`        | [config](./config)                         |
 | `services`      | [services](./services)                     |
