@@ -51,6 +51,7 @@ jobs:
     uses: inference-gateway/.github/.github/workflows/claude.yml@main
     with:
       language: "node"
+      prettier: true
       plugins: |
         DietrichGebert/ponytail
       browser: ${{ inputs.browser || true }}
