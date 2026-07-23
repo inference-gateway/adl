@@ -123,7 +123,14 @@ export default defineConfig({
             { text: "card", link: "/reference/card" },
             { text: "documentation", link: "/reference/documentation" },
             { text: "examples", link: "/reference/examples" },
-            { text: "agent", link: "/reference/agent" },
+            {
+              text: "agent",
+              collapsed: false,
+              items: [
+                { text: "agent", link: "/reference/agent" },
+                { text: "mcp", link: "/reference/agent#mcp" },
+              ],
+            },
             { text: "config", link: "/reference/config" },
             { text: "services", link: "/reference/services" },
             { text: "acronyms", link: "/reference/acronyms" },
