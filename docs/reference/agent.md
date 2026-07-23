@@ -40,7 +40,7 @@ spec:
 - **Required:** no
 - **Allowed values:** `""`, `openai`, `anthropic`, `ollama`, `deepseek`,
   `google`, `mistral`, `groq`, `cohere`, `cloudflare`, `moonshot`,
-  `ollama_cloud`, `nvidia`.
+  `ollama_cloud`, `nvidia`, `minimax`.
 
 The provider behind the LLM. The empty string is allowed for manifests
 that defer provider selection to deploy time.
