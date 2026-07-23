@@ -1,0 +1,63 @@
+---
+name: Sync adl-cli
+
+# Manually dispatch a schema-sync event to inference-gateway/adl-cli.
+# adl-cli's sync-schema workflow bumps its pinned schema tag, runs `task generate`,
+# and opens a PR with the result. Manual trigger only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Schema git tag to sync (e.g. v0.22.0). Defaults to the latest adl release.'
+        required: false
+        type: string
+
+permissions: {}
+
+jobs:
+  dispatch:
+    name: Dispatch schema-sync to adl-cli
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/create-github-app-token@v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ secrets.RELEASER_APP_ID }}
+          private-key: ${{ secrets.RELEASER_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            adl-cli
+
+      - name: Resolve schema ref
+        id: ref
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          INPUT_REF: ${{ inputs.ref }}
+        run: |
+          REF="$INPUT_REF"
+          if [ -z "$REF" ]; then
+            REF=$(gh release view --repo ${{ github.repository }} --json tagName -q .tagName)
+          fi
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "Resolved schema ref: $REF"
+
+      - name: Dispatch schema-sync
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REF: ${{ steps.ref.outputs.ref }}
+        run: |
+          gh api repos/${{ github.repository_owner }}/adl-cli/dispatches \
+            -f event_type=schema-sync \
+            -F client_payload[ref]="$REF"
+
+      - name: Job summary
+        env:
+          REF: ${{ steps.ref.outputs.ref }}
+        run: |
+          {
+            echo "## Dispatched schema-sync to adl-cli"
+            echo ""
+            echo "- Schema ref: \`$REF\`"
+            echo "- Watch: https://github.com/${{ github.repository_owner }}/adl-cli/actions"
+          } >> "$GITHUB_STEP_SUMMARY"
