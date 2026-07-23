@@ -12,12 +12,12 @@ ship to.
 Every ADL manifest is a YAML (or JSON) document with four required
 top-level fields:
 
-| Field        | Description                                                                                   |
-| ------------ | --------------------------------------------------------------------------------------------- |
-| `apiVersion` | The schema version this manifest targets - currently `adl.inference-gateway.com/v1`.          |
-| `kind`       | Always `Agent`. Reserved so future kinds (e.g. `AgentTemplate`) can coexist.                  |
-| `metadata`   | Name, description, version, optional author, license, and tags.                               |
-| `spec`       | Everything that defines the agent's behaviour - capabilities, tools, skills, server, runtime. |
+| Field        | Description                                                                                                                |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `apiVersion` | The schema version this manifest targets - currently `adl.inference-gateway.com/v1`.                                       |
+| `kind`       | Always `Agent`. Reserved so future kinds (e.g. `AgentTemplate`) can coexist.                                               |
+| `metadata`   | Name, description, version, optional author, license, and tags.                                                            |
+| `spec`       | Everything that defines the agent's behaviour - capabilities, tools, skills, server, runtime, documentation, and examples. |
 
 ```yaml
 apiVersion: adl.inference-gateway.com/v1
@@ -29,6 +29,8 @@ metadata:
 spec:
   # ...
 ```
+
+Manifests can also carry **documentation pages** (`spec.documentation.pages`) that the generated project ships in-tree, and **curated examples** (`spec.examples`) that demonstrate the agent's capabilities. See the [documentation](/reference/documentation) and [examples](/reference/examples) reference pages for details.
 
 ## What an ADL manifest is - and isn't
 
