@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.23.3](https://github.com/inference-gateway/adl/compare/v0.23.2...v0.23.3) (2026-07-23)
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#140](https://github.com/inference-gateway/adl/issues/140)) ([8902e25](https://github.com/inference-gateway/adl/commit/8902e25931270d4930537ada9bc28ef396031b11))
+
+### 📚 Documentation
+
+* **guide:** add MCP guide page for spec.agent.mcp ([#135](https://github.com/inference-gateway/adl/issues/135)) ([024d633](https://github.com/inference-gateway/adl/commit/024d633d46df113f3a99b70decae1667f529d9cf)), closes [#130](https://github.com/inference-gateway/adl/issues/130)
+* **guide:** add observability guide page for spec.telemetry ([#136](https://github.com/inference-gateway/adl/issues/136)) ([73ca456](https://github.com/inference-gateway/adl/commit/73ca45640430f7743ae4153acd8cb0d563864b1f))
+* **guide:** cover the outbound side of A2A (agent-to-agent + MCP) ([#137](https://github.com/inference-gateway/adl/issues/137)) ([c2bcbdf](https://github.com/inference-gateway/adl/commit/c2bcbdf06b5e41bb8b9726c5075dee81b1de791b))
+* **guide:** surface spec.documentation.pages and spec.examples in the introduction ([#139](https://github.com/inference-gateway/adl/issues/139)) ([67e7abe](https://github.com/inference-gateway/adl/commit/67e7abedb5616e5daaa42e6804b54384f91f0607))
+* **reference:** add mcp anchor link under agent in sidebar nav ([#142](https://github.com/inference-gateway/adl/issues/142)) ([8251cc7](https://github.com/inference-gateway/adl/commit/8251cc734916949c26a1ff1b683d5ce742f251ab))
+* surface mcp and telemetry on the homepage ([#129](https://github.com/inference-gateway/adl/issues/129)) ([4754b2d](https://github.com/inference-gateway/adl/commit/4754b2de24d6d5b0a8974a37503791689aae1a7a))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump infer CLI v0.147.1 -> v0.152.0 ([#141](https://github.com/inference-gateway/adl/issues/141)) ([642a366](https://github.com/inference-gateway/adl/commit/642a3669012871d11268583bc183f61a956ababa))
+* mark .githooks as linguist-vendored ([#138](https://github.com/inference-gateway/adl/issues/138)) ([81e8d98](https://github.com/inference-gateway/adl/commit/81e8d98ec86c5646d8b02e163ddf98667aacba2d))
+
 ## [0.23.2](https://github.com/inference-gateway/adl/compare/v0.23.1...v0.23.2) (2026-07-23)
 
 ### 📚 Documentation
