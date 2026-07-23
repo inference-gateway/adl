@@ -100,6 +100,7 @@ export default defineConfig({
             { text: "Tools vs Skills", link: "/guide/tools-vs-skills" },
             { text: "Connecting to MCP Servers", link: "/guide/mcp" },
             { text: "A2A & the Agent Card", link: "/guide/a2a" },
+            { text: "Observability", link: "/guide/telemetry" },
             { text: "Versioning", link: "/guide/versioning" },
             { text: "Glossary", link: "/guide/glossary" },
           ],
