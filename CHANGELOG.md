@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.23.1](https://github.com/inference-gateway/adl/compare/v0.23.0...v0.23.1) (2026-07-23)
+
+### 📚 Documentation
+
+* **reference:** add documentation to spec overview ([#127](https://github.com/inference-gateway/adl/issues/127)) ([c42aee5](https://github.com/inference-gateway/adl/commit/c42aee574da4376d4ec3df3b1f277cacb5d6a7e2))
+* **reference:** add minimax to agent provider list ([#125](https://github.com/inference-gateway/adl/issues/125)) ([d20efe1](https://github.com/inference-gateway/adl/commit/d20efe1bd3ca25e8259238614cd7b41e33ea6766))
+* **reference:** add spec.examples reference page ([#126](https://github.com/inference-gateway/adl/issues/126)) ([ec68dde](https://github.com/inference-gateway/adl/commit/ec68dde4a34bc320cf2fd87d123e03915831babd))
+
 ## [0.23.0](https://github.com/inference-gateway/adl/compare/v0.22.0...v0.23.0) (2026-07-23)
 
 ### ✨ Features
