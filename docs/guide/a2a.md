@@ -83,6 +83,19 @@ generation time. Everything under [`spec.card`](/reference/card) is
 optional; omit the block and the generator still produces a valid card from
 `metadata` and `capabilities`.
 
+## The outbound side: agent as client
+
+The sections above cover how an ADL agent is _discovered_ and _called_ by
+clients. But an ADL agent is also a client itself: it can call other A2A
+agents and reach external tools through MCP servers declared in
+[`spec.agent.mcp`](/reference/agent#mcp). The generated agent ships with a
+built-in MCP client that connects to those servers at runtime, discovers
+their tools, and makes them available to the model alongside the agent's
+own [`spec.tools`](/reference/tools).
+
+See [Connecting to MCP Servers](/guide/mcp) for the full guide and
+[the MCP example](/examples/mcp) for a complete manifest.
+
 ## Next steps
 
 - [`spec.capabilities`](/reference/capabilities) - the three required
