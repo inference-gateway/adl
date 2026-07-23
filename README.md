@@ -82,10 +82,12 @@ spec:
     pushNotifications: true
     stateTransitionHistory: true
   agent:
-    provider: deepseek
-    model: deepseek-v4-flash
+    provider: anthropic
+    model: claude-sonnet-4-7
     systemPrompt: |
-      You are a professional customer support agent.
+      You are a professional customer support agent for Acme Corp.
+      Be concise, empathetic, and accurate. Escalate via the
+      `escalate_ticket` tool when you can't resolve an issue.
     maxTokens: 4096
     temperature: 0.3
     mcp:
@@ -98,11 +100,13 @@ spec:
             - -y
             - "@modelcontextprotocol/server-filesystem"
             - /workspace
-        - name: github
+          env:
+            LOG_LEVEL: info
+        - name: docs
           transport: http
-          url: https://mcp.example.com/github
+          url: https://mcp.acme.example/docs
           headers:
-            Authorization: Bearer ${GITHUB_MCP_TOKEN}
+            Authorization: Bearer ${DOCS_MCP_TOKEN}
   tools:
     - id: knowledge_search
       name: knowledge_search
@@ -129,7 +133,10 @@ spec:
         - incident
   server:
     port: 8080
+    scheme: https
     debug: false
+    auth:
+      enabled: true
   language:
     go:
       module: github.com/company/customer-support-agent
@@ -145,18 +152,14 @@ spec:
         enabled: true
       devcontainer:
         enabled: false
+      dockerCompose:
+        enabled: false
     ai:
       orchestrators:
         claudecode:
           enabled: true
-        codex:
-          enabled: false
-        gemini:
-          enabled: false
-        opencode:
-          enabled: false
-        infer:
-          enabled: false
+    deps:
+      - kubectl@1.31.0
   telemetry:
     enabled: true
   documentation:
