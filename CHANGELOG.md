@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.23.0](https://github.com/inference-gateway/adl/compare/v0.22.0...v0.23.0) (2026-07-23)
+
+### ✨ Features
+
+* add spec.agent.mcp runtime config for the ADK MCP client ([#118](https://github.com/inference-gateway/adl/issues/118)) ([bcc7d7c](https://github.com/inference-gateway/adl/commit/bcc7d7c1627940e2395d9eafe2caa1ed49b24678)), references [adk#251](https://github.com/adk/issues/251)
+
+### ♻️ Improvements
+
+* nest mcp servers under spec.agent.mcp.servers ([#119](https://github.com/inference-gateway/adl/issues/119)) ([cc65494](https://github.com/inference-gateway/adl/commit/cc65494e55ec7b567a8fb22106fe3bff870cc9d7))
+
+### 👷 CI
+
+* add manual workflow to sync schema to adl-cli ([#120](https://github.com/inference-gateway/adl/issues/120)) ([cd4d81d](https://github.com/inference-gateway/adl/commit/cd4d81de9339e5f02a901b5227fe96fd01fe7cc5))
+
+### 📚 Documentation
+
+* document schema change process and symlink CLAUDE.md to AGENTS.md ([#121](https://github.com/inference-gateway/adl/issues/121)) ([90645f4](https://github.com/inference-gateway/adl/commit/90645f4ed8653f8a54b1a502bf94ce5f7e401e4c))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump actions/setup-node in the github-actions group ([#116](https://github.com/inference-gateway/adl/issues/116)) ([2513151](https://github.com/inference-gateway/adl/commit/2513151104fcd17ce0d8c3fe83272d81d227faee))
+* **deps:** bump infer CLI v0.141.0 -> v0.147.1 ([#114](https://github.com/inference-gateway/adl/issues/114)) ([938d005](https://github.com/inference-gateway/adl/commit/938d0058e026bb897b290deb5fccc26fcb5468bc))
+* **release:** update GitHub App credentials to use RELEASER_APP_ID and RELEASER_APP_PRIVATE_KEY ([e12281e](https://github.com/inference-gateway/adl/commit/e12281e29bb075a03a0c4d6b6bbfb20e295c3a33))
+
 ## [0.22.0](https://github.com/inference-gateway/adl/compare/v0.21.0...v0.22.0) (2026-07-15)
 
 ### ✨ Features
