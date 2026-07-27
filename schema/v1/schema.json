@@ -602,7 +602,7 @@
         "app_id_secret": {
           "type": "string",
           "description": "Name of the repository secret holding the GitHub App client ID used by the generated release (CD) workflow when github_app is enabled.",
-          "default": "RELEASER_APP_ID"
+          "default": "RELEASER_APP_CLIENT_ID"
         },
         "app_private_key_secret": {
           "type": "string",
