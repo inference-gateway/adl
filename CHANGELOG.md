@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.23.4](https://github.com/inference-gateway/adl/compare/v0.23.3...v0.23.4) (2026-07-28)
+
+### 🐛 Bug Fixes
+
+* **ci:** update maintainer app ID to client ID in workflows and documentation ([d3bf447](https://github.com/inference-gateway/adl/commit/d3bf447754537c8f5a20889ceab25e282952499c))
+* **docs:** fix table formatting in scm.md ([#148](https://github.com/inference-gateway/adl/issues/148)) ([3e4c997](https://github.com/inference-gateway/adl/commit/3e4c997b99c3c827370d64b98c94d8724aa63074))
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#143](https://github.com/inference-gateway/adl/issues/143)) ([b55c0be](https://github.com/inference-gateway/adl/commit/b55c0be7c7ec1756ef2aa080599e44524b6177d5))
+* **claude:** centralize claude.yml via reusable workflow ([#144](https://github.com/inference-gateway/adl/issues/144)) ([f24bfd8](https://github.com/inference-gateway/adl/commit/f24bfd8b9eb5e04692c52ac301c061f21a11fa3a))
+* **claude:** centralize claude.yml via reusable workflow ([#149](https://github.com/inference-gateway/adl/issues/149)) ([89737b6](https://github.com/inference-gateway/adl/commit/89737b69528168834126e15695337b9ceeddb38b))
+
+### 🔧 Miscellaneous
+
+* **deps-dev:** bump postcss from 8.5.15 to 8.5.23 in /docs ([#146](https://github.com/inference-gateway/adl/issues/146)) ([5927f54](https://github.com/inference-gateway/adl/commit/5927f541f900bc8733e47f0e1620141b170ab951))
+* **deps:** bump actions/checkout in the github-actions group ([#145](https://github.com/inference-gateway/adl/issues/145)) ([709f799](https://github.com/inference-gateway/adl/commit/709f799bece2ce641b780599ab8da7c04743ef46))
+* **deps:** bump infer CLI v0.152.0 -> v0.153.1 ([#147](https://github.com/inference-gateway/adl/issues/147)) ([0ae2ff0](https://github.com/inference-gateway/adl/commit/0ae2ff0ef025c997013ff335243db5efe0e60b27))
+
 ## [0.23.3](https://github.com/inference-gateway/adl/compare/v0.23.2...v0.23.3) (2026-07-23)
 
 ### 👷 CI
