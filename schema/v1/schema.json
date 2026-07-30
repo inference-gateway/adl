@@ -139,7 +139,7 @@
         "iconUrl": { "type": "string" },
         "supportsExtendedAgentCard": {
           "type": "boolean",
-          "description": "Whether the deployed agent serves a richer, authenticated AgentCard via the A2A 'agent/getAuthenticatedExtendedCard' method (A2A spec section 7). When true, the generated ADK wires up that endpoint; clients that authenticate receive an extended card, and unauthenticated/misconfigured calls follow the A2A error contract (-32004 AuthenticatedExtendedCardNotConfigured / -32007 not supported). Optional; defaults to false when omitted."
+          "description": "Whether the deployed agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7). When true, the generated ADK wires up that endpoint; clients that authenticate receive an extended card, and misconfigured/unsupported calls follow the A2A error contract (-32007 ExtendedAgentCardNotConfiguredError when the extended card is declared but not configured / -32004 UnsupportedOperationError when the agent does not support it). Optional; defaults to false when omitted."
         },
         "securitySchemes": {
           "type": "object",
@@ -148,7 +148,7 @@
         },
         "security": {
           "type": "array",
-          "description": "Security requirements advertised on the AgentCard (A2A spec section 7). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field.",
+          "description": "Security requirements advertised on the AgentCard (A2A spec section 7). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field. This flat DSL form is what authors write; consumers (e.g. adl-cli) map it onto the ADK's AgentCard 'security' shape ({ schemes: { <name>: { list: [scopes] } } }).",
           "items": {
             "type": "object",
             "additionalProperties": {
@@ -161,7 +161,7 @@
     },
     "SecurityScheme": {
       "type": "object",
-      "description": "A single statically declared security scheme, following the A2A/OpenAPI SecurityScheme shape. The 'type' selects the variant: 'apiKey' (key passed in a header, query param, or cookie), 'http' (HTTP auth such as Basic or Bearer), or 'mutualTLS' (client-certificate auth). OIDC/OAuth2 are intentionally not modelled here because the ADK derives them from runtime config.",
+      "description": "A single statically declared security scheme in a flat, OpenAPI-3.0-style authoring form: a 'type' discriminator with sibling fields. This is the DSL form authors write; consumers (e.g. adl-cli) map it onto the ADK's A2A v1.0 AgentCard 'SecurityScheme', which is a per-variant wrapper object ('type' -> the wrapper key, 'in' -> 'location'). The 'type' selects the variant: 'apiKey' (key passed in a header, query param, or cookie), 'http' (HTTP auth such as Basic or Bearer), or 'mutualTLS' (client-certificate auth). OIDC/OAuth2 are intentionally not modelled here because the ADK derives them from runtime config.",
       "required": ["type"],
       "properties": {
         "type": {
