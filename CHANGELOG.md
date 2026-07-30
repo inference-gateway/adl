@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.24.0](https://github.com/inference-gateway/adl/compare/v0.23.4...v0.24.0) (2026-07-30)
+
+### ✨ Features
+
+* **schema:** add card-driven auth fields (A2A section 7) ([#152](https://github.com/inference-gateway/adl/issues/152)) ([b574b86](https://github.com/inference-gateway/adl/commit/b574b863630e020488d89a5626adc6c3f01afb73))
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#150](https://github.com/inference-gateway/adl/issues/150)) ([4d24b29](https://github.com/inference-gateway/adl/commit/4d24b29d2806c691237151a4c6f61ec7d20226fe))
+
 ## [0.23.4](https://github.com/inference-gateway/adl/compare/v0.23.3...v0.23.4) (2026-07-28)
 
 ### 🐛 Bug Fixes
