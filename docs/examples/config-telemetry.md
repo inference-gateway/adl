@@ -79,7 +79,7 @@ spec:
   placeholder as an opaque string. See
   [Secrets & interpolation](/reference/secrets).
 - **`telemetry` starts with one switch, then opts into exporters.**
-  `enabled: true` maps to `A2A_TELEMETRY_ENABLE=true` and turns on the ADK
+  `enabled: true` maps to `A2A_TELEMETRY_ENABLED=true` and turns on the ADK
   telemetry server. The optional `traces`/`metrics` blocks select a
   per-signal exporter - the single key under `exporter` picks it (`otlp`
   to push, `prometheus` to pull) - and every field maps 1:1 to a standard
