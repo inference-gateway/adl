@@ -188,7 +188,7 @@ block rather than on each `servers` entry.
 
 | Field              | Env var                      | Type      | Default | Meaning                                                            |
 | ------------------ | ---------------------------- | --------- | ------- | ------------------------------------------------------------------ |
-| `enabled`          | `A2A_MCP_ENABLE`             | `boolean` | `false` | Master switch. When false, no MCP client is generated or wired in. |
+| `enabled`          | `A2A_MCP_ENABLED`            | `boolean` | `false` | Master switch. When false, no MCP client is generated or wired in. |
 | `endpoint`         | `A2A_MCP_ENDPOINT`           | `string`  | `/mcp`  | Path appended to each server base URL to reach its MCP endpoint.   |
 | `refreshInterval`  | `A2A_MCP_REFRESH_INTERVAL`   | `string`  | `5m`    | How often the client re-discovers the tools each server exposes.   |
 | `dialTimeout`      | `A2A_MCP_DIAL_TIMEOUT`       | `string`  | `30s`   | Timeout for establishing a connection to a server.                 |

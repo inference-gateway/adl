@@ -81,7 +81,7 @@ operator can override any of these at deploy time.
 
 | Manifest                       | Environment variable                                                                     |
 | ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `enabled: true`                | `A2A_TELEMETRY_ENABLE=true` (ADK master switch)                                          |
+| `enabled: true`                | `A2A_TELEMETRY_ENABLED=true` (ADK master switch)                                         |
 | `traces.exporter.otlp`         | `OTEL_TRACES_EXPORTER=otlp`                                                              |
 | `metrics.exporter.otlp`        | `OTEL_METRICS_EXPORTER=otlp`                                                             |
 | `metrics.exporter.prometheus`  | `OTEL_METRICS_EXPORTER=prometheus`                                                       |

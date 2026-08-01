@@ -51,7 +51,7 @@ runtime.
 
 | Field              | Env var                      | Default | What it controls                            |
 | ------------------ | ---------------------------- | ------- | ------------------------------------------- |
-| `enabled`          | `A2A_MCP_ENABLE`             | `false` | Master switch - no client generated if off. |
+| `enabled`          | `A2A_MCP_ENABLED`            | `false` | Master switch - no client generated if off. |
 | `endpoint`         | `A2A_MCP_ENDPOINT`           | `/mcp`  | Path appended to each server URL.           |
 | `refreshInterval`  | `A2A_MCP_REFRESH_INTERVAL`   | `5m`    | How often tools are re-discovered.          |
 | `dialTimeout`      | `A2A_MCP_DIAL_TIMEOUT`       | `30s`   | Connection timeout.                         |

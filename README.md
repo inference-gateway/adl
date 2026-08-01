@@ -274,7 +274,7 @@ servers. When enabled, each field is the default for the matching
 spec:
   agent:
     mcp:
-      enabled: true # A2A_MCP_ENABLE; off by default
+      enabled: true # A2A_MCP_ENABLED; off by default
       endpoint: /mcp # A2A_MCP_ENDPOINT
       refreshInterval: 5m # A2A_MCP_REFRESH_INTERVAL
       dialTimeout: 30s # A2A_MCP_DIAL_TIMEOUT
