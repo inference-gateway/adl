@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.24.1](https://github.com/inference-gateway/adl/compare/v0.24.0...v0.24.1) (2026-08-01)
+
+### ♻️ Improvements
+
+* **schema:** rename _ENABLE to _ENABLED in schema descriptions and docs ([#157](https://github.com/inference-gateway/adl/issues/157)) ([3dc467f](https://github.com/inference-gateway/adl/commit/3dc467fa78729483208d3cb4df77f733b7482995))
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#154](https://github.com/inference-gateway/adl/issues/154)) ([7077427](https://github.com/inference-gateway/adl/commit/7077427bfaf45178f289fcd5ce2722d0f418ab61))
+* **claude:** centralize claude.yml via reusable workflow ([#155](https://github.com/inference-gateway/adl/issues/155)) ([eb8fcf7](https://github.com/inference-gateway/adl/commit/eb8fcf7f427191cf3b8b523d388f47b424fc1dee))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump infer CLI v0.153.1 -> v0.155.0 ([#153](https://github.com/inference-gateway/adl/issues/153)) ([2b59468](https://github.com/inference-gateway/adl/commit/2b59468b0dd448825cb218c77ff834325a15b3fb))
+
 ## [0.24.0](https://github.com/inference-gateway/adl/compare/v0.23.4...v0.24.0) (2026-07-30)
 
 ### ✨ Features
