@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.25.0](https://github.com/inference-gateway/adl/compare/v0.24.1...v0.25.0) (2026-08-07)
+
+### ✨ Features
+
+* **schema:** add AuthzConfig to spec.server.authz ([#160](https://github.com/inference-gateway/adl/issues/160)) ([273e6dc](https://github.com/inference-gateway/adl/commit/273e6dcb8b61c37ef15f04ac910ab6d2bd4592e9)), closes [#159](https://github.com/inference-gateway/adl/issues/159)
+
+### 🔧 Miscellaneous
+
+* **deps:** bump infer CLI v0.155.0 -> v0.164.0 ([#158](https://github.com/inference-gateway/adl/issues/158)) ([4d5a9e5](https://github.com/inference-gateway/adl/commit/4d5a9e55af081148ce4563011e2bc98ac00462d4))
+
 ## [0.24.1](https://github.com/inference-gateway/adl/compare/v0.24.0...v0.24.1) (2026-08-01)
 
 ### ♻️ Improvements
