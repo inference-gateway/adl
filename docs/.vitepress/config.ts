@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 // VitePress configuration for the ADL documentation site.
 //
-// The site is published at https://adl.inference-gateway.com/ via GitHub Pages.
+// The site is published at https://adl.inference-gateway.com/ via Cloudflare Workers.
 export default defineConfig({
   base: "/",
   lang: "en-US",
