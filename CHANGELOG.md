@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.26.0](https://github.com/inference-gateway/adl/compare/v0.25.0...v0.26.0) (2026-08-26)
+
+### ✨ Features
+
+* **docs:** migrate site hosting from GitHub Pages to Cloudflare Workers ([#164](https://github.com/inference-gateway/adl/issues/164)) ([f84c48d](https://github.com/inference-gateway/adl/commit/f84c48d2445b82a96784996fdfa9ceba13ec9abc))
+* **schema:** validate reserved built-in tool configs under spec.config.tools ([#166](https://github.com/inference-gateway/adl/issues/166)) ([b33783e](https://github.com/inference-gateway/adl/commit/b33783e6fd1905ba547d61a2041091c4ea05e49c)), closes [#165](https://github.com/inference-gateway/adl/issues/165)
+
+### 🐛 Bug Fixes
+
+* **docs:** update esbuild to 0.25.2 to resolve GHSA-67mh-4wv8-2f99 vulnerability ([#162](https://github.com/inference-gateway/adl/issues/162)) ([5510a9c](https://github.com/inference-gateway/adl/commit/5510a9cfe4cf9d5dfa052d6228ddf6f0debf8a66))
+
+### 📚 Documentation
+
+* add adl agent skill under .agents/skills ([#161](https://github.com/inference-gateway/adl/issues/161)) ([520c030](https://github.com/inference-gateway/adl/commit/520c030980617f7e4a8bde39f9c4fd8df2aadea0))
+
 ## [0.25.0](https://github.com/inference-gateway/adl/compare/v0.24.1...v0.25.0) (2026-08-07)
 
 ### ✨ Features
