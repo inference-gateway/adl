@@ -81,6 +81,9 @@
         "agent": { "$ref": "#/definitions/Agent" },
         "config": {
           "type": "object",
+          "properties": {
+            "tools": { "$ref": "#/definitions/ToolsConfig" }
+          },
           "additionalProperties": {
             "type": "object",
             "additionalProperties": true
@@ -387,6 +390,74 @@
           "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$"
         },
         "description": { "type": "string" }
+      }
+    },
+    "ToolsConfig": {
+      "type": "object",
+      "description": "Per-tool configuration under spec.config.tools. The five reserved built-in tool IDs (read, bash, write, edit, fetch) have typed shapes validated here; any other key is a user-defined tool's config and stays free-form.",
+      "properties": {
+        "read": { "$ref": "#/definitions/ReadToolConfig" },
+        "bash": { "$ref": "#/definitions/BashToolConfig" },
+        "write": { "$ref": "#/definitions/WriteToolConfig" },
+        "edit": { "$ref": "#/definitions/EditToolConfig" },
+        "fetch": { "$ref": "#/definitions/FetchToolConfig" }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "ReadToolConfig": {
+      "type": "object",
+      "description": "Configuration for the reserved read built-in tool.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "max_lines": { "type": "integer", "minimum": 0 },
+        "allowed_roots": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "BashToolConfig": {
+      "type": "object",
+      "description": "Configuration for the reserved bash built-in tool.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "whitelist": { "type": "array", "items": { "type": "string" } },
+        "timeout_seconds": { "type": "integer", "minimum": 0 },
+        "working_dir": { "type": "string" }
+      }
+    },
+    "WriteToolConfig": {
+      "type": "object",
+      "description": "Configuration for the reserved write built-in tool.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "allowed_roots": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "EditToolConfig": {
+      "type": "object",
+      "description": "Configuration for the reserved edit built-in tool.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "allowed_roots": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "FetchToolConfig": {
+      "type": "object",
+      "description": "Configuration for the reserved fetch built-in tool. When allowed_domains is empty, internal/private addresses are denied by default (SSRF guard) unless allow_internal is true.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "allowed_domains": { "type": "array", "items": { "type": "string" } },
+        "max_bytes": { "type": "integer", "minimum": 0 },
+        "timeout_seconds": { "type": "integer", "minimum": 0 },
+        "download_dir": { "type": "string" },
+        "allow_downloads": { "type": "boolean" },
+        "allow_internal": { "type": "boolean" }
       }
     },
     "Tool": {
