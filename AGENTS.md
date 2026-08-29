@@ -1,70 +1,38 @@
-# Repository Guidelines
+# AGENTS.md
 
-## Project Structure & Module Organization
+This repository is the **source of truth for the ADL (Agent Definition Language) JSON Schema**. There is no application code — the only shipped artifact is `schema/v1/schema.json` (JSON Schema Draft-07, `apiVersion: adl.inference-gateway.com/v1`). Work here is schema edits plus docs. `README.md` covers ADL concepts and the manifest format; `CONTRIBUTING.md` covers setup, versioning, and releases in depth.
 
-This repository is the source of truth for the ADL JSON Schema. The canonical schema lives at `schema/v1/schema.json` and targets `apiVersion: adl.inference-gateway.com/v1`. Add a future breaking major version as a sibling directory, for example `schema/v2/schema.json`, without removing older versions. Project documentation is in `README.md` and contribution/release rules are in `CONTRIBUTING.md`. Automation lives in `Taskfile.yml`, with GitHub workflows under `.github/workflows/`.
+## Commands
 
-## Build, Test, and Development Commands
+Recommended environment: `flox activate` (provides `task`, Node.js, Prettier, ajv). Manual setup: Node.js 24.x, then `npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3` — there is no `package.json` on purpose and the install is a one-off local to the working tree; never commit `node_modules/`.
 
-- `task`: list available repository tasks.
-- `task compile`: compile `schema/v1/schema.json` with AJV Draft-07 and `ajv-formats`; this is the same validation path CI uses.
-- `task format:check`: check that all files are formatted with Prettier (same check CI runs).
-- `task format`: auto-format all files with Prettier.
-- `task validate -- path/to/manifest.yaml`: validate a manifest file against the schema.
-- `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json`: manual equivalent when `go-task` is unavailable.
+- `task compile` — AJV-compile the schema (the exact check CI runs)
+- `task validate -- path/to/manifest.yaml` — validate a manifest against the schema
+- `task format` / `task format:check` — Prettier auto-format / check (CI runs `npx --yes prettier@3.8.3 --check .`)
+- `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json` — manual fallback without go-task
 
-Use `flox activate` for the recommended local environment. Manual setup requires Node.js 24.x and `npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3`.
+CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check formatting** (Prettier). A `.githooks/pre-commit` hook runs Prettier on staged files; activate once per clone with `git config core.hooksPath .githooks`. If it blocks a commit, fix with `npx prettier@3.8.3 --write <file>`.
 
-## Pre-commit Hook
+## Schema versioning contract — the most important rule
 
-This repo ships a `.githooks/pre-commit` hook that runs `prettier --check` on staged files before every commit. Activate it once per clone:
+Within `schema/v1/`, only backwards-compatible additions: new optional fields, new `definitions`, additive enum values. Do **not** tighten constraints, rename fields, remove fields, or make optional fields required. A breaking change requires a new `schema/v2/schema.json` with `apiVersion: adl.inference-gateway.com/v2`; v1 is kept, not removed. Released git tags are immutable — downstream consumers (notably `adl-cli`) pin to them, so never edit a released tag. For a v2 proposal, open an issue or discussion before editing.
 
-```sh
-git config core.hooksPath .githooks
-```
+## Style
 
-If the hook blocks a commit due to formatting, fix with `npx prettier@3.8.3 --write <file>` or bypass with `git commit --no-verify` (not recommended).
+Two-space indentation, stable key ordering near related fields, and property names matching ADL manifest style (`apiVersion`, `metadata`, `spec`, `tools`, `skills`).
 
-## Working on a Task
+## Testing
 
-1. **Read the task fully** before writing any code. Understand the problem, the existing code it touches, and the real flow end to end.
-2. **Check CI expectations.** This repo has two CI checks: `Compile JSON Schema` (AJV) and `Check formatting` (Prettier). Both must pass.
-3. **Before every commit**, run both checks:
-   - `task compile` - validates the JSON Schema compiles
-   - `task format:check` - validates Prettier formatting
-4. **Fix failures before committing.** If `task format:check` fails, run `task format` to auto-fix, then re-check.
-5. **Commit and push** after each logical step. Do not batch commits - unpushed work is lost when the runner ends.
-6. **Update AGENTS.md** if you add new tooling, commands, or conventions that future agents should know about.
+There is no unit test suite — schema compilation is the test. For author-facing changes, also validate a representative manifest with `task validate -- path/to/manifest.yaml` and update `README.md` examples if needed.
 
-## Coding Style & Naming Conventions
+## Commits and PRs
 
-Keep JSON Schema changes readable with two-space indentation and stable key ordering near related fields. Prefer descriptive schema property names that match existing ADL manifest style, such as `apiVersion`, `metadata`, `spec`, `tools`, and `skills`. Within `schema/v1/`, make only backwards-compatible additions: optional fields, new definitions, or documented additive enum values. Do not tighten constraints, rename fields, or make optional fields required in an existing major version.
+Use Conventional Commits; semantic-release derives the next version from commit titles, and the PR title becomes the squash-merge message. `feat(schema):` for additions, `fix(schema):` for relaxations, `docs:`/`chore:` otherwise. PR descriptions should note the schema impact and which manifests were validated.
 
-## Testing Guidelines
+## Releases and propagation
 
-There is no separate unit test suite; schema compilation is the required test. Run `task compile` before every PR. When changing author-facing behavior, also validate at least one representative manifest with `task validate -- path/to/manifest.yaml` and update examples in `README.md` if needed.
+Releases are manual: a maintainer triggers the **Release** workflow via `workflow_dispatch` (cuts an immutable `vX.Y.Z` tag), then the **Sync adl-cli** workflow dispatches `schema-sync` to `adl-cli` so it re-fetches the schema and regenerates its Go types. Contributors never bump versions or edit `CHANGELOG.md`.
 
-## Commit & Pull Request Guidelines
+## Security
 
-Use Conventional Commits because semantic-release derives versions from commit titles. Common examples are `feat(schema): add metadata labels`, `fix(schema): relax skill license validation`, and `docs: update manifest example`. Recent history also uses `chore:` for maintenance-only changes.
-
-Before opening a PR, confirm:
-- `task compile` passes
-- `task format:check` passes (all files formatted with Prettier)
-- Include a short description of the schema impact, link any relevant issue or discussion, and note any manifest examples you validated.
-
-PR titles should follow the same commit convention because squash merges use the title as the final commit message.
-
-## Making a schema change (end to end)
-
-The only shipped artifact is `schema/v1/schema.json`. Downstream tools (notably [`adl-cli`](https://github.com/inference-gateway/adl-cli)) pin it by git ref, so changes flow through a fixed process:
-
-1. **Edit the schema.** Inside `schema/v1/`, make only backwards-compatible additions (new optional fields, new `definitions`, additive enum values). Removing/renaming a field, tightening a constraint, or making an optional field required is breaking — it requires a new `schema/v2/` directory and a new `apiVersion` (`adl.inference-gateway.com/v2`); v1 is kept, not removed.
-2. **Validate locally.** Run `task compile` (the exact check CI runs), and `task validate -- <manifest>` against at least one representative manifest. If the change is consumer-facing, update the example and prose in `README.md` and re-run `task validate` on it.
-3. **Open a PR.** Conventional Commit title (`feat(schema):` for additions, `fix(schema):` for relaxations) — the squash merge uses the PR title, and semantic-release derives the version from it.
-4. **Release.** A maintainer runs the **Release** workflow via `workflow_dispatch` (releases are manual, not on merge). This cuts an immutable `vX.Y.Z` tag — never edit a released tag, since consumers pin to it.
-5. **Propagate to `adl-cli`.** Run the **Sync adl-cli** workflow (`.github/workflows/sync-adl-cli.yml`) via `workflow_dispatch`; leave `ref` empty to use the latest release tag. It sends a `repository_dispatch` (`event_type: schema-sync`) to `adl-cli`, whose `sync-schema.yml` workflow bumps `ADL_SCHEMA_VERSION`, re-fetches the schema, regenerates its Go types, and opens a PR. Review and merge that PR to complete the sync.
-
-## Security & Configuration Tips
-
-Do not commit local environment files or generated dependency folders such as `node_modules/` (there is no `package.json` on purpose — the AJV install is a one-off, local to the working tree). Treat released tags as immutable because downstream consumers pin schema versions. If a proposed change is breaking, open an issue or discussion for a new major version before editing the schema.
+Manifests never contain secrets: credentials are runtime environment placeholders (`${VAR}`) resolved by consumers. Never commit `.env` files, keys, or `node_modules/`.
