@@ -2,7 +2,7 @@
 
 This directory contains the [VitePress](https://vitepress.dev/) source for
 the ADL documentation site, published at
-**https://adl.inference-gateway.com/** via GitHub Pages.
+**https://adl.inference-gateway.com/** via Cloudflare Workers.
 
 The site is the long-form companion to the canonical schema at
 [`schema/v1/schema.json`](../schema/v1/schema.json). The schema validates;
@@ -41,12 +41,13 @@ docs/
 ├── .vitepress/
 │   └── config.ts          # VitePress site config (nav, sidebar, base path)
 ├── public/
-│   └── CNAME              # GitHub Pages custom domain (adl.inference-gateway.com)
+│   └── _headers           # Serves /schemas/agent/v1 as application/json
 ├── guide/                 # Conceptual guide pages
 ├── reference/             # Per-field schema reference
 ├── examples/              # Copy-pasteable ADL manifests
 ├── index.md               # Landing page (Hero + features)
 ├── package.json           # VitePress + Vue dev deps
+├── wrangler.jsonc         # Cloudflare Workers config (assets dir, custom domain)
 └── README.md              # This file
 ```
 
@@ -54,10 +55,14 @@ docs/
 
 The site is built and published by
 [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) on every
-push to `main` that touches `docs/**`. GitHub Pages must be configured with
-the "GitHub Actions" build source (Settings → Pages). The custom domain
-`adl.inference-gateway.com` is preserved on each deploy via
-[`docs/public/CNAME`](./public/CNAME).
+push to `main` that touches `docs/**`, `schema/v1/schema.json`, or the
+workflow itself. The workflow runs `npm ci` and `npm run build`, copies
+`schema/v1/schema.json` into the build output so it is served at
+`/schemas/agent/v1` (the schema's declared `$id`), and deploys the static
+assets with `npx wrangler@4 deploy` using the `CLOUDFLARE_API_TOKEN` and
+`CLOUDFLARE_ACCOUNT_ID` repository secrets. The custom domain
+`adl.inference-gateway.com` is declared in
+[`docs/wrangler.jsonc`](./wrangler.jsonc).
 
 ## Contributing
 
