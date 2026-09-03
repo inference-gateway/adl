@@ -287,7 +287,7 @@ generator emits the corresponding scaffold. Required pairs per language:
 language:
   go:
     module: github.com/example/my-agent
-    version: "1.26.2"
+    version: "1.26.7"
 ```
 
 **`vendor.{deps,devdeps}`.** Every language block accepts a `vendor` object
@@ -303,7 +303,7 @@ deps in the manifest - never by editing `go.mod` directly:
 language:
   go:
     module: github.com/example/my-agent
-    version: "1.26.2"
+    version: "1.26.7"
     vendor:
       deps:
         - github.com/stretchr/testify@v1.10.0
