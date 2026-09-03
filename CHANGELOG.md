@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.26.1](https://github.com/inference-gateway/adl/compare/v0.26.0...v0.26.1) (2026-09-03)
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#168](https://github.com/inference-gateway/adl/issues/168)) ([29b774a](https://github.com/inference-gateway/adl/commit/29b774a398a98e6fec9e3c891bcd6db9d22bdfdf))
+
+### 📚 Documentation
+
+* describe the Cloudflare Workers deployment in docs/README.md ([#171](https://github.com/inference-gateway/adl/issues/171)) ([31eee17](https://github.com/inference-gateway/adl/commit/31eee1721daacd79fe9d8c1ff1891bbafd1b3e79)), references [#164](https://github.com/inference-gateway/adl/issues/164)
+* rewrite AGENTS.md per the agents.md open standard ([#170](https://github.com/inference-gateway/adl/issues/170)) ([9104cd8](https://github.com/inference-gateway/adl/commit/9104cd82cede4c3bd74486e15fc0ab998922ddab))
+* update go version in skill examples to 1.26.7 ([#174](https://github.com/inference-gateway/adl/issues/174)) ([c163c02](https://github.com/inference-gateway/adl/commit/c163c02e24718eeae40f1011879878f13c16e6a8))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.201 -> 2.1.238 ([#167](https://github.com/inference-gateway/adl/issues/167)) ([bd4b6a2](https://github.com/inference-gateway/adl/commit/bd4b6a2c0f5758273e7c5e803222f259dec4342d))
+* **deps:** bump claude-code 2.1.238 -> 2.1.245 ([#172](https://github.com/inference-gateway/adl/issues/172)) ([3264d87](https://github.com/inference-gateway/adl/commit/3264d871488c314c6090ff0b80d406cb398f2da7))
+* **deps:** bump infer CLI v0.164.0 -> v0.183.0 ([#169](https://github.com/inference-gateway/adl/issues/169)) ([8851da6](https://github.com/inference-gateway/adl/commit/8851da64481eaadfad3356b4ca9454db8815e33b))
+
 ## [0.26.0](https://github.com/inference-gateway/adl/compare/v0.25.0...v0.26.0) (2026-08-26)
 
 ### ✨ Features
