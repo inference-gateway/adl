@@ -1,0 +1,141 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]: This XML file does not appear to have any style information associated with it. The document tree is shown below.
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6] [cursor=pointer]
+      - generic [ref=e7]:
+        - text: <urlset
+        - generic [ref=e8]: xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        - generic [ref=e9]: xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        - generic [ref=e10]: xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        - generic [ref=e11]: xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        - generic [ref=e12]: xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        - text: ">"
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16] [cursor=pointer]
+          - generic [ref=e17]: <url>
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20]: <loc>
+            - text: https://registry.inference-gateway.com/agents/
+            - generic [ref=e21]: </loc>
+          - generic [ref=e22]:
+            - generic [ref=e23]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e24]: </lastmod>
+        - generic [ref=e25]: </url>
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29] [cursor=pointer]
+          - generic [ref=e30]: <url>
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - generic [ref=e33]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/browse-and-install
+            - generic [ref=e34]: </loc>
+          - generic [ref=e35]:
+            - generic [ref=e36]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e37]: </lastmod>
+        - generic [ref=e38]: </url>
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42] [cursor=pointer]
+          - generic [ref=e43]: <url>
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - generic [ref=e46]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/build-agents
+            - generic [ref=e47]: </loc>
+          - generic [ref=e48]:
+            - generic [ref=e49]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e50]: </lastmod>
+        - generic [ref=e51]: </url>
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e55] [cursor=pointer]
+          - generic [ref=e56]: <url>
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - generic [ref=e59]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/enterprise
+            - generic [ref=e60]: </loc>
+          - generic [ref=e61]:
+            - generic [ref=e62]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e63]: </lastmod>
+        - generic [ref=e64]: </url>
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e68] [cursor=pointer]
+          - generic [ref=e69]: <url>
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - generic [ref=e72]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/list-a-skill
+            - generic [ref=e73]: </loc>
+          - generic [ref=e74]:
+            - generic [ref=e75]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e76]: </lastmod>
+        - generic [ref=e77]: </url>
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e81] [cursor=pointer]
+          - generic [ref=e82]: <url>
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - generic [ref=e85]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/list-an-agent
+            - generic [ref=e86]: </loc>
+          - generic [ref=e87]:
+            - generic [ref=e88]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e89]: </lastmod>
+        - generic [ref=e90]: </url>
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94] [cursor=pointer]
+          - generic [ref=e95]: <url>
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: <loc>
+            - text: https://registry.inference-gateway.com/how-to/prerequisites
+            - generic [ref=e99]: </loc>
+          - generic [ref=e100]:
+            - generic [ref=e101]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e102]: </lastmod>
+        - generic [ref=e103]: </url>
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107] [cursor=pointer]
+          - generic [ref=e108]: <url>
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - generic [ref=e111]: <loc>
+            - text: https://registry.inference-gateway.com/
+            - generic [ref=e112]: </loc>
+          - generic [ref=e113]:
+            - generic [ref=e114]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e115]: </lastmod>
+        - generic [ref=e116]: </url>
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - generic [ref=e120] [cursor=pointer]
+          - generic [ref=e121]: <url>
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: <loc>
+            - text: https://registry.inference-gateway.com/skills/
+            - generic [ref=e125]: </loc>
+          - generic [ref=e126]:
+            - generic [ref=e127]: <lastmod>
+            - text: 2026-09-04T17:58:04.000Z
+            - generic [ref=e128]: </lastmod>
+        - generic [ref=e129]: </url>
+    - generic [ref=e131]: </urlset>
