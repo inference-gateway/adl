@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.27.0](https://github.com/inference-gateway/adl/compare/v0.26.1...v0.27.0) (2026-09-11)
+
+### ✨ Features
+
+* **schema:** add ci_app_id_secret and ci_app_private_key_secret to scm ([#175](https://github.com/inference-gateway/adl/issues/175)) ([a701084](https://github.com/inference-gateway/adl/commit/a7010844c038ba7cd64f3220875341e1577222a0))
+
 ## [0.26.1](https://github.com/inference-gateway/adl/compare/v0.26.0...v0.26.1) (2026-09-03)
 
 ### 👷 CI
