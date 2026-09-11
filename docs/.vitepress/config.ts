@@ -3,6 +3,18 @@ import { defineConfig } from "vitepress";
 // VitePress configuration for the ADL documentation site.
 //
 // The site is published at https://adl.inference-gateway.com/ via Cloudflare Workers.
+
+const hostname = "https://adl.inference-gateway.com";
+
+// Canonical path for a page, matching the URL form in sitemap.xml (cleanUrls:
+// true, so no `.html`): `index.md` -> `/`, `reference/index.md` ->
+// `/reference/`, `reference/hooks.md` -> `/reference/hooks`.
+function canonicalPath(relativePath: string): string {
+  return (
+    "/" + relativePath.replace(/(^|\/)index\.md$/, "$1").replace(/\.md$/, "")
+  );
+}
+
 export default defineConfig({
   base: "/",
   lang: "en-US",
@@ -34,10 +46,6 @@ export default defineConfig({
       },
     ],
     ["meta", { property: "og:type", content: "website" }],
-    [
-      "meta",
-      { property: "og:url", content: "https://adl.inference-gateway.com/" },
-    ],
     [
       "meta",
       {
@@ -78,6 +86,14 @@ export default defineConfig({
       },
     ],
   ],
+  transformPageData(pageData) {
+    const url = hostname + canonicalPath(pageData.relativePath);
+    pageData.frontmatter.head ??= [];
+    pageData.frontmatter.head.push(
+      ["link", { rel: "canonical", href: url }],
+      ["meta", { property: "og:url", content: url }],
+    );
+  },
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/introduction", activeMatch: "/guide/" },
