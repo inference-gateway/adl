@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.27.1](https://github.com/inference-gateway/adl/compare/v0.27.0...v0.27.1) (2026-09-11)
+
+### 🐛 Bug Fixes
+
+* **docs:** bump vite to 6.4.3 to fix advisories ([#176](https://github.com/inference-gateway/adl/issues/176)) ([6ce608b](https://github.com/inference-gateway/adl/commit/6ce608bc9ef13887cd2a139a55b9792c6a78f14d))
+* **docs:** emit per-page canonical url and og:url ([#178](https://github.com/inference-gateway/adl/issues/178)) ([a3bf9ee](https://github.com/inference-gateway/adl/commit/a3bf9ee77d3addd06e806e9c7d89a58eea8ad4f3))
+
 ## [0.27.0](https://github.com/inference-gateway/adl/compare/v0.26.1...v0.27.0) (2026-09-11)
 
 ### ✨ Features
