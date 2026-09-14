@@ -1,4 +1,4 @@
-schema-version = "1.15.0"
+schema-version = "1.16.0"
 
 [install]
 nodejs_24.pkg-path = "nodejs_24"
@@ -7,7 +7,7 @@ go-task.pkg-path = "go-task"
 go-task.version = "3.48.0"
 infer.flake = "github:inference-gateway/cli/v0.183.0"
 claude-code.pkg-path = "claude-code"
-claude-code.version = "^2.1.245"
+claude-code.version = "^2.1.266"
 claude-code.pkg-group = "claude-code"
 codex.pkg-path = "codex"
 codex.version = "^0.139.0"
