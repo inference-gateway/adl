@@ -1,12 +1,12 @@
 {
   "lockfile-version": 1,
   "manifest": {
-    "schema-version": "1.15.0",
+    "schema-version": "1.16.0",
     "install": {
       "claude-code": {
         "pkg-path": "claude-code",
         "pkg-group": "claude-code",
-        "version": "^2.1.245"
+        "version": "^2.1.266"
       },
       "codex": {
         "pkg-path": "codex",
@@ -386,27 +386,27 @@
     {
       "attr_path": "claude-code",
       "broken": false,
-      "derivation": "/nix/store/n1lgqcdgazzb39wknhn4l88v3skjww77-claude-code-2.1.245.drv",
+      "derivation": "/nix/store/hizzak4h0q3kv03w07bzzaqg902mah0g-claude-code-2.1.266.drv",
       "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
       "install_id": "claude-code",
       "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "name": "claude-code-2.1.245",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "name": "claude-code-2.1.266",
       "pname": "claude-code",
-      "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "rev_count": 1064949,
-      "rev_date": "2026-08-31T12:23:27Z",
-      "scrape_date": "2026-09-01T04:57:40.238535Z",
+      "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "rev_count": 1072397,
+      "rev_date": "2026-09-11T18:00:29Z",
+      "scrape_date": "2026-09-13T05:02:13.211299Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": true,
-      "version": "2.1.245",
+      "version": "2.1.266",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/bx59a90qzpvyapbyz4hwks81xsfw025s-claude-code-2.1.245"
+        "out": "/nix/store/b6fb4p504hgc1581wdnrl3h0jwd8c2n4-claude-code-2.1.266"
       },
       "system": "aarch64-darwin",
       "group": "claude-code",
@@ -415,27 +415,27 @@
     {
       "attr_path": "claude-code",
       "broken": false,
-      "derivation": "/nix/store/jk2cbws779imgjzjmhci5fnmq3bqa7zr-claude-code-2.1.245.drv",
+      "derivation": "/nix/store/89mv0d08xyn6ixsphf5hf4vzzq37lnhr-claude-code-2.1.266.drv",
       "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
       "install_id": "claude-code",
       "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "name": "claude-code-2.1.245",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "name": "claude-code-2.1.266",
       "pname": "claude-code",
-      "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "rev_count": 1064949,
-      "rev_date": "2026-08-31T12:23:27Z",
-      "scrape_date": "2026-09-01T05:29:15.601663Z",
+      "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "rev_count": 1072397,
+      "rev_date": "2026-09-11T18:00:29Z",
+      "scrape_date": "2026-09-13T05:37:23.245942Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": true,
-      "version": "2.1.245",
+      "version": "2.1.266",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/z9ispy7d612d2kpp7nrhj3v7pddzp3np-claude-code-2.1.245"
+        "out": "/nix/store/0cr9s8lp1v0wsf6ym6lmsy259cpk60bk-claude-code-2.1.266"
       },
       "system": "aarch64-linux",
       "group": "claude-code",
@@ -444,27 +444,27 @@
     {
       "attr_path": "claude-code",
       "broken": false,
-      "derivation": "/nix/store/cwgj6qx0pr1ag13i1l2n4ml1qakxc3qq-claude-code-2.1.245.drv",
+      "derivation": "/nix/store/b70c29jwnpjvzb2c1rp2qjw4gj91m5hf-claude-code-2.1.266.drv",
       "description": "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster",
       "install_id": "claude-code",
       "license": "Unfree",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "name": "claude-code-2.1.245",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "name": "claude-code-2.1.266",
       "pname": "claude-code",
-      "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-      "rev_count": 1064949,
-      "rev_date": "2026-08-31T12:23:27Z",
-      "scrape_date": "2026-09-01T06:06:01.474851Z",
+      "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
+      "rev_count": 1072397,
+      "rev_date": "2026-09-11T18:00:29Z",
+      "scrape_date": "2026-09-13T06:16:42.665996Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": true,
-      "version": "2.1.245",
+      "version": "2.1.266",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/k4z7dn65na1gngrpcs8l79vr2pv504dx-claude-code-2.1.245"
+        "out": "/nix/store/kbfdk9xsxli80204fly4krqyk9i9rfkw-claude-code-2.1.266"
       },
       "system": "x86_64-linux",
       "group": "claude-code",
