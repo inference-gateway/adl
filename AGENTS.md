@@ -1,6 +1,12 @@
 # AGENTS.md
 
-This repository is the **source of truth for the ADL (Agent Definition Language) JSON Schema**. There is no application code — the only shipped artifact is `schema/v1/schema.json` (JSON Schema Draft-07, `apiVersion: adl.inference-gateway.com/v1`). Work here is schema edits plus docs. `README.md` covers ADL concepts and the manifest format; `CONTRIBUTING.md` covers setup, versioning, and releases in depth.
+This repository is the **source of truth for the ADL (Agent Definition Language) JSON Schema**. The only shipped artifact is `schema/v1/schema.json` (JSON Schema Draft-07, `apiVersion: adl.inference-gateway.com/v1`); there is no application code. The second surface is the docs site under `docs/` (VitePress), published to [adl.inference-gateway.com/v1](https://adl.inference-gateway.com/v1/). `README.md` covers ADL concepts and the manifest format; `CONTRIBUTING.md` covers setup, versioning, and releases in depth.
+
+## Layout
+
+- `schema/v1/schema.json` — the canonical schema. Everything else describes it.
+- `docs/` — VitePress site (`docs/guide/`, `docs/reference/`, `docs/examples/`). Deployed by the **Deploy** workflow on any push to `main` touching `docs/**` or `schema/v1/schema.json`.
+- `CLAUDE.md` is a symlink to `AGENTS.md` — edit `AGENTS.md` only; never replace the symlink.
 
 ## Commands
 
@@ -10,8 +16,9 @@ Recommended environment: `flox activate` (provides `task`, Node.js, Prettier, aj
 - `task validate -- path/to/manifest.yaml` — validate a manifest against the schema
 - `task format` / `task format:check` — Prettier auto-format / check (CI runs `npx --yes prettier@3.8.3 --check .`)
 - `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json` — manual fallback without go-task
+- Docs (inside `docs/`, which has its own `package.json` and lockfile): `npm ci`, then `npm run dev` / `npm run build` — the build must succeed before deploy
 
-CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check formatting** (Prettier). A `.githooks/pre-commit` hook runs Prettier on staged files; activate once per clone with `git config core.hooksPath .githooks`. If it blocks a commit, fix with `npx prettier@3.8.3 --write <file>`.
+CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check formatting** (Prettier, repo-wide including `docs/`). A `.githooks/pre-commit` hook runs Prettier on staged files; activate once per clone with `git config core.hooksPath .githooks`. If it blocks a commit, fix with `npx prettier@3.8.3 --write <file>`.
 
 ## Schema versioning contract — the most important rule
 
@@ -23,11 +30,11 @@ Two-space indentation, stable key ordering near related fields, and property nam
 
 ## Testing
 
-There is no unit test suite — schema compilation is the test. For author-facing changes, also validate a representative manifest with `task validate -- path/to/manifest.yaml` and update `README.md` examples if needed.
+There is no unit test suite — schema compilation is the test. For author-facing changes, also validate a representative manifest with `task validate -- path/to/manifest.yaml`, and keep the three docs surfaces in sync: `README.md`, the relevant page under `docs/reference/`, and an example under `docs/examples/` when applicable.
 
 ## Commits and PRs
 
-Use Conventional Commits; semantic-release derives the next version from commit titles, and the PR title becomes the squash-merge message. `feat(schema):` for additions, `fix(schema):` for relaxations, `docs:`/`chore:` otherwise. PR descriptions should note the schema impact and which manifests were validated.
+Use Conventional Commits; semantic-release derives the next version from commit titles, and the PR title becomes the squash-merge message. `feat(schema):` for additions, `fix(schema):` for relaxations, `fix(docs):`/`docs:` for docs-only changes, `chore:` otherwise. PR descriptions should note the schema impact and which manifests were validated.
 
 ## Releases and propagation
 
