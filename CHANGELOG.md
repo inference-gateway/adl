@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.27.2](https://github.com/inference-gateway/adl/compare/v0.27.1...v0.27.2) (2026-09-26)
+
+### 🐛 Bug Fixes
+
+* **docs:** document ajv install for validation ([#192](https://github.com/inference-gateway/adl/issues/192)) ([259fb2b](https://github.com/inference-gateway/adl/commit/259fb2b3780f0dbc2a65ce811f13db35fef3d177))
+* **docs:** document authz and orchestrator secrets ([#193](https://github.com/inference-gateway/adl/issues/193)) ([59f29d4](https://github.com/inference-gateway/adl/commit/59f29d4485e9b6aebc87855c95401e7858c83abd))
+* **docs:** use real release tags in schema pin examples ([#194](https://github.com/inference-gateway/adl/issues/194)) ([177e918](https://github.com/inference-gateway/adl/commit/177e9182b28a977542f441580e0866917d299800))
+
+### 👷 CI
+
+* **claude:** centralize claude.yml via reusable workflow ([#185](https://github.com/inference-gateway/adl/issues/185)) ([cc7f40d](https://github.com/inference-gateway/adl/commit/cc7f40df4bd070785dc68bffe02978af8a530a73))
+
+### 📚 Documentation
+
+* document spec.config.tools and built-in activation ([#195](https://github.com/inference-gateway/adl/issues/195)) ([1a4aaf5](https://github.com/inference-gateway/adl/commit/1a4aaf5219aeb2698e31f5dbaecbc1c021fd7212))
+* refresh AGENTS.md with docs site layout and CLAUDE.md symlink note ([#182](https://github.com/inference-gateway/adl/issues/182)) ([79d5aae](https://github.com/inference-gateway/adl/commit/79d5aaee56de549e5e1887210b9cde1a87a6476b))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.245 -> 2.1.266 ([#180](https://github.com/inference-gateway/adl/issues/180)) ([b5039a2](https://github.com/inference-gateway/adl/commit/b5039a2beab9d81b1da75d4b5f2546af54550f56))
+* **deps:** bump claude-code 2.1.266 -> 2.1.278 ([#183](https://github.com/inference-gateway/adl/issues/183)) ([c1874ed](https://github.com/inference-gateway/adl/commit/c1874ed4e535cc82ab76792d8b43d391056f311a))
+* **deps:** bump claude-code 2.1.278 -> 2.1.280 ([#186](https://github.com/inference-gateway/adl/issues/186)) ([4ed53b7](https://github.com/inference-gateway/adl/commit/4ed53b730420a600b1584bfd9d45d6d8354ee4de))
+* **deps:** bump infer CLI v0.183.0 -> v0.192.0 ([#181](https://github.com/inference-gateway/adl/issues/181)) ([1921bbc](https://github.com/inference-gateway/adl/commit/1921bbcd3a094916a230689eadf461cf4d4823a2))
+* **deps:** bump infer CLI v0.192.0 -> v0.205.3 ([#184](https://github.com/inference-gateway/adl/issues/184)) ([f5650ce](https://github.com/inference-gateway/adl/commit/f5650ce25c0491d66d88f4ef150342beaf9c4f37))
+* **deps:** bump infer CLI v0.205.3 -> v0.208.0 ([#187](https://github.com/inference-gateway/adl/issues/187)) ([f10929b](https://github.com/inference-gateway/adl/commit/f10929bb5df0852f239db49d91349eb08e1de2b4))
+
 ## [0.27.1](https://github.com/inference-gateway/adl/compare/v0.27.0...v0.27.1) (2026-09-11)
 
 ### 🐛 Bug Fixes
