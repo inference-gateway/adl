@@ -28,7 +28,7 @@ This repository has no language toolchain of its own. The schema is validated wi
 flox activate
 ```
 
-That's it. `task`, `node`, and the ajv binaries (`node_modules/.bin/ajv`) are now on `PATH`.
+That's it. `task` and `node` are on `PATH`, and the ajv packages are installed into `node_modules/` in the working tree. Run the validator through `task compile` / `task validate` (the Taskfile calls `node_modules/.bin/ajv` by path) or via `npx ajv`, which resolves the local `ajv-cli` install - `node_modules/.bin` itself is not added to `PATH`, so a bare `ajv` is not found.
 
 ### Option B: manual
 
