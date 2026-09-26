@@ -84,6 +84,8 @@ spec:
       orchestrators:
         claudecode:
           enabled: true
+          appIdSecret: CLAUDE_APP_ID
+          appPrivateKeySecret: CLAUDE_APP_PRIVATE_KEY
         codex:
           enabled: false
         gemini:
@@ -102,9 +104,25 @@ spec:
 | `orchestrators.opencode.enabled`   | **OpenCode**                  |
 | `orchestrators.infer.enabled`      | Inference Gateway **`infer`** |
 
-Each sub-block has the shape `{ enabled: boolean }`. Multiple
-orchestrators can be enabled at once if a project wants to ship
-configuration for more than one.
+Every sub-block requires `enabled`. Multiple orchestrators can be
+enabled at once if a project wants to ship configuration for more than
+one.
+
+`claudecode` and `infer` additionally take two optional fields naming the
+**repository secrets** that hold the GitHub App credentials used by the
+generated workflow. Only the secret _names_ live in the manifest - the
+values stay in the repository's secret store.
+
+| Orchestrator | Field                 | Default                  | Holds                  |
+| ------------ | --------------------- | ------------------------ | ---------------------- |
+| `claudecode` | `appIdSecret`         | `CLAUDE_APP_ID`          | GitHub App client ID   |
+| `claudecode` | `appPrivateKeySecret` | `CLAUDE_APP_PRIVATE_KEY` | GitHub App private key |
+| `infer`      | `appIdSecret`         | `INFER_APP_ID`           | GitHub App client ID   |
+| `infer`      | `appPrivateKeySecret` | `INFER_APP_PRIVATE_KEY`  | GitHub App private key |
+
+Override them when your repository already uses different secret names.
+`codex`, `gemini` and `opencode` have the shape `{ enabled: boolean }`
+only.
 
 ## `deps` {#deps}
 
