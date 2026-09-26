@@ -11,11 +11,14 @@ There are two versions to keep straight:
 | Version                              | What it identifies                             | Example                        |
 | ------------------------------------ | ---------------------------------------------- | ------------------------------ |
 | **`apiVersion`** (in the manifest)   | The major schema version this manifest uses    | `adl.inference-gateway.com/v1` |
-| **Git tag** of the schema repository | A specific snapshot of `schema/v1/schema.json` | `v1.3.0`                       |
+| **Git tag** of the schema repository | A specific snapshot of `schema/v1/schema.json` | `v0.27.1`                      |
 
 The `apiVersion` and the directory under `schema/` always move together -
-`schema/v1/` matches `adl.inference-gateway.com/v1`. The git tag picks a
-_point in time_ within that major version.
+`schema/v1/` matches `adl.inference-gateway.com/v1`. The git tag is
+**independent** of that: tags are cut by semantic-release from Conventional
+Commits (`tagFormat` `v<version>`, currently on the `0.x` line), so the `1`
+in `v1` never appears in a tag. A tag picks a _point in time_ for the whole
+repository, including every `schema/<major>/` directory it contains.
 
 ## The additive contract
 
@@ -79,8 +82,8 @@ pins via its `Taskfile.yml`:
 
 ```yaml
 vars:
-  ADL_SCHEMA_REF: v1.3.0
-  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_REF}}/schema/v1/schema.json
+  ADL_SCHEMA_VERSION: v0.27.0
+  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_VERSION}}/schema/v1/schema.json
 ```
 
 Picking a tag is a deliberate decision: you adopt new fields by bumping

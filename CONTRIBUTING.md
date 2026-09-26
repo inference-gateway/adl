@@ -85,7 +85,7 @@ npx ajv validate --spec=draft7 -c ajv-formats -s schema/v1/schema.json -d path/t
 ADL follows a strict additive contract within a major version. This is the most important rule in the repository, please read it before opening a PR.
 
 - **Within `schema/v1/`**: only backwards-compatible additions are allowed. Examples: new optional fields, new entries in `definitions`, new enum values (where consumers are documented to tolerate unknowns). Removing a field, tightening a constraint, renaming, or making an optional field required is a breaking change and is not allowed.
-- **Released tags are immutable.** Once a tag (`v1.x.y`) ships, the schema file at that tag never changes. Consumers pin to a tag.
+- **Released tags are immutable.** Once a tag (`vX.Y.Z`) ships, the schema file at that tag never changes. Consumers pin to a tag.
 - **Proposing a new major version (v2)**: open a GitHub Discussion or issue first to align on scope. A v2 lives at `schema/v2/schema.json` alongside `schema/v1/`, v1 is not removed. The `apiVersion` string and the directory move together (`adl.inference-gateway.com/v2` and `schema/v2/`).
 
 ## Commit Message Convention
