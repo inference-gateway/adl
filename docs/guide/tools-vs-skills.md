@@ -105,8 +105,9 @@ Two sources:
   a published skill from the shared registry. Use this for common
   playbooks you don't want to maintain yourself.
 
-Every skill carries a `license` (SPDX identifier or `Proprietary`), so
-the licence travels with the playbook regardless of where it's consumed.
+A skill **may** carry a `license` (SPDX identifier or `Proprietary`); only
+`id` is required. When set, the licence travels with the playbook
+regardless of where it's consumed.
 See [Reference: License identifiers](/reference/license-identifiers) for
 the accepted set.
 
