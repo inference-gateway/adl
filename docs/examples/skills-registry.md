@@ -28,6 +28,15 @@ spec:
       You are a research assistant. Consult the available skills before
       answering questions about prompting or internal review policy.
 
+  # Skills are read from disk at runtime, so the read built-in is required.
+  tools:
+    - id: read
+
+  config:
+    tools:
+      read:
+        enabled: true
+
   skills:
     # Pulled from the registry - downloaded at build time, pinned by version.
     - id: prompt-engineering
@@ -77,6 +86,8 @@ spec:
   set.
 - **Lazy loading.** Only each skill's `name` + `description` is in the
   startup prompt; the body is read at runtime when the model reaches for
-  it - so a manifest can declare many skills cheaply. (`adl-cli`
-  auto-wires the `read` built-in tool whenever `spec.skills[]` is
-  non-empty.)
+  it - so a manifest can declare many skills cheaply. Reading the body at
+  runtime is what the `read` built-in is for: an LLM agent with skills
+  must list `- id: read` under `spec.tools` and set
+  `spec.config.tools.read.enabled: true`. Nothing wires it up for you.
+  See [the reserved `tools` group](/reference/config#the-reserved-tools-group).

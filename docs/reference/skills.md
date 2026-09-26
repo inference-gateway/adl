@@ -119,8 +119,22 @@ material is effectively free until invoked.
 
 ### Runtime requirement: the `read` built-in tool
 
-Lazy loading requires the agent to read files at runtime. `adl-cli`
-auto-wires the reserved built-in tool [`read`](./tools#user-defined-vs-built-in-tools)
-whenever `spec.skills[]` is non-empty, so you do not need to declare
-it explicitly - it is present in the generated project by virtue of
-having declared at least one skill.
+Lazy loading requires the agent to read files at runtime, and nothing
+wires that up for you. An LLM agent that declares skills must declare
+the reserved built-in tool [`read`](./tools#user-defined-vs-built-in-tools)
+itself:
+
+```yaml
+spec:
+  tools:
+    - id: read
+  config:
+    tools:
+      read:
+        enabled: true
+```
+
+Both halves matter. Without `- id: read` under `spec.tools` the agent
+has no Read built-in to load `SKILL.md` bodies; without
+`config.tools.read.enabled: true` the built-in registers in a disabled
+state and fails at runtime. `adl-cli` warns about either omission.
