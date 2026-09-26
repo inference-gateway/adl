@@ -5,11 +5,22 @@ against the schema.
 
 ## Prerequisites
 
-You need either:
+Validation runs against a local clone of the
+[schema repo](https://github.com/inference-gateway/adl). You need either:
 
-- **Node.js 24** (matches CI), or
-- **[flox](https://flox.dev/)** - `flox activate` in the schema repo runs
-  `npm install` of `ajv`, `ajv-cli`, and `ajv-formats` for you.
+- **Node.js 24** (matches CI), plus the validator installed in the clone:
+
+  ```sh
+  git clone https://github.com/inference-gateway/adl
+  cd adl
+  npm install --no-save ajv@8 ajv-cli@5 ajv-formats@3
+  ```
+
+  These are the same packages CI installs. There is no `package.json` on
+  purpose - the install is one-off and local to your working tree.
+
+- **[flox](https://flox.dev/)** - `flox activate` in the schema repo runs that
+  same `npm install` for you.
 
 ## 1. Write a minimal manifest
 
@@ -40,14 +51,19 @@ ones later.
 
 ## 2. Validate it
 
-If you have [`go-task`](https://taskfile.dev) installed and you're inside
-the [schema repo](https://github.com/inference-gateway/adl):
+Both commands below run from the root of the schema repo clone and need the
+validator installed there first - the `npm install` from
+[Prerequisites](#prerequisites), or `flox activate`. The `ajv` executable ships
+in the `ajv-cli` package, and `-c ajv-formats` has to resolve from the working
+tree, so neither command works on a fresh clone without it.
+
+If you have [`go-task`](https://taskfile.dev) installed:
 
 ```sh
 task validate -- ./agent.yaml
 ```
 
-Otherwise, run `ajv` directly:
+Otherwise, run the locally installed `ajv` directly:
 
 ```sh
 npx ajv validate \
