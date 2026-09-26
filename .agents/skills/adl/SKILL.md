@@ -363,13 +363,16 @@ default (disabled)**. The kill-switch envs (`A2A_BASH_DISABLED=1`,
 Each built-in accepts its own typed config keys under
 `spec.config.tools.<id>`. Anything not on this list fails validation:
 
-| Tool    | Config keys                                                                                                                                       |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `read`  | `enabled`, `max_lines` (default file slice), `allowed_roots[]` (empty = project-wide)                                                             |
-| `bash`  | `enabled`, `whitelist[]` (allowed commands), `timeout_seconds`                                                                                    |
-| `write` | `enabled`                                                                                                                                         |
-| `edit`  | `enabled`                                                                                                                                         |
-| `fetch` | `enabled`, `allowed_domains[]` (entries starting with `.` match any subdomain), `max_bytes`, `timeout_seconds`, `allow_downloads`, `download_dir` |
+| Tool    | Config keys                                                                                                                                                         |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `read`  | `enabled`, `max_lines` (default file slice), `allowed_roots[]` (empty = project-wide)                                                                               |
+| `bash`  | `enabled`, `whitelist[]` (allowed commands), `timeout_seconds`, `working_dir`                                                                                       |
+| `write` | `enabled`, `allowed_roots[]` (empty = project-wide)                                                                                                                 |
+| `edit`  | `enabled`, `allowed_roots[]` (empty = project-wide)                                                                                                                 |
+| `fetch` | `enabled`, `allowed_domains[]` (entries starting with `.` match any subdomain), `max_bytes`, `timeout_seconds`, `allow_downloads`, `download_dir`, `allow_internal` |
+
+With `fetch`, an empty `allowed_domains` denies internal/private addresses
+unless `allow_internal: true`.
 
 A representative configuration that opts in the three tools with the
 richest config surfaces:

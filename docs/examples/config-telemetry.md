@@ -67,11 +67,13 @@ spec:
 ## Highlights
 
 - **`config` is grouped one level deep.** Every top-level key (`cache`,
-  `featureFlags`, `search`) must itself be an _object_; inside that
-  object, any JSON value goes: strings, numbers, booleans, nested
+  `featureFlags`, `search`) must itself be an _object_; inside your own
+  groups, any JSON value goes: strings, numbers, booleans, nested
   objects. The generator passes the whole tree straight through to the
-  agent's runtime config layer without interpreting it. See
-  [`spec.config`](/reference/config#shape).
+  agent's runtime config layer without interpreting it. The exception is
+  the reserved `tools` group, which is typed and closed - see
+  [`spec.config`](/reference/config#shape) and
+  [the reserved `tools` group](/reference/config#the-reserved-tools-group).
 - **Secrets stay placeholders.** `config` accepts any value, which makes
   it a tempting place to paste an API key - don't. Reference secrets with
   `${VAR}` placeholders (`${SEARCH_PROVIDER}`, `${SEARCH_ENDPOINT}`) and

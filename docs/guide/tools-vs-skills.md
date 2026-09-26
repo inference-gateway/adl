@@ -62,10 +62,13 @@ for you to fill in.
 A tool's `id` must match `^[a-zA-Z_][a-zA-Z0-9_]*$` - it becomes a symbol
 name in generated code.
 
-Some `id`s are reserved as **built-in tools** that the generator
-implements for you (e.g. `read`, `bash`, `write`, `edit`). For those,
-`name`, `description`, `tags`, and `schema` may be omitted - the generator
-supplies them.
+Five `id`s are reserved as **built-in tools** that the generator
+implements for you: `read`, `bash`, `write`, `edit`, and `fetch`. For
+those, `name`, `description`, `tags`, and `schema` may be omitted - the
+generator supplies them. Each one stays off until you also set
+`spec.config.tools.<id>.enabled: true`; see
+[the reserved `tools` group](/reference/config#the-reserved-tools-group)
+for the typed config keys.
 
 See [Reference: tools](/reference/tools) for every field.
 

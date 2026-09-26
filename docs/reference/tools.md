@@ -47,13 +47,18 @@ The schema makes a deliberate split:
 
 - **User-defined tools** must supply `name`, `description`, `tags`, and
   `schema` - that's how the generator knows what to wire up.
-- **Built-in tools** use reserved IDs (`read`, `bash`, `write`, `edit`,
-  …) and may omit those fields. The generator supplies the canonical
-  name, description, tags, and schema for built-ins.
+- **Built-in tools** use the five reserved IDs `read`, `bash`, `write`,
+  `edit`, and `fetch`, and may omit those fields. The generator supplies
+  the canonical name, description, tags, and schema for built-ins.
 
-In practice: list a built-in by ID only when you want the generator to
-include it; list a user-defined tool with all four metadata fields when
-you want a new function in your agent.
+Activating a built-in takes **two** steps: list the ID under
+`spec.tools`, _and_ set `spec.config.tools.<id>.enabled: true`. Listing
+the ID alone registers the tool in a disabled state, and it fails at
+runtime. Each built-in also has its own typed config keys - see
+[the reserved `tools` group](./config#the-reserved-tools-group).
+
+For a user-defined tool, spell out all four metadata fields; no
+`config.tools` entry is required.
 
 ```yaml
 spec:
@@ -79,6 +84,17 @@ spec:
           - to
           - subject
           - body
+
+  # Built-ins stay off until enabled here
+  config:
+    tools:
+      read:
+        enabled: true
+      bash:
+        enabled: true
+        whitelist:
+          - git status
+        timeout_seconds: 30
 ```
 
 ## `schema`

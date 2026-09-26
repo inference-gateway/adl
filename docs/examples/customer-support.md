@@ -131,6 +131,13 @@ spec:
           - priority
       inject:
         - ticketingClient
+    # Built-in: required so the agent can load SKILL.md bodies at runtime
+    - id: read
+
+  config:
+    tools:
+      read:
+        enabled: true
 
   skills:
     - id: incident-response
