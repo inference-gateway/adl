@@ -30,7 +30,7 @@ npm run preview
 ```
 
 > The root of the repo intentionally has no `package.json` - see the root
-> [`CLAUDE.md`](../CLAUDE.md). The `docs/package.json` is scoped to this
+> [`AGENTS.md`](../AGENTS.md). The `docs/package.json` is scoped to this
 > Vite project and is separate from the ad-hoc `ajv` install used to
 > validate the schema itself.
 

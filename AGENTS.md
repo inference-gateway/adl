@@ -6,7 +6,6 @@ This repository is the **source of truth for the ADL (Agent Definition Language)
 
 - `schema/v1/schema.json` — the canonical schema. Everything else describes it.
 - `docs/` — VitePress site (`docs/guide/`, `docs/reference/`, `docs/examples/`). Deployed by the **Deploy** workflow on any push to `main` touching `docs/**` or `schema/v1/schema.json`.
-- `CLAUDE.md` is a symlink to `AGENTS.md` — edit `AGENTS.md` only; never replace the symlink.
 
 ## Commands
 
@@ -24,9 +23,17 @@ CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check for
 
 Within `schema/v1/`, only backwards-compatible additions: new optional fields, new `definitions`, additive enum values. Do **not** tighten constraints, rename fields, remove fields, or make optional fields required. A breaking change requires a new `schema/v2/schema.json` with `apiVersion: adl.inference-gateway.com/v2`; v1 is kept, not removed. Released git tags are immutable — downstream consumers (notably `adl-cli`) pin to them, so never edit a released tag. For a v2 proposal, open an issue or discussion before editing.
 
-## Style
+## Style and Code Readability
 
 Two-space indentation, stable key ordering near related fields, and property names matching ADL manifest style (`apiVersion`, `metadata`, `spec`, `tools`, `skills`).
+
+- Write self-explanatory code: clear names and small, single-purpose functions carry the intent.
+  If a block needs a comment to be understood, extract it into a well-named function or variable.
+- No inline comments inside function bodies.
+- Doc comments on functions and types are at most 5 lines: what it does and why, not how.
+- No comments above modules, packages, or files.
+- Tool directives are not comments and stay where the tool needs them (lint suppressions, build
+  tags, compiler pragmas, code generation markers).
 
 ## Testing
 
