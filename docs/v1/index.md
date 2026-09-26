@@ -36,18 +36,20 @@ See the full field-by-field [Schema Reference](/reference/).
 
 ## Pinning v1 in downstream tools
 
-Pin to a specific git tag inside `v1.x.y` rather than tracking `main`. The
-schema file at any released tag is **immutable**, so a pin is a stable
-contract.
+Pin to a specific repository tag (`vX.Y.Z`, cut by semantic-release and
+currently on the `0.x` line) rather than tracking `main`. Tag numbers are
+independent of the `v1` in `apiVersion` - the `v1` lives in the URL path,
+not in the tag. The schema file at any released tag is **immutable**, so a
+pin is a stable contract.
 
 ```yaml
 vars:
-  ADL_SCHEMA_REF: v1.3.0
-  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_REF}}/schema/v1/schema.json
+  ADL_SCHEMA_VERSION: v0.27.1
+  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_VERSION}}/schema/v1/schema.json
 ```
 
-New optional fields land as minor bumps inside `v1`; breaking changes wait
-for `v2`. See [Versioning](/guide/versioning) for the additive contract and
+New optional fields land inside `v1` without changing the `apiVersion`;
+breaking changes wait for `v2`. See [Versioning](/guide/versioning) for the additive contract and
 the rules that govern what can change inside a major version.
 
 ## Resources

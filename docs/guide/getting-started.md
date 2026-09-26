@@ -71,8 +71,8 @@ your manifests stay valid for the lifetime of the consumer's pin.
 ```yaml
 # Example: pinning in a Taskfile
 vars:
-  ADL_SCHEMA_REF: v1.3.0
-  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_REF}}/schema/v1/schema.json
+  ADL_SCHEMA_VERSION: v0.27.1
+  ADL_SCHEMA_URL: https://raw.githubusercontent.com/inference-gateway/adl/{{.ADL_SCHEMA_VERSION}}/schema/v1/schema.json
 ```
 
 ## 4. Generate and run a project
