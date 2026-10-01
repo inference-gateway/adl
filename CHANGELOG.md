@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.28.0](https://github.com/inference-gateway/adl/compare/v0.27.2...v0.28.0) (2026-10-01)
+
+### ✨ Features
+
+* **schema:** align card and capabilities with A2A v1.0.1 AgentCard ([#201](https://github.com/inference-gateway/adl/issues/201)) ([b052b2a](https://github.com/inference-gateway/adl/commit/b052b2a97b73e4d983871927fcfa5f9fd4620fab))
+
+### 📚 Documentation
+
+* **agents:** add code readability guidelines ([#196](https://github.com/inference-gateway/adl/issues/196)) ([b935109](https://github.com/inference-gateway/adl/commit/b9351095db7f9f44c484dd5b1a789d6997aaf808))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.280 -> 2.1.283 ([#197](https://github.com/inference-gateway/adl/issues/197)) ([d188fc6](https://github.com/inference-gateway/adl/commit/d188fc615e59e239c572d9ad88091277eb75902c))
+* **deps:** bump infer CLI v0.208.0 -> v0.218.0 ([#198](https://github.com/inference-gateway/adl/issues/198)) ([11a78e6](https://github.com/inference-gateway/adl/commit/11a78e66cbc2833a95c4dd77c3c6c1523db6751e))
+* **deps:** bump infer CLI v0.218.0 -> v0.221.1 ([#199](https://github.com/inference-gateway/adl/issues/199)) ([e043776](https://github.com/inference-gateway/adl/commit/e043776067da6cfd1e717b7109796b21598464bf))
+
 ## [0.27.2](https://github.com/inference-gateway/adl/compare/v0.27.1...v0.27.2) (2026-09-26)
 
 ### 🐛 Bug Fixes
