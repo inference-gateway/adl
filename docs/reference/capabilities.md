@@ -1,8 +1,9 @@
 # `spec.capabilities`
 
-Declares which protocol-level capabilities the agent supports. All three
-fields are required so the schema makes the agent's contract explicit -
-a runtime should never need to _guess_ whether streaming is on.
+Declares which protocol-level capabilities the agent supports. `streaming`
+and `pushNotifications` are required so the schema makes the agent's
+contract explicit - a runtime should never need to _guess_ whether
+streaming is on.
 
 These are the [A2A](/guide/a2a) `AgentCard` capability flags - what a
 caller reads off the agent's card before connecting. See
@@ -13,7 +14,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: true
-    stateTransitionHistory: true
 ```
 
 ## `streaming`
@@ -34,18 +34,33 @@ Whether the agent can push notifications about state changes - useful
 for long-running tasks where the caller subscribes and is informed when
 something happens.
 
+## `extendedAgentCard`
+
+- **Type:** `boolean`
+- **Required:** no
+
+Whether the agent serves a richer, authenticated AgentCard via the A2A
+`GetExtendedAgentCard` method (`GET /extendedAgentCard`) once the caller
+is authenticated. Added on the card in A2A v1.0.1 as
+`AgentCapabilities.extendedAgentCard`; the deprecated card-level
+[`spec.card.supportsExtendedAgentCard`](/reference/card) maps onto it.
+
 ## `stateTransitionHistory`
 
 - **Type:** `boolean`
-- **Required:** yes
+- **Required:** no
 
-Whether the agent retains a record of state transitions over the course
-of a task. When `true`, callers can replay or audit how the agent
-reached its final state.
+**Deprecated.** The A2A `AgentCard` dropped this flag in v1.0.1, so
+published cards no longer carry it and callers cannot discover it. The
+field is kept in the schema only so existing v1 manifests stay valid:
+leave it out of new manifests, and consumers must ignore it when
+generating the card.
 
 ## A note on defaults
 
-There are no defaults - every value must be explicitly `true` or
-`false`. This is intentional: a manifest that elides `streaming` would
-leave runtimes and clients unsure what to negotiate. Making the field
-required forces the author to think about it.
+The required flags have no defaults - `streaming` and
+`pushNotifications` must be explicitly `true` or `false`. This is
+intentional: a manifest that elides `streaming` would leave runtimes and
+clients unsure what to negotiate. Making the fields required forces the
+author to think about it. `extendedAgentCard` is optional and defaults
+to `false` - the richer card endpoint is opt-in.
