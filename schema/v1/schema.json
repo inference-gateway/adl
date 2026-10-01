@@ -117,19 +117,24 @@
     },
     "Capabilities": {
       "type": "object",
-      "required": ["streaming", "pushNotifications", "stateTransitionHistory"],
+      "required": ["streaming", "pushNotifications"],
       "properties": {
         "streaming": { "type": "boolean" },
         "pushNotifications": { "type": "boolean" },
-        "stateTransitionHistory": { "type": "boolean" }
+        "extendedAgentCard": {
+          "type": "boolean",
+          "description": "Whether the agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7) once the caller is authenticated (A2A v1.0.1 'AgentCapabilities.extendedAgentCard'). When true, the generated ADK wires up that endpoint; misconfigured or unsupported calls follow the A2A error contract (-32007 ExtendedAgentCardNotConfiguredError / -32004 UnsupportedOperationError). Optional; defaults to false when omitted."
+        }
       }
     },
     "Card": {
       "type": "object",
       "properties": {
-        "protocolVersion": { "type": "string" },
-        "url": { "type": "string" },
-        "preferredTransport": { "type": "string" },
+        "supportedInterfaces": {
+          "type": "array",
+          "description": "Ordered list of protocol endpoints the agent exposes (A2A v1.0.1 'AgentCard.supportedInterfaces'). The first entry is the preferred interface. Required on the v1.0.1 wire format; optional here so that manifests can omit it and let the consumer derive it from 'spec.server'.",
+          "items": { "$ref": "#/definitions/AgentInterface" }
+        },
         "defaultInputModes": {
           "type": "array",
           "items": { "type": "string" }
@@ -140,18 +145,14 @@
         },
         "documentationUrl": { "type": "string" },
         "iconUrl": { "type": "string" },
-        "supportsExtendedAgentCard": {
-          "type": "boolean",
-          "description": "Whether the deployed agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7). When true, the generated ADK wires up that endpoint; clients that authenticate receive an extended card, and misconfigured/unsupported calls follow the A2A error contract (-32007 ExtendedAgentCardNotConfiguredError when the extended card is declared but not configured / -32004 UnsupportedOperationError when the agent does not support it). Optional; defaults to false when omitted."
-        },
         "securitySchemes": {
           "type": "object",
-          "description": "Statically declared A2A/OpenAPI security schemes advertised on the AgentCard (A2A spec section 7), keyed by an arbitrary scheme name referenced from 'security'. Use this only for schemes that cannot be derived from runtime config - 'apiKey', 'http', and 'mutualTLS'. OIDC/OAuth2 schemes are deliberately excluded here: they are runtime concerns (AUTH_ISSUER_URL / AUTH_CLIENT_ID / AUTH_CLIENT_SECRET env) and the ADK derives their declaration at startup, so baking an issuer into the manifest would be wrong per environment.",
+          "description": "Statically declared A2A/OpenAPI security schemes advertised on the AgentCard (A2A spec section 7), keyed by an arbitrary scheme name referenced from 'securityRequirements'. Use this only for schemes that cannot be derived from runtime config - 'apiKey', 'http', and 'mutualTLS'. OIDC/OAuth2 schemes are deliberately excluded here: they are runtime concerns (AUTH_ISSUER_URL / AUTH_CLIENT_ID / AUTH_CLIENT_SECRET env) and the ADK derives their declaration at startup, so baking an issuer into the manifest would be wrong per environment.",
           "additionalProperties": { "$ref": "#/definitions/SecurityScheme" }
         },
-        "security": {
+        "securityRequirements": {
           "type": "array",
-          "description": "Security requirements advertised on the AgentCard (A2A spec section 7). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field. This flat DSL form is what authors write; consumers (e.g. adl-cli) map it onto the ADK's AgentCard 'security' shape ({ schemes: { <name>: { list: [scopes] } } }).",
+          "description": "Security requirements for contacting the agent (A2A v1.0.1 'AgentCard.securityRequirements'). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field.",
           "items": {
             "type": "object",
             "additionalProperties": {
@@ -162,9 +163,28 @@
         }
       }
     },
+    "AgentInterface": {
+      "type": "object",
+      "description": "A single protocol endpoint of the agent (A2A v1.0.1 'AgentInterface'). Declared as an entry of 'spec.card.supportedInterfaces' - one per protocol binding the agent serves; the first entry is the preferred one.",
+      "required": ["url", "protocolBinding", "protocolVersion"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL where this interface is available; must be a valid absolute URL in production (A2A v1.0.1 'AgentInterface.url')."
+        },
+        "protocolBinding": {
+          "type": "string",
+          "description": "The protocol binding served at this URL (A2A v1.0.1 'AgentInterface.protocolBinding'). An open string to allow other bindings; the core ones are 'JSONRPC', 'GRPC' and 'HTTP+JSON'."
+        },
+        "protocolVersion": {
+          "type": "string",
+          "description": "The A2A protocol version this interface exposes, e.g. '1.0' (A2A v1.0.1 'AgentInterface.protocolVersion')."
+        }
+      }
+    },
     "SecurityScheme": {
       "type": "object",
-      "description": "A single statically declared security scheme in a flat, OpenAPI-3.0-style authoring form: a 'type' discriminator with sibling fields. This is the DSL form authors write; consumers (e.g. adl-cli) map it onto the ADK's A2A v1.0 AgentCard 'SecurityScheme', which is a per-variant wrapper object ('type' -> the wrapper key, 'in' -> 'location'). The 'type' selects the variant: 'apiKey' (key passed in a header, query param, or cookie), 'http' (HTTP auth such as Basic or Bearer), or 'mutualTLS' (client-certificate auth). OIDC/OAuth2 are intentionally not modelled here because the ADK derives them from runtime config.",
+      "description": "A single statically declared security scheme in a flat, OpenAPI-3.0-style authoring form: a 'type' discriminator with sibling fields. This is the DSL form authors write; consumers (e.g. adl-cli) map it onto the ADK's A2A v1.0 AgentCard 'SecurityScheme', which is a per-variant wrapper object ('type' -> the wrapper key, 'in' -> 'location'). The 'type' selects the variant: 'apiKey' (key passed in a header, query param, or cookie), 'http' (HTTP auth such as Basic or Bearer), or 'mutualTLS' (client-certificate auth). OIDC/OAuth2 are intentionally not modelled here because the ADK derives them from runtime config - this includes every OAuth flow the A2A v1.0.1 SecurityScheme knows (authorizationCode, implicit, password, clientCredentials) plus the newer 'deviceCode' flow (DeviceCodeOAuthFlow).",
       "required": ["type"],
       "properties": {
         "type": {

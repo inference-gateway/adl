@@ -23,6 +23,10 @@ CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check for
 
 Within `schema/v1/`, only backwards-compatible additions: new optional fields, new `definitions`, additive enum values. Do **not** tighten constraints, rename fields, remove fields, or make optional fields required. A breaking change requires a new `schema/v2/schema.json` with `apiVersion: adl.inference-gateway.com/v2`; v1 is kept, not removed. Released git tags are immutable — downstream consumers (notably `adl-cli`) pin to them, so never edit a released tag. For a v2 proposal, open an issue or discussion before editing.
 
+## Card alignment with A2A
+
+`spec.card` mirrors the current A2A `AgentCard` (v1.0.1, tracked via `inference-gateway/schemas`): when the wire format renames a field, ADL renames it too - no aliases, no deprecated duplicates, one authoring shape. Wire-required fields (`supportedInterfaces`) stay optional in the manifest. OAuth2/OIDC security schemes (including the v1.0.1 `DeviceCodeOAuthFlow`) stay unmodelled: they are runtime concerns the ADK derives from config.
+
 ## Style and Code Readability
 
 Two-space indentation, stable key ordering near related fields, and property names matching ADL manifest style (`apiVersion`, `metadata`, `spec`, `tools`, `skills`).

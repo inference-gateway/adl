@@ -43,26 +43,26 @@ matched there survives `adl generate --overwrite`.
 
 **Spec at a glance.** Every `spec.*` top-level field the v1 schema defines:
 
-| `spec.*` field  | Required? | Purpose                                                                                               |
-| --------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| `capabilities`  | yes       | A2A feature flags - `streaming`, `pushNotifications`, `stateTransitionHistory` (all three booleans)   |
-| `server`        | yes       | `port` (1-65535), optional `scheme`, `debug`, `auth.enabled`, `authz` (enabled + mode)                |
-| `language`      | yes       | At least one of `go`, `typescript`, `rust` (each with its own required pair, e.g. `module`+`version`) |
-| `agent`         | no        | LLM provider/model/systemPrompt/maxTokens/temperature + `mcp` MCP client (servers + runtime config)   |
-| `card`          | no        | Static A2A agent-card metadata + advertised security schemes (A2A section 7)                          |
-| `services`      | no        | Domain services declared as ports (`type`, `interface`, `factory`, `description`)                     |
-| `config`        | no        | Arbitrary per-section config maps; one section per service (env-mapped)                               |
-| `tools`         | no        | Function-call entrypoints - reserved built-in ids and user tools                                      |
-| `skills`        | no        | Markdown playbooks - registry / GitHub `source:` / `bare: true`                                       |
-| `acronyms`      | no        | String list the generator preserves in generated identifier casing                                    |
-| `artifacts`     | no        | `enabled: true` to generate an artifacts server (filesystem or MinIO backend)                         |
-| `telemetry`     | no        | `enabled: true` for OpenTelemetry; `traces`/`metrics` select per-signal exporters (Go/TS only)        |
-| `hooks`         | no        | `post: [...]` commands the CLI runs after each `adl generate`                                         |
-| `scm`           | no        | `provider`, `url`, `github_app`, `issue_templates`, `dependabot`, `ci`, `cd`                          |
-| `documentation` | no        | `pages[]` with `title`, `path`, and optional `description` - hand-authored docs seeded in `docs/`     |
-| `examples`      | no        | `title` and `description` - seeded once as `examples/<slug>/README.md`, linked from the README        |
-| `development`   | no        | `sandbox.{flox,devcontainer,dockerCompose}` + `ai.orchestrators.{claudecode,...}` + `deps[]`          |
-| `deployment`    | no        | `type: kubernetes \| cloudrun \| vercel \| cloudflare` plus the matching block                        |
+| `spec.*` field  | Required? | Purpose                                                                                                      |
+| --------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
+| `capabilities`  | yes       | A2A feature flags - `streaming`, `pushNotifications` (both required booleans) + optional `extendedAgentCard` |
+| `server`        | yes       | `port` (1-65535), optional `scheme`, `debug`, `auth.enabled`, `authz` (enabled + mode)                       |
+| `language`      | yes       | At least one of `go`, `typescript`, `rust` (each with its own required pair, e.g. `module`+`version`)        |
+| `agent`         | no        | LLM provider/model/systemPrompt/maxTokens/temperature + `mcp` MCP client (servers + runtime config)          |
+| `card`          | no        | Static A2A agent-card metadata + advertised security schemes (A2A section 7)                                 |
+| `services`      | no        | Domain services declared as ports (`type`, `interface`, `factory`, `description`)                            |
+| `config`        | no        | Arbitrary per-section config maps; one section per service (env-mapped)                                      |
+| `tools`         | no        | Function-call entrypoints - reserved built-in ids and user tools                                             |
+| `skills`        | no        | Markdown playbooks - registry / GitHub `source:` / `bare: true`                                              |
+| `acronyms`      | no        | String list the generator preserves in generated identifier casing                                           |
+| `artifacts`     | no        | `enabled: true` to generate an artifacts server (filesystem or MinIO backend)                                |
+| `telemetry`     | no        | `enabled: true` for OpenTelemetry; `traces`/`metrics` select per-signal exporters (Go/TS only)               |
+| `hooks`         | no        | `post: [...]` commands the CLI runs after each `adl generate`                                                |
+| `scm`           | no        | `provider`, `url`, `github_app`, `issue_templates`, `dependabot`, `ci`, `cd`                                 |
+| `documentation` | no        | `pages[]` with `title`, `path`, and optional `description` - hand-authored docs seeded in `docs/`            |
+| `examples`      | no        | `title` and `description` - seeded once as `examples/<slug>/README.md`, linked from the README               |
+| `development`   | no        | `sandbox.{flox,devcontainer,dockerCompose}` + `ai.orchestrators.{claudecode,...}` + `deps[]`                 |
+| `deployment`    | no        | `type: kubernetes \| cloudrun \| vercel \| cloudflare` plus the matching block                               |
 
 The sections below cover each in turn. Anything not in this table is not in
 v1 - if you see it in an existing manifest, treat it as a CLI extension and
@@ -78,9 +78,8 @@ work so the manifest leads and the code follows.
      pin `metadata.version` (semver - `^\d+\.\d+\.\d+$`). Optional metadata:
      `author` (`name` required, `email`/`url`), `license` (same SPDX enum as
      skills, or `Proprietary`), and `tags[]` for discoverability.
-   - **Declare the required spec frame first:** `spec.capabilities` (all
-     three booleans - `streaming`, `pushNotifications`,
-     `stateTransitionHistory`), `spec.server.port`, and at least one
+   - **Declare the required spec frame first:** `spec.capabilities` (both
+     booleans - `streaming`, `pushNotifications`), `spec.server.port`, and at least one
      `spec.language.{go|typescript|rust}` target. Almost always set
      `spec.agent` (provider + model) and `spec.card` (A2A discovery) too -
      they're optional in the schema but the agent is useless without them.
@@ -119,14 +118,14 @@ Three top-of-spec blocks shape what the agent advertises, which model it
 talks to, and how clients discover it. Set them before anything domain-
 specific.
 
-**`spec.capabilities` (required).** All three booleans must be present -
-the validator rejects the manifest if any is missing:
+**`spec.capabilities` (required).** Both booleans must be present - the
+validator rejects the manifest if either is missing:
 
 ```yaml
 capabilities:
   streaming: true # SSE-based streaming responses
   pushNotifications: false # webhook callbacks on long-running tasks
-  stateTransitionHistory: true # record task state transitions for replay
+  extendedAgentCard: true # optional: serve the authenticated richer card
 ```
 
 **`spec.agent` (optional but near-universal).** The LLM the generated agent
@@ -202,19 +201,20 @@ strings/arrays:
 
 ```yaml
 card:
-  protocolVersion: "0.3.0"
-  preferredTransport: JSONRPC
+  supportedInterfaces:
+    - url: "https://my-agent.example.com:8443"
+      protocolBinding: JSONRPC
+      protocolVersion: "1.0"
   defaultInputModes: [text, voice]
   defaultOutputModes: [text, audio]
-  url: "https://my-agent.example.com:8443"
   documentationUrl: "https://github.com/company/my-agent/docs"
   iconUrl: "https://github.com/company/my-agent/icon.png"
 ```
 
 Since adl v0.24.0 the card also carries the A2A section-7 auth surface:
 
-- `supportsExtendedAgentCard: true` makes the generated ADK serve the
-  authenticated `GET /extendedAgentCard` endpoint (with the A2A error
+- `spec.capabilities.extendedAgentCard: true` makes the generated ADK serve
+  the authenticated `GET /extendedAgentCard` endpoint (with the A2A error
   contract for unsupported/misconfigured calls). Defaults to false.
 - `securitySchemes` declares named schemes in flat OpenAPI-3.0 authoring
   form - `type: apiKey` (plus `name` and `in: query|header|cookie`),
@@ -223,15 +223,13 @@ Since adl v0.24.0 the card also carries the A2A section-7 auth surface:
   they are runtime concerns (`AUTH_ISSUER_URL` / `AUTH_CLIENT_ID` /
   `AUTH_CLIENT_SECRET` env) and the ADK derives their declaration at
   startup.
-- `security` lists the advertised requirements, each entry mapping a scheme
-  name from `securitySchemes` to its required scopes (empty list for
-  scope-less schemes). OpenAPI semantics: keys within one entry are ANDed,
-  separate array entries are ORed.
+- `securityRequirements` lists the advertised requirements, each entry
+  mapping a scheme name from `securitySchemes` to its required scopes
+  (empty list for scope-less schemes). OpenAPI semantics: keys within one
+  entry are ANDed, separate array entries are ORed.
 
 ```yaml
 card:
-  protocolVersion: "0.3.0"
-  supportsExtendedAgentCard: true
   securitySchemes:
     apiKey:
       type: apiKey
@@ -241,7 +239,7 @@ card:
       type: http
       scheme: Bearer
       bearerFormat: JWT
-  security:
+  securityRequirements:
     - apiKey: []
     - bearer: []
 ```
@@ -1002,9 +1000,10 @@ cross-repo checklists), consult `inference-gateway/.github` (org-level
 - Don't conflate ADL with ADK. ADL is the manifest format; the ADK
   (`inference-gateway/adk`) is the Go runtime the generated `main.go`
   imports.
-- Don't omit `spec.capabilities`. All three booleans (`streaming`,
-  `pushNotifications`, `stateTransitionHistory`) are required by the v1
-  schema; `adl validate` rejects the manifest if any are missing.
+- Don't omit `spec.capabilities`. Two booleans (`streaming`,
+  `pushNotifications`) are required by the v1 schema; `adl validate`
+  rejects the manifest if either is missing. (`stateTransitionHistory` is
+  gone - the A2A v1.0.1 AgentCard dropped it.)
 - Don't conflate `auth` with `authz`. `spec.server.auth` toggles
   authentication (who you are); `spec.server.authz` scaffolds the
   authorization callback (what you may do) with its `allow-all` /

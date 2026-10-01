@@ -28,8 +28,8 @@ from them (see [Generate & Run](/guide/generate)):
   version.
 - [`spec.capabilities`](/reference/capabilities) - the protocol features the
   agent supports.
-- [`spec.card`](/reference/card) - endpoint URL, protocol version,
-  transport, and the input/output modes it accepts.
+- [`spec.card`](/reference/card) - supported interfaces (endpoint URL,
+  protocol binding and version), and the input/output modes it accepts.
 
 [`spec.skills`](/reference/skills) also surface on the card, so callers can
 discover what the agent knows how to do.
@@ -44,35 +44,38 @@ flag answers a question the client needs settled up front:
   (Server-Sent Events), or must it wait for a single buffered response?
 - **`pushNotifications`** - can the caller register a webhook and be
   notified of progress on a long-running task instead of polling for it?
-- **`stateTransitionHistory`** - can the caller ask the agent to replay how
-  a task moved through its states, for auditing or debugging?
+- **`extendedAgentCard`** - does the agent serve a richer card once the
+  caller has authenticated?
 
-A runtime should never have to _guess_ these, so the schema makes all three
-explicit - see
+A runtime should never have to _guess_ these, so the schema makes
+`streaming` and `pushNotifications` explicit - see
 [the note on defaults](/reference/capabilities#a-note-on-defaults).
+
+(`stateTransitionHistory` used to sit alongside these; the A2A v1.0.1
+AgentCard dropped it, so ADL dropped it too.)
 
 ## ADL → A2A Agent Card
 
-Each ADL manifest field maps to a field on the published A2A `AgentCard` -
-in most cases the same name, with the ADL container (`metadata`,
-`spec.capabilities`, `spec.card`) dropped:
+Each ADL manifest field maps to a field on the published A2A `AgentCard`
+(A2A v1.0.1) - in most cases the same name, with the ADL container
+(`metadata`, `spec.capabilities`, `spec.card`) dropped:
 
 ```text
-ADL manifest field                          A2A AgentCard field
+ADL manifest field                          A2A AgentCard field (v1.0.1)
 ------------------------------------------  ----------------------------------
 metadata.name                           ->  name
 metadata.description                    ->  description
 metadata.version                        ->  version
 spec.capabilities.streaming             ->  capabilities.streaming
 spec.capabilities.pushNotifications     ->  capabilities.pushNotifications
-spec.capabilities.stateTransitionHistory -> capabilities.stateTransitionHistory
-spec.card.protocolVersion               ->  protocolVersion
-spec.card.url                           ->  url
-spec.card.preferredTransport            ->  preferredTransport
+spec.capabilities.extendedAgentCard     ->  capabilities.extendedAgentCard
+spec.card.supportedInterfaces           ->  supportedInterfaces[] (url, protocolBinding, protocolVersion)
 spec.card.defaultInputModes             ->  defaultInputModes
 spec.card.defaultOutputModes            ->  defaultOutputModes
 spec.card.documentationUrl              ->  documentationUrl
 spec.card.iconUrl                       ->  iconUrl
+spec.card.securitySchemes               ->  securitySchemes
+spec.card.securityRequirements          ->  securityRequirements
 spec.skills[]                           ->  skills[]
 ```
 
@@ -82,6 +85,15 @@ card. ADL keeps them as a separate **required** block
 generation time. Everything under [`spec.card`](/reference/card) is
 optional; omit the block and the generator still produces a valid card from
 `metadata` and `capabilities`.
+
+ADL field names track the current AgentCard: when A2A renames a field,
+ADL renames it too rather than keeping an alias. Earlier ADL versions
+spelled the endpoint as `spec.card.url` / `spec.card.preferredTransport`
+/ `spec.card.protocolVersion` (now one `supportedInterfaces` entry),
+`spec.card.security` (now `securityRequirements`) and
+`spec.card.supportsExtendedAgentCard` (now
+`spec.capabilities.extendedAgentCard`); `spec.capabilities.stateTransitionHistory`
+is gone with the wire field.
 
 ## The outbound side: agent as client
 
@@ -98,8 +110,8 @@ See [Connecting to MCP Servers](/guide/mcp) for the full guide and
 
 ## Next steps
 
-- [`spec.capabilities`](/reference/capabilities) - the three required
-  protocol flags, field by field.
+- [`spec.capabilities`](/reference/capabilities) - the required protocol
+  flags, field by field.
 - [`spec.card`](/reference/card) - every card field and its type.
 - [Generate & Run](/guide/generate) - where the card is emitted inside a
   generated project.

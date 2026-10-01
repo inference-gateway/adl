@@ -23,12 +23,12 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: true
-    stateTransitionHistory: true
 
   card:
-    protocolVersion: "1.0"
-    url: https://agents.acme.example/customer-support
-    preferredTransport: http+sse
+    supportedInterfaces:
+      - url: https://agents.acme.example/customer-support
+        protocolBinding: JSONRPC
+        protocolVersion: "1.0"
     defaultInputModes:
       - text/plain
       - application/json

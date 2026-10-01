@@ -80,7 +80,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: true
-    stateTransitionHistory: true
   agent:
     provider: deepseek
     model: deepseek-v4-flash
