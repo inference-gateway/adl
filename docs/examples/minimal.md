@@ -14,7 +14,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
   server:
     port: 8080
   language:

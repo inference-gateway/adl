@@ -121,13 +121,9 @@
       "properties": {
         "streaming": { "type": "boolean" },
         "pushNotifications": { "type": "boolean" },
-        "stateTransitionHistory": {
-          "type": "boolean",
-          "description": "Deprecated. The A2A AgentCard dropped this flag in v1.0.1: published cards no longer carry it and callers cannot discover it. Kept only so existing v1 manifests stay valid - do not set it in new manifests, and consumers must ignore it when generating the card."
-        },
         "extendedAgentCard": {
           "type": "boolean",
-          "description": "Whether the agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7) once the caller is authenticated (A2A v1.0.1 'AgentCapabilities.extendedAgentCard'). Optional; defaults to false when omitted. Supersedes the deprecated card-level 'spec.card.supportsExtendedAgentCard', which consumers map onto this field."
+          "description": "Whether the agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7) once the caller is authenticated (A2A v1.0.1 'AgentCapabilities.extendedAgentCard'). When true, the generated ADK wires up that endpoint; misconfigured or unsupported calls follow the A2A error contract (-32007 ExtendedAgentCardNotConfiguredError / -32004 UnsupportedOperationError). Optional; defaults to false when omitted."
         }
       }
     },
@@ -136,20 +132,8 @@
       "properties": {
         "supportedInterfaces": {
           "type": "array",
-          "description": "Ordered list of protocol endpoints the agent exposes (A2A v1.0.1 'AgentCard.supportedInterfaces'). Required on the v1.0.1 wire format, optional here only while the deprecated card-level 'url'/'preferredTransport' form still exists. The first entry is the preferred interface: consumers map card-level 'url' and 'preferredTransport' onto 'supportedInterfaces[0].url' and 'supportedInterfaces[0].protocolBinding', and card-level 'protocolVersion' onto each entry's 'protocolVersion'.",
+          "description": "Ordered list of protocol endpoints the agent exposes (A2A v1.0.1 'AgentCard.supportedInterfaces'). The first entry is the preferred interface. Required on the v1.0.1 wire format; optional here so that manifests can omit it and let the consumer derive it from 'spec.server'.",
           "items": { "$ref": "#/definitions/AgentInterface" }
-        },
-        "protocolVersion": {
-          "type": "string",
-          "description": "Deprecated transitional field. A2A v1.0.1 moved the protocol version onto each interface; consumers map it onto 'supportedInterfaces[].protocolVersion'. Prefer declaring it there."
-        },
-        "url": {
-          "type": "string",
-          "description": "Deprecated transitional field. A2A v1.0.1 dropped the card-level 'url' in favour of 'supportedInterfaces'; consumers map it onto 'supportedInterfaces[0].url'. Prefer declaring 'supportedInterfaces'."
-        },
-        "preferredTransport": {
-          "type": "string",
-          "description": "Deprecated transitional field. A2A v1.0.1 dropped 'preferredTransport' in favour of ordering 'supportedInterfaces' (the first entry is the preferred one); consumers map it onto 'supportedInterfaces[0].protocolBinding'. Prefer declaring 'supportedInterfaces'."
         },
         "defaultInputModes": {
           "type": "array",
@@ -161,29 +145,14 @@
         },
         "documentationUrl": { "type": "string" },
         "iconUrl": { "type": "string" },
-        "supportsExtendedAgentCard": {
-          "type": "boolean",
-          "description": "Deprecated transitional field. A2A v1.0.1 moved this flag to 'AgentCapabilities.extendedAgentCard'; declare it as 'spec.capabilities.extendedAgentCard' so consumers map it there. Whether the deployed agent serves a richer, authenticated AgentCard via the A2A 'GetExtendedAgentCard' method (GET /extendedAgentCard; A2A spec section 7). When true, the generated ADK wires up that endpoint; clients that authenticate receive an extended card, and misconfigured/unsupported calls follow the A2A error contract (-32007 ExtendedAgentCardNotConfiguredError when the extended card is declared but not configured / -32004 UnsupportedOperationError when the agent does not support it). Optional; defaults to false when omitted."
-        },
         "securitySchemes": {
           "type": "object",
-          "description": "Statically declared A2A/OpenAPI security schemes advertised on the AgentCard (A2A spec section 7), keyed by an arbitrary scheme name referenced from 'security'. Use this only for schemes that cannot be derived from runtime config - 'apiKey', 'http', and 'mutualTLS'. OIDC/OAuth2 schemes are deliberately excluded here: they are runtime concerns (AUTH_ISSUER_URL / AUTH_CLIENT_ID / AUTH_CLIENT_SECRET env) and the ADK derives their declaration at startup, so baking an issuer into the manifest would be wrong per environment.",
+          "description": "Statically declared A2A/OpenAPI security schemes advertised on the AgentCard (A2A spec section 7), keyed by an arbitrary scheme name referenced from 'securityRequirements'. Use this only for schemes that cannot be derived from runtime config - 'apiKey', 'http', and 'mutualTLS'. OIDC/OAuth2 schemes are deliberately excluded here: they are runtime concerns (AUTH_ISSUER_URL / AUTH_CLIENT_ID / AUTH_CLIENT_SECRET env) and the ADK derives their declaration at startup, so baking an issuer into the manifest would be wrong per environment.",
           "additionalProperties": { "$ref": "#/definitions/SecurityScheme" }
-        },
-        "security": {
-          "type": "array",
-          "description": "Deprecated alias of 'securityRequirements' (A2A v1.0.1 renamed the card field from 'security' to 'securityRequirements'); consumers map it onto 'securityRequirements', which keeps the same flat form. Security requirements advertised on the AgentCard (A2A spec section 7). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field.",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
         },
         "securityRequirements": {
           "type": "array",
-          "description": "Security requirements for contacting the agent (A2A v1.0.1 'AgentCard.securityRequirements', which renamed the pre-release 'security'). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field. This is the field the generated card emits; the deprecated alias 'security' is translated into it.",
+          "description": "Security requirements for contacting the agent (A2A v1.0.1 'AgentCard.securityRequirements'). Each entry is a map from a scheme name declared in 'securitySchemes' to a list of required scopes (empty for schemes without scopes); multiple keys in one entry are ANDed, and separate array entries are ORed - the same semantics as the OpenAPI/A2A 'security' field.",
           "items": {
             "type": "object",
             "additionalProperties": {
@@ -207,13 +176,9 @@
           "type": "string",
           "description": "The protocol binding served at this URL (A2A v1.0.1 'AgentInterface.protocolBinding'). An open string to allow other bindings; the core ones are 'JSONRPC', 'GRPC' and 'HTTP+JSON'."
         },
-        "tenant": {
-          "type": "string",
-          "description": "Opaque value routing requests to a specific agent or tenant when several are served behind a single A2A endpoint (A2A v1.0.1 'AgentInterface.tenant'). When set, clients must include it in the 'tenant' field of every request sent to this interface."
-        },
         "protocolVersion": {
           "type": "string",
-          "description": "The A2A protocol version this interface exposes, e.g. '1.0' (A2A v1.0.1 'AgentInterface.protocolVersion'). Also the new home of the deprecated card-level 'spec.card.protocolVersion'."
+          "description": "The A2A protocol version this interface exposes, e.g. '1.0' (A2A v1.0.1 'AgentInterface.protocolVersion')."
         }
       }
     },

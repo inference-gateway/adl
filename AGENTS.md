@@ -25,7 +25,7 @@ Within `schema/v1/`, only backwards-compatible additions: new optional fields, n
 
 ## Card alignment with A2A
 
-`spec.card` mirrors the A2A `AgentCard` (currently v1.0.1, tracked via `inference-gateway/schemas`): when the wire format changes, ADL adopts the new field names and shapes as additive, optional definitions - e.g. `supportedInterfaces[]` (with its required `url`/`protocolBinding`/`protocolVersion`), `capabilities.extendedAgentCard`, `securityRequirements`. Fields that mirror pre-release AgentCard shape (`card.url`, `card.preferredTransport`, `card.protocolVersion`, `card.supportsExtendedAgentCard`, `card.security`, `capabilities.stateTransitionHistory`) are kept within v1 as deprecated transitional conveniences whose descriptions name the v1.0.1 field consumers map them onto; consumers (adl-cli, ADKs) translate them at generation time. Do not introduce further ADL-native renames of card fields, and do not promote the card fields that are required on the wire (`supportedInterfaces`) to required in the manifest - that can only happen in v2. OAuth2/OIDC security schemes (including the v1.0.1 `DeviceCodeOAuthFlow`) stay unmodelled: they are runtime concerns the ADK derives from config.
+`spec.card` mirrors the current A2A `AgentCard` (v1.0.1, tracked via `inference-gateway/schemas`): when the wire format renames a field, ADL renames it too - no aliases, no deprecated duplicates, one authoring shape. Wire-required fields (`supportedInterfaces`) stay optional in the manifest. OAuth2/OIDC security schemes (including the v1.0.1 `DeviceCodeOAuthFlow`) stay unmodelled: they are runtime concerns the ADK derives from config.
 
 ## Style and Code Readability
 

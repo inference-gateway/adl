@@ -22,7 +22,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
 
   agent:
     provider: anthropic
@@ -63,7 +62,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
 
   agent:
     provider: anthropic
@@ -120,7 +118,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
 
   agent:
     provider: anthropic
@@ -168,7 +165,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
 
   agent:
     provider: anthropic

@@ -19,7 +19,6 @@ spec:
   capabilities:
     streaming: true
     pushNotifications: false
-    stateTransitionHistory: false
 
   agent:
     provider: openai

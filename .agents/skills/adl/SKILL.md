@@ -78,9 +78,8 @@ work so the manifest leads and the code follows.
      pin `metadata.version` (semver - `^\d+\.\d+\.\d+$`). Optional metadata:
      `author` (`name` required, `email`/`url`), `license` (same SPDX enum as
      skills, or `Proprietary`), and `tags[]` for discoverability.
-   - **Declare the required spec frame first:** `spec.capabilities` (all
-     three booleans - `streaming`, `pushNotifications`,
-     `stateTransitionHistory`), `spec.server.port`, and at least one
+   - **Declare the required spec frame first:** `spec.capabilities` (both
+     booleans - `streaming`, `pushNotifications`), `spec.server.port`, and at least one
      `spec.language.{go|typescript|rust}` target. Almost always set
      `spec.agent` (provider + model) and `spec.card` (A2A discovery) too -
      they're optional in the schema but the agent is useless without them.
@@ -119,14 +118,14 @@ Three top-of-spec blocks shape what the agent advertises, which model it
 talks to, and how clients discover it. Set them before anything domain-
 specific.
 
-**`spec.capabilities` (required).** All three booleans must be present -
-the validator rejects the manifest if any is missing:
+**`spec.capabilities` (required).** Both booleans must be present - the
+validator rejects the manifest if either is missing:
 
 ```yaml
 capabilities:
   streaming: true # SSE-based streaming responses
   pushNotifications: false # webhook callbacks on long-running tasks
-  stateTransitionHistory: true # record task state transitions for replay
+  extendedAgentCard: true # optional: serve the authenticated richer card
 ```
 
 **`spec.agent` (optional but near-universal).** The LLM the generated agent
@@ -202,21 +201,20 @@ strings/arrays:
 
 ```yaml
 card:
-  protocolVersion: "0.3.0"
-  preferredTransport: JSONRPC
+  supportedInterfaces:
+    - url: "https://my-agent.example.com:8443"
+      protocolBinding: JSONRPC
+      protocolVersion: "1.0"
   defaultInputModes: [text, voice]
   defaultOutputModes: [text, audio]
-  url: "https://my-agent.example.com:8443"
   documentationUrl: "https://github.com/company/my-agent/docs"
   iconUrl: "https://github.com/company/my-agent/icon.png"
 ```
 
 Since adl v0.24.0 the card also carries the A2A section-7 auth surface:
 
-- `supportsExtendedAgentCard: true` (deprecated; A2A v1.0.1 moved the flag
-  to `spec.capabilities.extendedAgentCard` - prefer declaring it there)
-  makes the generated ADK serve the
-  authenticated `GET /extendedAgentCard` endpoint (with the A2A error
+- `spec.capabilities.extendedAgentCard: true` makes the generated ADK serve
+  the authenticated `GET /extendedAgentCard` endpoint (with the A2A error
   contract for unsupported/misconfigured calls). Defaults to false.
 - `securitySchemes` declares named schemes in flat OpenAPI-3.0 authoring
   form - `type: apiKey` (plus `name` and `in: query|header|cookie`),
@@ -225,17 +223,13 @@ Since adl v0.24.0 the card also carries the A2A section-7 auth surface:
   they are runtime concerns (`AUTH_ISSUER_URL` / `AUTH_CLIENT_ID` /
   `AUTH_CLIENT_SECRET` env) and the ADK derives their declaration at
   startup.
-- `security` lists the advertised requirements (deprecated alias of
-  `securityRequirements` - A2A v1.0.1 renamed the field; same flat form,
-  consumers translate it), each entry mapping a scheme
-  name from `securitySchemes` to its required scopes (empty list for
-  scope-less schemes). OpenAPI semantics: keys within one entry are ANDed,
-  separate array entries are ORed.
+- `securityRequirements` lists the advertised requirements, each entry
+  mapping a scheme name from `securitySchemes` to its required scopes
+  (empty list for scope-less schemes). OpenAPI semantics: keys within one
+  entry are ANDed, separate array entries are ORed.
 
 ```yaml
 card:
-  protocolVersion: "0.3.0"
-  supportsExtendedAgentCard: true
   securitySchemes:
     apiKey:
       type: apiKey
@@ -245,7 +239,7 @@ card:
       type: http
       scheme: Bearer
       bearerFormat: JWT
-  security:
+  securityRequirements:
     - apiKey: []
     - bearer: []
 ```
@@ -1009,7 +1003,7 @@ cross-repo checklists), consult `inference-gateway/.github` (org-level
 - Don't omit `spec.capabilities`. Two booleans (`streaming`,
   `pushNotifications`) are required by the v1 schema; `adl validate`
   rejects the manifest if either is missing. (`stateTransitionHistory` is
-  deprecated - the A2A v1.0.1 AgentCard dropped it.)
+  gone - the A2A v1.0.1 AgentCard dropped it.)
 - Don't conflate `auth` with `authz`. `spec.server.auth` toggles
   authentication (who you are); `spec.server.authz` scaffolds the
   authorization callback (what you may do) with its `allow-all` /

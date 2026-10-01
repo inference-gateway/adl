@@ -41,20 +41,7 @@ something happens.
 
 Whether the agent serves a richer, authenticated AgentCard via the A2A
 `GetExtendedAgentCard` method (`GET /extendedAgentCard`) once the caller
-is authenticated. Added on the card in A2A v1.0.1 as
-`AgentCapabilities.extendedAgentCard`; the deprecated card-level
-[`spec.card.supportsExtendedAgentCard`](/reference/card) maps onto it.
-
-## `stateTransitionHistory`
-
-- **Type:** `boolean`
-- **Required:** no
-
-**Deprecated.** The A2A `AgentCard` dropped this flag in v1.0.1, so
-published cards no longer carry it and callers cannot discover it. The
-field is kept in the schema only so existing v1 manifests stay valid:
-leave it out of new manifests, and consumers must ignore it when
-generating the card.
+is authenticated (A2A v1.0.1 `AgentCapabilities.extendedAgentCard`).
 
 ## A note on defaults
 

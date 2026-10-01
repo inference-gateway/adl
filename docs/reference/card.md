@@ -13,7 +13,7 @@ spec:
   card:
     supportedInterfaces:
       - url: https://agents.acme.example/customer-support
-        protocolBinding: http+sse
+        protocolBinding: JSONRPC
         protocolVersion: "1.0"
     defaultInputModes:
       - text/plain
@@ -38,35 +38,20 @@ spec:
 
 ## Fields
 
-| Field                  | Type       | Description                                                                                                                                                                    |
-| ---------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `supportedInterfaces`  | `object[]` | Ordered list of protocol endpoints; the first entry is the preferred one (A2A v1.0.1). Each entry takes `url`, `protocolBinding`, `protocolVersion`, and an optional `tenant`. |
-| `defaultInputModes`    | `string[]` | Media types the agent accepts by default.                                                                                                                                      |
-| `defaultOutputModes`   | `string[]` | Media types the agent returns by default.                                                                                                                                      |
-| `documentationUrl`     | `string`   | Human-readable documentation for the agent.                                                                                                                                    |
-| `iconUrl`              | `string`   | Display icon for registries and UIs.                                                                                                                                           |
-| `securitySchemes`      | `object`   | Statically declared security schemes, keyed by name.                                                                                                                           |
-| `securityRequirements` | `object[]` | Security requirements referencing `securitySchemes` (the v1.0.1 field name).                                                                                                   |
+| Field                  | Type       | Description                                                                                                                                                                                   |
+| ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `supportedInterfaces`  | `object[]` | Ordered list of protocol endpoints; the first entry is the preferred one (A2A v1.0.1). Each entry requires `url`, `protocolBinding` (`JSONRPC`, `GRPC` or `HTTP+JSON`) and `protocolVersion`. |
+| `defaultInputModes`    | `string[]` | Media types the agent accepts by default.                                                                                                                                                     |
+| `defaultOutputModes`   | `string[]` | Media types the agent returns by default.                                                                                                                                                     |
+| `documentationUrl`     | `string`   | Human-readable documentation for the agent.                                                                                                                                                   |
+| `iconUrl`              | `string`   | Display icon for registries and UIs.                                                                                                                                                          |
+| `securitySchemes`      | `object`   | Statically declared security schemes, keyed by name.                                                                                                                                          |
+| `securityRequirements` | `object[]` | Security requirements referencing `securitySchemes` (the v1.0.1 field name).                                                                                                                  |
 
 All fields are optional. If you don't surface a public card, omit the
 block entirely - it's purely declarative. (On the wire, A2A v1.0.1
-requires `supportedInterfaces`; ADL keeps it optional here and falls
-back to the deprecated transitional fields below.)
-
-## Deprecated transitional fields
-
-The fields below mirrored the pre-release AgentCard shape. The A2A
-v1.0.1 AgentCard dropped or renamed them, so they are deprecated:
-consumers map each onto its v1.0.1 counterpart at generation time.
-Prefer the current fields.
-
-| Field                       | Type       | Deprecated; consumers map it onto                                                      |
-| --------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `protocolVersion`           | `string`   | `supportedInterfaces[].protocolVersion`.                                               |
-| `url`                       | `string`   | `supportedInterfaces[0].url`.                                                          |
-| `preferredTransport`        | `string`   | `supportedInterfaces[0].protocolBinding` (the first entry is the preferred interface). |
-| `supportsExtendedAgentCard` | `boolean`  | [`capabilities.extendedAgentCard`](/reference/capabilities).                           |
-| `security`                  | `object[]` | `securityRequirements` (v1.0.1 renamed the field; the flat form is unchanged).         |
+requires `supportedInterfaces`; ADL keeps it optional here so consumers
+can derive the endpoint from [`spec.server`](/reference/server).)
 
 ## Card-driven authentication (A2A section 7)
 
@@ -91,8 +76,7 @@ that cannot be derived from runtime config:
 name to its required scopes (empty for scope-less schemes). Keys within
 one entry are ANDed; separate entries are ORed. This flat form is also
 the A2A v1.0.1 wire form (`AgentCard.securityRequirements`), so the
-generated card emits it verbatim; the deprecated `security` alias is
-translated into it.
+generated card emits it verbatim.
 
 OIDC/OAuth2 schemes are **not** declared here - including every OAuth
 flow the v1.0.1 `SecurityScheme` knows (`authorizationCode`, `implicit`,

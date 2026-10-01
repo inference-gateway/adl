@@ -52,8 +52,7 @@ A runtime should never have to _guess_ these, so the schema makes
 [the note on defaults](/reference/capabilities#a-note-on-defaults).
 
 (`stateTransitionHistory` used to sit alongside these; the A2A v1.0.1
-AgentCard dropped it, so ADL keeps it only as a deprecated field for
-backwards compatibility.)
+AgentCard dropped it, so ADL dropped it too.)
 
 ## ADL → A2A Agent Card
 
@@ -70,7 +69,7 @@ metadata.version                        ->  version
 spec.capabilities.streaming             ->  capabilities.streaming
 spec.capabilities.pushNotifications     ->  capabilities.pushNotifications
 spec.capabilities.extendedAgentCard     ->  capabilities.extendedAgentCard
-spec.card.supportedInterfaces           ->  supportedInterfaces[] (url, protocolBinding, protocolVersion, tenant)
+spec.card.supportedInterfaces           ->  supportedInterfaces[] (url, protocolBinding, protocolVersion)
 spec.card.defaultInputModes             ->  defaultInputModes
 spec.card.defaultOutputModes            ->  defaultOutputModes
 spec.card.documentationUrl              ->  documentationUrl
@@ -87,21 +86,14 @@ generation time. Everything under [`spec.card`](/reference/card) is
 optional; omit the block and the generator still produces a valid card from
 `metadata` and `capabilities`.
 
-A few fields in the schema mirror the pre-release AgentCard shape that
-v1.0.1 deprecated. They still validate, but prefer the current fields -
-consumers map each deprecated field onto its v1.0.1 counterpart (see
-[the deprecated fields on `spec.card`](/reference/card#deprecated-transitional-fields)):
-
-```text
-deprecated ADL field                        A2A v1.0.1 counterpart
-------------------------------------------  --------------------------------------
-spec.card.protocolVersion               ->  supportedInterfaces[].protocolVersion
-spec.card.url                           ->  supportedInterfaces[0].url
-spec.card.preferredTransport            ->  supportedInterfaces[0].protocolBinding
-spec.card.supportsExtendedAgentCard     ->  capabilities.extendedAgentCard
-spec.card.security                      ->  securityRequirements
-spec.capabilities.stateTransitionHistory ->  (dropped; not on the wire card)
-```
+ADL field names track the current AgentCard: when A2A renames a field,
+ADL renames it too rather than keeping an alias. Earlier ADL versions
+spelled the endpoint as `spec.card.url` / `spec.card.preferredTransport`
+/ `spec.card.protocolVersion` (now one `supportedInterfaces` entry),
+`spec.card.security` (now `securityRequirements`) and
+`spec.card.supportsExtendedAgentCard` (now
+`spec.capabilities.extendedAgentCard`); `spec.capabilities.stateTransitionHistory`
+is gone with the wire field.
 
 ## The outbound side: agent as client
 

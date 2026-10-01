@@ -19,7 +19,6 @@ spec:
   capabilities:
     streaming: false
     pushNotifications: true
-    stateTransitionHistory: false
 
   # No spec.agent block at all - this agent never calls an LLM.
 
