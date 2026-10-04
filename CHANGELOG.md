@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.28.2](https://github.com/inference-gateway/adl/compare/v0.28.1...v0.28.2) (2026-10-04)
+
+### 📚 Documentation
+
+* note that the runtime declares card extensions ([#212](https://github.com/inference-gateway/adl/issues/212)) ([dd15db9](https://github.com/inference-gateway/adl/commit/dd15db924f3679b34f0808ba70f2c06bbbedc220))
+
 ## [0.28.1](https://github.com/inference-gateway/adl/compare/v0.28.0...v0.28.1) (2026-10-04)
 
 ### 🐛 Bug Fixes
