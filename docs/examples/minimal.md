@@ -32,7 +32,7 @@ The schema demands four top-level fields - `apiVersion`, `kind`,
 | ------------------------------------- | ------------------------------------------------------------------------------------------ |
 | `apiVersion` + `kind`                 | Discriminators. They tell validators which schema to apply and reserve future kinds.       |
 | `metadata.{name,description,version}` | Identity. Without these, registries and generated projects have nothing to call the agent. |
-| `spec.capabilities`                   | Protocol contract. Runtimes shouldn't have to guess about streaming, push, or history.     |
+| `spec.capabilities`                   | Protocol contract. Runtimes shouldn't have to guess about streaming or push.               |
 | `spec.server`                         | Where the agent listens. The generator can't emit a service without a port.                |
 | `spec.language`                       | What to generate. At least one target language is needed for the generator to do its job.  |
 

@@ -237,9 +237,12 @@ spec:
   retrieval call; `get_customer` and `escalate_ticket` use
   [`inject`](/reference/tools#inject) to receive typed service handles
   from `spec.services`.
-- **Two MCP servers, two transports.** `filesystem` runs locally over
-  `stdio`; `docs` is a remote `http` server reached with a bearer token.
-  See [`spec.agent.mcp`](/reference/agent#mcp).
+- **Two MCP servers, two transports.** `filesystem` declares `stdio` and
+  `docs` is a remote `http` server reached with a bearer token. See
+  [`spec.agent.mcp`](/reference/agent#mcp). Only the `http` entry is
+  wired by `adl-cli` today - the `stdio` one is dropped with a warning,
+  see [What the reference consumer
+  wires](/guide/mcp#what-the-reference-consumer-wires).
 - **Two skills, two licences.** `incident-response` is open-source
   (Apache-2.0); `refund-policy` is `Proprietary`. The licences ride
   along in the generated `SKILL.md` frontmatter.

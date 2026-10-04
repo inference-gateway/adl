@@ -10,9 +10,11 @@ under [`spec.agent.mcp`](/reference/agent#mcp).
 
 [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) is an open
 protocol for exposing tools and context from a **server** to an LLM
-**client**. ADL's generated agent ships with a built-in MCP client; point it
-at one or more MCP servers and their tools become available to the model
-alongside your [`spec.tools`](/reference/tools).
+**client**. ADL's generated agent ships with a built-in MCP client - today
+only for Go agents, see [What the reference consumer
+wires](#what-the-reference-consumer-wires) - point it at one or more MCP
+servers and their tools become available to the model alongside your
+[`spec.tools`](/reference/tools).
 
 The two are complementary:
 
@@ -88,20 +90,14 @@ spec:
     mcp:
       enabled: true
       servers:
-        - name: filesystem # stdio: local subprocess
-          transport: stdio
-          command: npx
-          args:
-            - -y
-            - "@modelcontextprotocol/server-filesystem"
-            - /workspace
-          env:
-            LOG_LEVEL: info
         - name: github # http: remote endpoint
           transport: http
           url: https://mcp.example.com/github
           headers:
             Authorization: Bearer ${GITHUB_MCP_TOKEN}
+        - name: search # http: another remote endpoint
+          transport: http
+          url: https://mcp.example.com/search
 ```
 
 Only `name` and `transport` are required; the schema does **not** enforce
@@ -110,12 +106,33 @@ Placeholders like `${GITHUB_MCP_TOKEN}` are resolved by the consumer, not the
 schema - see [Secrets & interpolation](/reference/secrets) for where
 credentials come from.
 
+## What the reference consumer wires
+
+What the schema accepts and what a consumer connects to are two different
+things. All three transports are valid manifest input, but `adl-cli` - the
+reference consumer - currently wires only `http` servers, and only for Go
+agents:
+
+- **`http` servers are wired.** Their base URLs become `A2A_MCP_SERVERS` in
+  the generated project.
+- **`stdio` and `sse` servers validate, then are dropped.** `adl-cli` emits a
+  warning ("the ADK MCP client is streamable-HTTP-only") and leaves them out
+  of `A2A_MCP_SERVERS`, so a `stdio` subprocess is never launched. An agent
+  whose `mcp` block declares no `http` server gets an empty `A2A_MCP_SERVERS`
+  and fails to start until it is set from the environment.
+- **Go only.** For `typescript` and `rust` agents the whole `spec.agent.mcp`
+  block is ignored with a warning - no MCP client is generated.
+
+`stdio` and `sse` stay in the schema because the manifest describes intent
+and other consumers may support them. Author against `http` if you want the
+generated Go agent to connect today.
+
 ## Next steps
 
 - [Reference: `spec.agent#mcp`](/reference/agent#mcp) - every `mcp` field and
   client knob, with types and defaults.
 - [Example: MCP-Connected Agent](/examples/mcp) - a full manifest connecting
-  over `stdio` and `http`.
+  to two `http` servers.
 - [Tools vs Skills](/guide/tools-vs-skills) - the capabilities an agent owns,
   which MCP complements.
 - [Secrets & interpolation](/reference/secrets) - how `${...}` placeholders in
