@@ -176,9 +176,11 @@ reading newer manifests.
 Alongside `servers`, the `mcp` block carries the runtime configuration
 for the built-in MCP client. Every field maps 1:1 to an `A2A_MCP_*`
 environment variable the generated agent reads, and its value here
-becomes the **default** the generated project emits (e.g. in
-`.env.example`); the matching environment variable **overrides** it at
-runtime. The list of server base URLs the client connects to
+becomes the **default** the generated project emits; the matching
+environment variable **overrides** it at runtime. `adl-cli` lists those
+defaults in a generated `.env.example` only when
+`spec.development.sandbox.dockerCompose.enabled: true`. The list of
+server base URLs the client connects to
 (`A2A_MCP_SERVERS`) is derived from the `servers` entries, not set here.
 
 The client models the Go ADK's connection/retry config, which is

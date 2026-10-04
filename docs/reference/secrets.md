@@ -88,12 +88,17 @@ generated project; it never lives in the manifest.
 
 For projects scaffolded by
 [`adl-cli`](https://github.com/inference-gateway/adl-cli), the generated
-`.env.example` is the source of truth. It expects, among others:
+`.env.example` is the source of truth - it is written only when
+`spec.development.sandbox.dockerCompose.enabled: true`, so without the
+Compose sandbox there is no example file and the variables below are
+still what the generated agent reads. It sets, among others:
 
 - `A2A_AGENT_CLIENT_PROVIDER` and `A2A_AGENT_CLIENT_MODEL` - these mirror
   `spec.agent.provider` and `spec.agent.model` from the manifest.
-- `A2A_AGENT_CLIENT_API_KEY` - the API key the agent's LLM client
-  authenticates with.
+- `A2A_AGENT_CLIENT_BASE_URL` - where the LLM client sends its requests,
+  defaulted to the Compose gateway at `http://gateway:8080/v1`. The
+  generated file carries no agent-level API key: the credential lives
+  with whatever serves that base URL.
 - When the agent routes its LLM calls through the
   [Inference Gateway](https://github.com/inference-gateway/inference-gateway),
   the gateway reads provider-specific keys such as `OPENAI_API_KEY`,

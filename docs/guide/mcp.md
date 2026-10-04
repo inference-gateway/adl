@@ -45,9 +45,11 @@ or set `enabled: false` and no MCP client is generated or wired in, even if
 `servers` lists servers.
 
 Every client knob maps 1:1 to an `A2A_MCP_*` environment variable. The value
-in the manifest becomes the **default** the generated project emits (e.g. in
-`.env.example`); the matching environment variable **overrides** it at
-runtime.
+in the manifest becomes the **default** the generated project emits; the
+matching environment variable **overrides** it at runtime. The defaults are
+listed in a generated `.env.example` only when
+`spec.development.sandbox.dockerCompose.enabled: true` - that flag is what
+makes `adl-cli` write the file.
 
 | Field              | Env var                      | Default | What it controls                            |
 | ------------------ | ---------------------------- | ------- | ------------------------------------------- |
