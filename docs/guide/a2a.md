@@ -103,7 +103,9 @@ agents and reach external tools through MCP servers declared in
 [`spec.agent.mcp`](/reference/agent#mcp). The generated agent ships with a
 built-in MCP client that connects to those servers at runtime, discovers
 their tools, and makes them available to the model alongside the agent's
-own [`spec.tools`](/reference/tools).
+own [`spec.tools`](/reference/tools). That client is generated for Go
+agents only, and connects to `http` servers only - see [What the reference
+consumer wires](/guide/mcp#what-the-reference-consumer-wires).
 
 See [Connecting to MCP Servers](/guide/mcp) for the full guide and
 [the MCP example](/examples/mcp) for a complete manifest.

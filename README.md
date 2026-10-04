@@ -260,6 +260,13 @@ how to resolve any environment placeholders. New transports may be added
 in future minor versions, so readers should tolerate unknown `transport`
 values.
 
+What the schema accepts is wider than what a consumer wires. `adl-cli`
+today derives `A2A_MCP_SERVERS` from the `http` entries only - the
+`stdio` server above validates, then is dropped with a warning, so the
+subprocess is never launched - and it generates the MCP client for Go
+agents only. See
+[Connecting to MCP Servers](https://adl.inference-gateway.com/v1/guide/mcp#what-the-reference-consumer-wires).
+
 Placeholders such as `${GITHUB_MCP_TOKEN}` are resolved by the consumer
 at deploy/run time, not by the schema - and the LLM provider API key is
 never stored in the manifest either; it is supplied at runtime as an
