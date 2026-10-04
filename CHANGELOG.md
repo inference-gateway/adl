@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.28.1](https://github.com/inference-gateway/adl/compare/v0.28.0...v0.28.1) (2026-10-04)
+
+### 🐛 Bug Fixes
+
+* **docs:** correct adl-cli paths in generate guide ([#210](https://github.com/inference-gateway/adl/issues/210)) ([0b33601](https://github.com/inference-gateway/adl/commit/0b336010522658ea1c7f6f3eb85eb18294f7fddc))
+* **docs:** correct generated env var names and .env.example gating ([#211](https://github.com/inference-gateway/adl/issues/211)) ([dbe7a11](https://github.com/inference-gateway/adl/commit/dbe7a11a94281cc3de30b553468edc8adb0dbc3a))
+* **docs:** correct overview tables for v1 schema ([#208](https://github.com/inference-gateway/adl/issues/208)) ([0b3190f](https://github.com/inference-gateway/adl/commit/0b3190f70aa6d889672e8e4362b64665565b7f20))
+* **docs:** scope MCP transports to what adl-cli wires ([#209](https://github.com/inference-gateway/adl/issues/209)) ([8fccefd](https://github.com/inference-gateway/adl/commit/8fccefd0de328c37a67d7e4dbfb601a22b0d540f))
+
+### 📚 Documentation
+
+* **agents:** add code readability guidelines ([#207](https://github.com/inference-gateway/adl/issues/207)) ([a26ebb9](https://github.com/inference-gateway/adl/commit/a26ebb92fffd1749a3ab12752ea2c29978d90302))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.283 -> 2.1.285 ([#202](https://github.com/inference-gateway/adl/issues/202)) ([38eb11c](https://github.com/inference-gateway/adl/commit/38eb11c4f7396fffb05662bee9d4216312bad448))
+
 ## [0.28.0](https://github.com/inference-gateway/adl/compare/v0.27.2...v0.28.0) (2026-10-01)
 
 ### ✨ Features
