@@ -38,15 +38,15 @@ spec:
 
 ## Fields
 
-| Field                  | Type       | Description                                                                                                                                                                                   |
-| ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `supportedInterfaces`  | `object[]` | Ordered list of protocol endpoints; the first entry is the preferred one (A2A v1.0.1). Each entry requires `url`, `protocolBinding` (`JSONRPC`, `GRPC` or `HTTP+JSON`) and `protocolVersion`. |
-| `defaultInputModes`    | `string[]` | Media types the agent accepts by default.                                                                                                                                                     |
-| `defaultOutputModes`   | `string[]` | Media types the agent returns by default.                                                                                                                                                     |
-| `documentationUrl`     | `string`   | Human-readable documentation for the agent.                                                                                                                                                   |
-| `iconUrl`              | `string`   | Display icon for registries and UIs.                                                                                                                                                          |
-| `securitySchemes`      | `object`   | Statically declared security schemes, keyed by name.                                                                                                                                          |
-| `securityRequirements` | `object[]` | Security requirements referencing `securitySchemes` (the v1.0.1 field name).                                                                                                                  |
+| Field                  | Type       | Description                                                                                                                                                                                                                          |
+| ---------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `supportedInterfaces`  | `object[]` | Ordered list of protocol endpoints - the first entry is the preferred one (A2A v1.0.1). Each entry requires `url`, `protocolBinding` (an open string whose core values are `JSONRPC`, `GRPC` and `HTTP+JSON`) and `protocolVersion`. |
+| `defaultInputModes`    | `string[]` | Media types the agent accepts by default.                                                                                                                                                                                            |
+| `defaultOutputModes`   | `string[]` | Media types the agent returns by default.                                                                                                                                                                                            |
+| `documentationUrl`     | `string`   | Human-readable documentation for the agent.                                                                                                                                                                                          |
+| `iconUrl`              | `string`   | Display icon for registries and UIs.                                                                                                                                                                                                 |
+| `securitySchemes`      | `object`   | Statically declared security schemes, keyed by name.                                                                                                                                                                                 |
+| `securityRequirements` | `object[]` | Security requirements referencing `securitySchemes` (the v1.0.1 field name).                                                                                                                                                         |
 
 All fields are optional. If you don't surface a public card, omit the
 block entirely - it's purely declarative. (On the wire, A2A v1.0.1

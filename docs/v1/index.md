@@ -16,8 +16,8 @@ Its `$id` is `https://adl.inference-gateway.com/schemas/agent/v1`.
 
 | Section                                          | Purpose                                                                            |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| [`metadata`](/reference/metadata)                | Name, description, version, license, tags                                          |
-| [`spec.capabilities`](/reference/capabilities)   | Streaming, push notifications, state transition history                            |
+| [`metadata`](/reference/metadata)                | Name, description, version, author, license, tags                                  |
+| [`spec.capabilities`](/reference/capabilities)   | Streaming, push notifications, extended agent card                                 |
 | [`spec.card`](/reference/card)                   | Agent card surfaced to clients                                                     |
 | [`spec.agent`](/reference/agent)                 | Provider, model, system prompt                                                     |
 | [`spec.config`](/reference/config)               | Runtime configuration knobs                                                        |
