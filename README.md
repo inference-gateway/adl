@@ -463,7 +463,7 @@ spec:
     traces:
       exporter:
         otlp:
-          endpoint: http://localhost:4318 # -> OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+          endpoint: http://localhost:4318 # -> A2A_OTEL_EXPORTER_OTLP_[TRACES_]ENDPOINT
           protocol: http/protobuf # http/protobuf | grpc
     metrics:
       exporter:
@@ -473,10 +473,15 @@ spec:
 ```
 
 Every field maps 1:1 to a standard `OTEL_*` environment variable, which
-`adl-cli` emits as a generated `.env.example` default. Omitting a signal
-(or its `exporter` block) disables it - `OTEL_TRACES_EXPORTER=none` /
-`OTEL_METRICS_EXPORTER=none`. `traces` accepts `otlp`; `metrics` accepts
-`otlp` or `prometheus`.
+`adl-cli` writes with an `A2A_` prefix because the ADK reads its whole
+configuration under that prefix. Omitting a signal (or its `exporter`
+block) disables it - `A2A_OTEL_TRACES_EXPORTER=none` /
+`A2A_OTEL_METRICS_EXPORTER=none`. `traces` accepts `otlp`; `metrics`
+accepts `otlp` or `prometheus`. Go always collapses OTLP to the shared
+`A2A_OTEL_EXPORTER_OTLP_ENDPOINT` / `_PROTOCOL` pair while TypeScript
+uses the per-signal names unless both signals match. `prometheus`
+host/port variables are Go-only and Rust projects get no telemetry
+variables yet.
 
 `spec.telemetry` is optional and telemetry is **off by default** - omit
 the block, or set `enabled: false`, to keep it disabled. Headers,

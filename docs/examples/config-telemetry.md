@@ -84,7 +84,8 @@ spec:
   telemetry server. The optional `traces`/`metrics` blocks select a
   per-signal exporter - the single key under `exporter` picks it (`otlp`
   to push, `prometheus` to pull) - and every field maps 1:1 to a standard
-  `OTEL_*` env var the consumer emits as an `.env.example` default.
+  `OTEL_*` env var, which `adl-cli` writes with an `A2A_` prefix
+  (`A2A_OTEL_TRACES_EXPORTER`, `A2A_OTEL_EXPORTER_OTLP_ENDPOINT`, ...).
   Headers, credentials, and sampling stay runtime-only. See
   [`spec.telemetry`](/reference/telemetry).
 - **`artifacts` is the same shape.** Like `telemetry`, it exposes only an

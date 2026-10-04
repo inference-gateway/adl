@@ -75,29 +75,51 @@ details to the standard OTLP environment defaults.
 ## Environment-variable mapping
 
 Every manifest field maps 1:1 to a standard `OTEL_*` environment
-variable, which `adl-cli` emits as a generated `.env.example` default.
+variable. `adl-cli` writes those defaults with an `A2A_` prefix, because
+the ADK reads its whole configuration under that prefix - the standard
+`OTEL_TRACES_EXPORTER` is set as `A2A_OTEL_TRACES_EXPORTER`, and so on.
 The manifest fixes the field; the runtime always reads the env var, so an
 operator can override any of these at deploy time.
 
-| Manifest                       | Environment variable                                                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `enabled: true`                | `A2A_TELEMETRY_ENABLED=true` (ADK master switch)                                         |
-| `traces.exporter.otlp`         | `OTEL_TRACES_EXPORTER=otlp`                                                              |
-| `metrics.exporter.otlp`        | `OTEL_METRICS_EXPORTER=otlp`                                                             |
-| `metrics.exporter.prometheus`  | `OTEL_METRICS_EXPORTER=prometheus`                                                       |
-| _signal omitted / no exporter_ | `OTEL_TRACES_EXPORTER=none` / `OTEL_METRICS_EXPORTER=none`                               |
-| `otlp.endpoint`                | `OTEL_EXPORTER_OTLP_{TRACES,METRICS}_ENDPOINT` (or shared `OTEL_EXPORTER_OTLP_ENDPOINT`) |
-| `otlp.protocol`                | `OTEL_EXPORTER_OTLP_{TRACES,METRICS}_PROTOCOL` (or shared `OTEL_EXPORTER_OTLP_PROTOCOL`) |
-| `prometheus.host`              | `OTEL_EXPORTER_PROMETHEUS_HOST`                                                          |
-| `prometheus.port`              | `OTEL_EXPORTER_PROMETHEUS_PORT`                                                          |
+| Manifest                       | Standard OTel variable                    | Written by `adl-cli` as                          |
+| ------------------------------ | ----------------------------------------- | ------------------------------------------------ |
+| `enabled: true`                | -                                         | `A2A_TELEMETRY_ENABLED=true` (ADK master switch) |
+| `traces.exporter.otlp`         | `OTEL_TRACES_EXPORTER=otlp`               | `A2A_OTEL_TRACES_EXPORTER=otlp`                  |
+| `metrics.exporter.otlp`        | `OTEL_METRICS_EXPORTER=otlp`              | `A2A_OTEL_METRICS_EXPORTER=otlp`                 |
+| `metrics.exporter.prometheus`  | `OTEL_METRICS_EXPORTER=prometheus`        | `A2A_OTEL_METRICS_EXPORTER=prometheus`           |
+| _signal omitted / no exporter_ | `OTEL_{TRACES,METRICS}_EXPORTER=none`     | `A2A_OTEL_{TRACES,METRICS}_EXPORTER=none`        |
+| `otlp.endpoint`                | `OTEL_EXPORTER_OTLP_[signal_]ENDPOINT`    | `A2A_OTEL_EXPORTER_OTLP_[signal_]ENDPOINT`       |
+| `otlp.protocol`                | `OTEL_EXPORTER_OTLP_[signal_]PROTOCOL`    | `A2A_OTEL_EXPORTER_OTLP_[signal_]PROTOCOL`       |
+| `prometheus.host`              | `OTEL_EXPORTER_PROMETHEUS_HOST` (Go only) | `A2A_OTEL_EXPORTER_PROMETHEUS_HOST` (Go only)    |
+| `prometheus.port`              | `OTEL_EXPORTER_PROMETHEUS_PORT` (Go only) | `A2A_OTEL_EXPORTER_PROMETHEUS_PORT` (Go only)    |
+
+An omitted `endpoint` or `protocol` contributes no variable at all, so
+the SDK's own default applies.
+
+`adl-cli` only generates the `.env.example` file that carries these
+defaults when `spec.development.sandbox.dockerCompose.enabled: true`.
+Without the Compose sandbox the variables are still what the generated
+agent reads at runtime - there is just no example file listing them.
 
 ### Shared vs per-signal OTLP variables
 
-When **both** signals use `otlp` with identical settings, the generator
-may collapse them to the shared `OTEL_EXPORTER_OTLP_ENDPOINT` /
-`OTEL_EXPORTER_OTLP_PROTOCOL`. When the two signals differ (or only one
-uses OTLP), it emits the per-signal `OTEL_EXPORTER_OTLP_TRACES_*` /
-`OTEL_EXPORTER_OTLP_METRICS_*` variants instead.
+Which OTLP names appear depends on the target language:
+
+- **Go** always collapses to the shared
+  `A2A_OTEL_EXPORTER_OTLP_ENDPOINT` / `A2A_OTEL_EXPORTER_OTLP_PROTOCOL`
+  pair, taken from whichever signal pushes over OTLP. The Go ADK has no
+  per-signal fields, so the `_TRACES_` / `_METRICS_` names are never
+  emitted.
+- **TypeScript** hands OTLP settings to the OpenTelemetry Node SDK, which
+  honors the per-signal names. When both signals use `otlp` with
+  identical endpoint and protocol it collapses to the shared pair,
+  otherwise it emits
+  `A2A_OTEL_EXPORTER_OTLP_{TRACES,METRICS}_{ENDPOINT,PROTOCOL}`. The
+  generated `index.ts` mirrors each `A2A_OTEL_*` variable onto its bare
+  `OTEL_*` name before SDK init.
+- **Rust** gets no telemetry variables - the Rust ADK does not read them
+  yet. `prometheus` host/port variables are likewise Go-only, since the
+  TypeScript ADK has no Prometheus pull exporter.
 
 ## What stays out of the manifest
 
