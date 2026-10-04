@@ -40,7 +40,7 @@ spec:
 
 | Field                  | Type       | Description                                                                                                                                                                                   |
 | ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `supportedInterfaces`  | `object[]` | Ordered list of protocol endpoints - the first entry is the preferred one (A2A v1.0.1). Each entry requires `url`, `protocolBinding` (an open string, core values `JSONRPC`, `GRPC` and `HTTP+JSON`) and `protocolVersion`. |
+| `supportedInterfaces`  | `object[]` | Protocol endpoints in order, first entry preferred (A2A v1.0.1). Each requires `url`, `protocolBinding` (open string, core values `JSONRPC`, `GRPC`, `HTTP+JSON`) and `protocolVersion`.      |
 | `defaultInputModes`    | `string[]` | Media types the agent accepts by default.                                                                                                                                                     |
 | `defaultOutputModes`   | `string[]` | Media types the agent returns by default.                                                                                                                                                     |
 | `documentationUrl`     | `string`   | Human-readable documentation for the agent.                                                                                                                                                   |
