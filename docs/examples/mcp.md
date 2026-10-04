@@ -6,15 +6,16 @@
 call external tools, on top of its locally generated
 [`spec.tools`](/reference/tools), and the surrounding fields tune the
 client. It lives under `spec.agent` because it only makes sense once an
-LLM is driving. This agent connects to two servers over two different
-transports.
+LLM is driving. This agent connects to two `http` servers - the only
+transport the reference consumer wires today, see [What the reference
+consumer wires](/guide/mcp#what-the-reference-consumer-wires).
 
 ```yaml
 apiVersion: adl.inference-gateway.com/v1
 kind: Agent
 metadata:
   name: devtools-agent
-  description: Coding assistant that reaches external tools over MCP (stdio + http)
+  description: Coding assistant that reaches external tools over MCP (http)
   version: "0.2.0"
   tags:
     - developer-tools
@@ -27,8 +28,8 @@ spec:
     provider: openai
     model: gpt-4.1
     systemPrompt: |
-      You are a coding assistant. Use the filesystem MCP server to read
-      local files and the GitHub MCP server to inspect issues and PRs.
+      You are a coding assistant. Use the docs MCP server to look up
+      references and the GitHub MCP server to inspect issues and PRs.
     mcp:
       enabled: true
       endpoint: /mcp
@@ -39,20 +40,14 @@ spec:
       retryInterval: 2s
       retryMaxInterval: 30s
       servers:
-        - name: filesystem
-          transport: stdio
-          command: npx
-          args:
-            - -y
-            - "@modelcontextprotocol/server-filesystem"
-            - /workspace
-          env:
-            LOG_LEVEL: info
         - name: github
           transport: http
           url: https://mcp.example.com/github
           headers:
             Authorization: Bearer ${GITHUB_MCP_TOKEN}
+        - name: docs
+          transport: http
+          url: https://mcp.example.com/docs
 
   server:
     port: 8080
@@ -65,19 +60,19 @@ spec:
 
 ## Highlights
 
-- **`stdio` launches a local subprocess.** `filesystem` is started with
-  `command` + `args` (here `npx ... server-filesystem /workspace`) and
-  the agent talks to it over stdin/stdout. `env` sets variables the
-  subprocess needs.
-- **`http` reaches a remote endpoint.** `github` is a remote server
-  addressed by `url`, with `headers` carrying an `Authorization` token.
-  Placeholders like `${GITHUB_MCP_TOKEN}` are resolved by the consumer -
-  the schema doesn't interpret them. See
+- **`http` reaches a remote endpoint.** Both servers are addressed by
+  `url`, and `github` carries an `Authorization` header. Placeholders
+  like `${GITHUB_MCP_TOKEN}` are resolved by the consumer - the schema
+  doesn't interpret them. See
   [Secrets & interpolation](/reference/secrets).
+- **`http` is what gets wired today.** The schema also accepts `stdio`
+  (`command`/`args`/`env`) and `sse`, but `adl-cli` drops those entries
+  from `A2A_MCP_SERVERS` with a warning and generates the MCP client for
+  Go agents only - see [What the reference consumer
+  wires](/guide/mcp#what-the-reference-consumer-wires).
 - **Only `name` + `transport` are required.** The remaining fields are
-  the connection details for the chosen transport; the schema doesn't
+  the connection details for the chosen transport, and the schema doesn't
   enforce which combination is present, so consumers stay lenient.
-  (`sse` is the third accepted transport.)
 - **MCP complements `spec.tools`.** Generated tools are deterministic
   entrypoints you own; MCP servers are external capabilities discovered
   at runtime. An agent can use either or both.

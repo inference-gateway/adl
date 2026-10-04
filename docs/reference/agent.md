@@ -128,11 +128,11 @@ external tools and capabilities, on top of the locally generated
   Pattern `^[a-zA-Z0-9_-]+$`.
 - `transport` - **required** `string`. One of `stdio`, `sse`, `http`.
 - `command` - `string`. Executable to launch for a `stdio` server (e.g.
-  `npx`, `uvx`, `docker`).
+  `npx`, `uvx`, `docker`). Not wired by `adl-cli` (see below).
 - `args` - `string[]`. Arguments passed to `command` for a `stdio`
-  server.
+  server. Not wired by `adl-cli` (see below).
 - `env` - `map[string]string`. Environment variables for a `stdio`
-  server (e.g. API keys it needs).
+  server (e.g. API keys it needs). Not wired by `adl-cli` (see below).
 - `url` - `string`. Endpoint URL for an `http` or `sse` server.
 - `headers` - `map[string]string`. Extra HTTP headers for an `http` or
   `sse` server (e.g. an `Authorization` header).
@@ -168,8 +168,16 @@ so consumers stay lenient and decide how to resolve environment
 placeholders such as `${GITHUB_MCP_TOKEN}` - see
 [Secrets & interpolation](./secrets) for the convention and where
 credentials come from. New `transport` values may be added in future
-**minor** schema versions; consumers should tolerate unknown values when
-reading newer manifests.
+**minor** schema versions, and consumers should tolerate unknown values
+when reading newer manifests.
+
+What a consumer wires is narrower than what the schema accepts. `adl-cli`
+derives `A2A_MCP_SERVERS` from the `http` entries only: `stdio`
+(`command`/`args`/`env`) and `sse` entries validate, then are dropped
+with a warning, so no subprocess is launched. It also generates the MCP
+client for Go agents only - for `typescript` and `rust` the whole `mcp`
+block is ignored. See [What the reference consumer
+wires](/guide/mcp#what-the-reference-consumer-wires).
 
 ### Client runtime config
 
@@ -179,7 +187,8 @@ environment variable the generated agent reads, and its value here
 becomes the **default** the generated project emits (e.g. in
 `.env.example`); the matching environment variable **overrides** it at
 runtime. The list of server base URLs the client connects to
-(`A2A_MCP_SERVERS`) is derived from the `servers` entries, not set here.
+(`A2A_MCP_SERVERS`) is derived from the `http` `servers` entries, not set
+here.
 
 The client models the Go ADK's connection/retry config, which is
 HTTP-only with a single endpoint and one timeout/retry set - there is no
