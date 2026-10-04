@@ -86,6 +86,14 @@ generation time. Everything under [`spec.card`](/reference/card) is
 optional; omit the block and the generator still produces a valid card from
 `metadata` and `capabilities`.
 
+`capabilities.extensions` has no manifest field. A2A extensions are
+runtime behaviour, so the ADK runtime declares the ones it serves on the
+card it publishes. A generated agent's served card can therefore list
+extensions its manifest never mentions - for example the
+[usage extension](https://github.com/inference-gateway/schemas/tree/main/a2a/extensions/usage/v1),
+which reports a task's token usage and execution stats to clients that
+activate it with the `A2A-Extensions` header.
+
 ADL field names track the current AgentCard: when A2A renames a field,
 ADL renames it too rather than keeping an alias. Earlier ADL versions
 spelled the endpoint as `spec.card.url` / `spec.card.preferredTransport`
