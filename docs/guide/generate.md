@@ -23,12 +23,17 @@ curl -fsSL https://raw.githubusercontent.com/inference-gateway/adl-cli/main/inst
 Prefer a different route? Any of these also work:
 
 ```sh
-# Go toolchain
+# Go toolchain - installs a binary named adl-cli
 go install github.com/inference-gateway/adl-cli@latest
 
 # Nix - run without installing
 nix run github:inference-gateway/adl-cli
 ```
+
+The `go install` route names the binary after the module, so you get
+`adl-cli`, not `adl` - either call it as `adl-cli` or rename it. The install
+script and `nix run` both give you `adl`, which is what the commands below
+assume.
 
 Just as you pinned the schema to a tag, pin the generator: production
 setups should install a specific `adl-cli` release rather than tracking
@@ -49,53 +54,61 @@ pass `--overwrite` to force regeneration of everything else.
 A few flags layer on optional artifacts - they map directly to the spec
 blocks below:
 
-| Flag                      | Adds                                                               |
-| ------------------------- | ------------------------------------------------------------------ |
-| `--ci`                    | GitHub Actions CI workflow (or set `spec.scm.ci: true`).           |
-| `--cd`                    | CD pipeline + `semantic-release` (or `spec.scm.cd: true`).         |
-| `--deployment kubernetes` | `k8s/deployment.yaml` (or set `spec.deployment`).                  |
-| `--deployment cloudrun`   | A Cloud Run `deploy` task (or set `spec.deployment`).              |
-| `--deployment vercel`     | A Vercel project + build config (or set `spec.deployment`).        |
-| `--deployment cloudflare` | A Cloudflare Workers `wrangler` config (or set `spec.deployment`). |
+| Flag                      | Adds                                                        |
+| ------------------------- | ----------------------------------------------------------- |
+| `--ci`                    | GitHub Actions CI workflow (or set `spec.scm.ci: true`).    |
+| `--cd`                    | CD pipeline + `semantic-release` (or `spec.scm.cd: true`).  |
+| `--deployment kubernetes` | `k8s/deployment.yaml` (or set `spec.deployment`).           |
+| `--deployment cloudrun`   | A Cloud Run `deploy` task (or set `spec.deployment`).       |
+| `--deployment vercel`     | A Vercel project + build config (or set `spec.deployment`). |
+| `--deployment cloudflare` | A Cloudflare Workers `wrangler` config - TypeScript only.   |
 
 ## 3. What you get
 
 The generator emits **only what your spec asks for**. Each generated piece
 traces back to a block in the manifest:
 
-| `spec.*` block                       | What the generator emits                                                                                                                   |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `metadata` + `capabilities` + `card` | `.well-known/agent-card.json` - the A2A discovery + capabilities manifest.                                                                 |
-| `language.<lang>`                    | Project skeleton (`go.mod`/`Cargo.toml`, `main.*`), `Dockerfile`, `Taskfile.yml`.                                                          |
-| `server`                             | HTTP server wiring (listen port, debug) in the entry point.                                                                                |
-| `agent`                              | LLM provider/model wiring. Omitted entirely for a [no-LLM agent](/examples/no-llm).                                                        |
-| `tools[]`                            | One stub per tool under `tools/`, each with a `TODO` for you to implement.                                                                 |
-| `skills[]`                           | One directory per skill under `skills/` (`SKILL.md` + assets), listed on the card.                                                         |
-| `services`                           | Typed dependency-injection interfaces and factory functions.                                                                               |
-| `config`                             | A `config/` package with environment-variable mapping.                                                                                     |
-| `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell.                                                                             |
-| `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.                                                                     |
-| `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                                                                               |
-| `deployment`                         | `k8s/deployment.yaml` (Kubernetes), a Cloud Run `deploy` task, a Vercel project + build config, or a Cloudflare Workers `wrangler` config. |
+| `spec.*` block                       | What the generator emits                                                                                                                                                              |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `metadata` + `capabilities` + `card` | `.well-known/agent-card.json` - the A2A discovery + capabilities manifest.                                                                                                            |
+| `language.<lang>`                    | Project skeleton (`go.mod`/`Cargo.toml`, `main.*`), `Dockerfile`, `Taskfile.yml`.                                                                                                     |
+| `server`                             | HTTP server wiring (listen port, debug) in the entry point.                                                                                                                           |
+| `agent`                              | LLM provider/model wiring. Omitted entirely for a [no-LLM agent](/examples/no-llm).                                                                                                   |
+| `tools[]`                            | One stub per tool - `tools/<id>.go` (Go), `src/tools/<id>.ts` (TypeScript), `src/tools/<id>.rs` (Rust, only when `spec.agent` is set) - each with a `TODO` for you to implement.      |
+| `skills[]`                           | One directory per skill under `.agents/skills/<id>/` (`SKILL.md` + assets), plus a `.claude/skills` symlink pointing at it. Listed on the card.                                       |
+| `services`                           | Typed dependency-injection interfaces and factory functions.                                                                                                                          |
+| `config`                             | Environment-variable mapping in the always-present `config/` package (Go) or `src/config.ts` (TypeScript).                                                                            |
+| `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell - `dockerCompose.enabled` also emits `docker-compose.yaml` and `.env.example`.                                          |
+| `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.                                                                                                                |
+| `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                                                                                                                          |
+| `deployment`                         | `k8s/deployment.yaml` (Kubernetes), a Cloud Run `deploy` task, a Vercel project + build config, or - TypeScript only - a `wrangler.toml` plus `src/worker.ts` for Cloudflare Workers. |
 
-Blocks you leave out simply produce nothing. The minimal manifest from
-Getting Started - no `tools`, `skills`, `services`, or `deployment` - yields
-a small but complete and runnable project:
+Optional blocks you leave out add nothing, but every project gets a baseline
+skeleton regardless. The minimal manifest from Getting Started - no `tools`,
+`skills`, `services`, `config`, or `deployment` - still yields a complete,
+runnable Go project:
 
 ```text
 hello-agent/
 ├── main.go                     # server wired from spec.server + spec.language
 ├── go.mod
+├── config/
+│   └── config.go               # always generated - spec.config adds your fields
+├── internal/
+│   └── logger/logger.go
 ├── Dockerfile
 ├── Taskfile.yml                # build / test / lint / run
 ├── .well-known/
 │   └── agent-card.json         # from metadata + spec.capabilities
-└── README.md
+├── README.md
+├── CONFIGURATIONS.md
+├── LICENSE
+└── .adl-ignore                 # plus .gitignore, .dockerignore, .editorconfig
 ```
 
 Layer on `spec.tools`, `spec.skills`, `spec.development`, or
-`spec.deployment` and the corresponding `tools/`, `skills/`, `.flox/`, or
-`k8s/` directories appear alongside it.
+`spec.deployment` and the corresponding `tools/`, `.agents/skills/`,
+`.flox/`, or `k8s/` directories appear alongside it.
 
 ## 4. Run it locally
 
@@ -127,7 +140,7 @@ per-language options - see the
 [`adl-cli` repository](https://github.com/inference-gateway/adl-cli).
 
 - [Tools vs Skills](/guide/tools-vs-skills) - decide what belongs in
-  `tools/` (the stubs you implement) versus `skills/` (the playbooks you
-  write).
+  `tools/` (the stubs you implement) versus `.agents/skills/` (the playbooks
+  you write).
 - [Examples](/examples/) - manifests for richer shapes; generate any of
   them with the same two commands.
