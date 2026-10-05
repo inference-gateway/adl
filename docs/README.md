@@ -64,6 +64,10 @@ assets with `npx wrangler@4 deploy` using the `CLOUDFLARE_API_TOKEN` and
 `adl.inference-gateway.com` is declared in
 [`docs/wrangler.jsonc`](./wrangler.jsonc).
 
+The build also writes `/llms.txt` ([llmstxt.org](https://llmstxt.org)) from
+the sidebar in `.vitepress/config.ts`, so a page added to the sidebar is
+listed there automatically.
+
 ## Contributing
 
 Open a PR. Follow the repo's

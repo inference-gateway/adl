@@ -1,4 +1,6 @@
-import { defineConfig } from "vitepress";
+import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { defineConfig, type DefaultTheme } from "vitepress";
 
 // VitePress configuration for the ADL documentation site.
 //
@@ -12,6 +14,38 @@ const hostname = "https://adl.inference-gateway.com";
 function canonicalPath(relativePath: string): string {
   return (
     "/" + relativePath.replace(/(^|\/)index\.md$/, "$1").replace(/\.md$/, "")
+  );
+}
+
+function linkLines(items: DefaultTheme.SidebarItem[]): string[] {
+  return items.flatMap((item) => [
+    ...(item.link ? [`- [${item.text}](${hostname}${item.link})`] : []),
+    ...linkLines(item.items ?? []),
+  ]);
+}
+
+// Renders /llms.txt (https://llmstxt.org) from the sidebar, so the index LLMs
+// read never drifts from the pages humans navigate.
+function llmsTxt(
+  description: string,
+  sidebar: Record<string, DefaultTheme.SidebarItem[]>,
+): string {
+  const schemaLinks = [
+    `- [ADL v1 JSON Schema](${hostname}/schemas/agent/v1): canonical JSON Schema Draft-07 for \`apiVersion: adl.inference-gateway.com/v1\``,
+    `- [ADL v1](${hostname}/v1/): version overview and pinning guidance`,
+  ];
+  const section = (title: string, links: string[]) =>
+    `## ${title}\n\n${links.join("\n")}`;
+  const sidebarSections = Object.values(sidebar)
+    .flat()
+    .map((group) => section(group.text ?? "", linkLines(group.items ?? [])));
+  return (
+    [
+      "# Agent Definition Language (ADL)",
+      `> ${description}`,
+      section("Schema", schemaLinks),
+      ...sidebarSections,
+    ].join("\n\n") + "\n"
   );
 }
 
@@ -92,6 +126,12 @@ export default defineConfig({
     pageData.frontmatter.head.push(
       ["link", { rel: "canonical", href: url }],
       ["meta", { property: "og:url", content: url }],
+    );
+  },
+  async buildEnd({ outDir, site }) {
+    await writeFile(
+      join(outDir, "llms.txt"),
+      llmsTxt(site.description, site.themeConfig.sidebar),
     );
   },
   themeConfig: {
