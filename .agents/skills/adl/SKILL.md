@@ -626,16 +626,16 @@ assistants the project is meant to be edited with, nested under
 `ai.orchestrators` (the older flat `ai.<agent>` and `ai.enabled` shapes are
 **rejected** by `adl validate`/`adl generate` with a migration hint - move
 the toggle under `orchestrators`). Each is independent; all default off.
-Enabling one generates its onboarding doc plus a GitHub Actions workflow,
+Enabling one generates the shared onboarding doc plus a GitHub Actions workflow,
 kept in sync on `adl generate --overwrite` unless listed in `.adl-ignore`:
 
-| Sub-block    | Generated docs file                            | Generated workflow             |
-| ------------ | ---------------------------------------------- | ------------------------------ |
-| `claudecode` | `CLAUDE.md` (Anthropic Claude Code)            | `.github/workflows/claude.yml` |
-| `gemini`     | `GEMINI.md` (Google Gemini)                    | `.github/workflows/gemini.yml` |
-| `codex`      | shared `AGENTS.md` (OpenAI Codex)              | `.github/workflows/codex.yml`  |
-| `opencode`   | shared `AGENTS.md`                             | none (no upstream action yet)  |
-| `infer`      | shared `AGENTS.md` (Inference Gateway `infer`) | `.github/workflows/infer.yml`  |
+| Sub-block    | Generated docs file                                            | Generated workflow             |
+| ------------ | -------------------------------------------------------------- | ------------------------------ |
+| `claudecode` | shared `AGENTS.md` (Anthropic Claude Code)                     | `.github/workflows/claude.yml` |
+| `gemini`     | shared `AGENTS.md` plus `.gemini/settings.json` pointing at it | `.github/workflows/gemini.yml` |
+| `codex`      | shared `AGENTS.md` (OpenAI Codex)                              | `.github/workflows/codex.yml`  |
+| `opencode`   | shared `AGENTS.md`                                             | none (no upstream action yet)  |
+| `infer`      | shared `AGENTS.md` (Inference Gateway `infer`)                 | `.github/workflows/infer.yml`  |
 
 Enabling `claudecode` also provisions the `claude-code` CLI into the Flox /
 DevContainer sandboxes automatically.
@@ -1013,8 +1013,8 @@ cross-repo checklists), consult `inference-gateway/.github` (org-level
   authentication (who you are); `spec.server.authz` scaffolds the
   authorization callback (what you may do) with its `allow-all` /
   `deny-all` / `custom` default policy.
-- Don't hand-edit generated `CLAUDE.md`, `AGENTS.md`, or `GEMINI.md`. They're
-  re-emitted by the `spec.development.ai.orchestrators.*` generators on every
-  `adl generate --overwrite` unless you add them to `.adl-ignore`. If you
-  want the AI-onboarding docs to stay hand-written, ignore the file and
+- Don't hand-edit the generated `AGENTS.md`. It's re-emitted by the
+  `spec.development.ai.orchestrators.*` generators on every
+  `adl generate --overwrite` unless you add it to `.adl-ignore`. If you
+  want the AI-onboarding doc to stay hand-written, ignore the file and
   accept that you've forked it from the generator.

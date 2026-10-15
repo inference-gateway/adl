@@ -79,7 +79,7 @@ traces back to a block in the manifest:
 | `services`                           | Typed dependency-injection interfaces and factory functions.                                                                                                                          |
 | `config`                             | Environment-variable mapping in the always-present `config/` package (Go) or `src/config.ts` (TypeScript).                                                                            |
 | `development.sandbox`                | `.flox/` and/or `.devcontainer/` for a reproducible dev shell - `dockerCompose.enabled` also emits `docker-compose.yaml` and `.env.example`.                                          |
-| `development.ai.orchestrators`       | `CLAUDE.md` / `GEMINI.md` / `AGENTS.md` for the enabled coding agents.                                                                                                                |
+| `development.ai.orchestrators`       | The shared `AGENTS.md` all enabled coding agents read, plus each orchestrator's workflow and settings files.                                                                          |
 | `scm.ci` / `scm.cd`                  | `.github/workflows/ci.yml`, `cd.yml`, and `.releaserc.yaml`.                                                                                                                          |
 | `deployment`                         | `k8s/deployment.yaml` (Kubernetes), a Cloud Run `deploy` task, a Vercel project + build config, or - TypeScript only - a `wrangler.toml` plus `src/worker.ts` for Cloudflare Workers. |
 

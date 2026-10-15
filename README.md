@@ -377,9 +377,9 @@ experience for an agent project:
   `flox`, `devcontainer`, or `dockerCompose`. Each is independently
   toggleable; consumers like `adl-cli` use these flags to scaffold the
   matching environment files.
-- `spec.development.ai` configures generation of AI-assistant
-  documentation (`CLAUDE.md`, `AGENTS.md`) and provisioning of coding-agent
-  orchestrators inside the sandbox. The orchestrators live under
+- `spec.development.ai` configures generation of `AGENTS.md` - the shared
+  instructions file every supported orchestrator reads - and provisioning of
+  coding-agent orchestrators inside the sandbox. The orchestrators live under
   `spec.development.ai.orchestrators`; each supported orchestrator is
   toggled independently via its own subsection, and every orchestrator is
   disabled by default:

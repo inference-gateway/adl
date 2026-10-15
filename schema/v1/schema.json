@@ -785,7 +785,7 @@
     },
     "DevelopmentConfig": {
       "type": "object",
-      "description": "Local development experience for the agent: sandboxed dev environments (flox, devcontainer, dockerCompose), AI-assistant integration (CLAUDE.md/AGENTS.md generation, claude-code provisioning), and extra sandbox-level dependencies (deps) for tools that don't belong to any single language's package manager (e.g. deno, kubectl, terraform).",
+      "description": "Local development experience for the agent: sandboxed dev environments (flox, devcontainer, dockerCompose), AI-assistant integration (shared AGENTS.md generation, coding-agent provisioning), and extra sandbox-level dependencies (deps) for tools that don't belong to any single language's package manager (e.g. deno, kubectl, terraform).",
       "properties": {
         "sandbox": { "$ref": "#/definitions/SandboxConfig" },
         "ai": { "$ref": "#/definitions/AIConfig" },
@@ -810,7 +810,7 @@
     },
     "AIConfig": {
       "type": "object",
-      "description": "Configures AI-assistant integration for the agent project: generation of AI-assistant documentation (CLAUDE.md, AGENTS.md) and provisioning of coding-agent orchestrators inside sandbox environments.",
+      "description": "Configures AI-assistant integration for the agent project: generation of AGENTS.md, the shared instructions file every supported orchestrator reads, and provisioning of coding-agent orchestrators inside sandbox environments.",
       "properties": {
         "orchestrators": { "$ref": "#/definitions/OrchestratorsConfig" }
       }

@@ -70,9 +70,9 @@ sandbox.
 
 ## `ai` {#ai}
 
-Configures generation of AI-assistant documentation (`CLAUDE.md`,
-`AGENTS.md`) and provisioning of coding-agent **orchestrators** inside
-the sandbox. The orchestrators live under
+Configures generation of `AGENTS.md` - the shared instructions file every
+supported orchestrator reads - and provisioning of coding-agent
+**orchestrators** inside the sandbox. The orchestrators live under
 `spec.development.ai.orchestrators`; each supported orchestrator is
 toggled independently, and every orchestrator is **disabled by
 default**.
