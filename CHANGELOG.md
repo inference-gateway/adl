@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.29.1](https://github.com/inference-gateway/adl/compare/v0.29.0...v0.29.1) (2026-10-15)
+
+### 🐛 Bug Fixes
+
+* **schema:** drop CLAUDE.md/GEMINI.md from descriptions ([#218](https://github.com/inference-gateway/adl/issues/218)) ([e9e07c1](https://github.com/inference-gateway/adl/commit/e9e07c1935ab608bd1ca56cb17c8169611d7071c)), closes [#217](https://github.com/inference-gateway/adl/issues/217)
+
 ## [0.29.0](https://github.com/inference-gateway/adl/compare/v0.28.2...v0.29.0) (2026-10-15)
 
 ### ✨ Features
