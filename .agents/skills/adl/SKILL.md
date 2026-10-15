@@ -686,7 +686,12 @@ from repo secrets `RELEASER_APP_ID` / `RELEASER_APP_PRIVATE_KEY` by default;
 override the names with `spec.scm.app_id_secret` / `app_private_key_secret`.
 The `claudecode` and `infer` orchestrators take the same override pair -
 `appIdSecret` / `appPrivateKeySecret`, defaulting to `CLAUDE_APP_*` /
-`INFER_APP_*` (see `spec.development.ai.orchestrators`).
+`INFER_APP_*` (see `spec.development.ai.orchestrators`). Both also take a
+`plugins[]` list the generated workflow installs before the agent runs
+(`infer`: `owner/repo@ref`; `claudecode`: `<plugin>@<marketplace>` plus the
+marketplace git URL in `pluginMarketplaces[]`). Plugins extend the coding
+agent working on the repo, not the generated agent - use `spec.skills` for
+that.
 
 **`spec.deployment`.** Choose `type: kubernetes`, `cloudrun`, `vercel`, or
 `cloudflare`; the matching sub-block carries the detail. `kubernetes` and

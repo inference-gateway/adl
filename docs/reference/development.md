@@ -124,6 +124,42 @@ Override them when your repository already uses different secret names.
 `codex`, `gemini` and `opencode` have the shape `{ enabled: boolean }`
 only.
 
+### Plugins {#plugins}
+
+`claudecode` and `infer` can also install coding-agent **plugins** in the
+generated workflow before the agent runs. Plugins extend the agent that
+works _on_ the project (extra skills and instructions for reviews and
+implementation). They are not shipped with the agent itself - use
+`spec.skills` for that.
+
+| Orchestrator | Field                | Entry form                                         |
+| ------------ | -------------------- | -------------------------------------------------- |
+| `claudecode` | `plugins`            | `<plugin>@<marketplace>`, e.g. `ponytail@ponytail` |
+| `claudecode` | `pluginMarketplaces` | Marketplace git URL registered before install      |
+| `infer`      | `plugins`            | `owner/repo`, `owner/repo@ref`, or a GitHub URL    |
+
+```yaml
+spec:
+  development:
+    ai:
+      orchestrators:
+        claudecode:
+          enabled: true
+          pluginMarketplaces:
+            - https://github.com/DietrichGebert/ponytail.git
+          plugins:
+            - ponytail@ponytail
+        infer:
+          enabled: true
+          plugins:
+            - DietrichGebert/ponytail@v4.8.4
+```
+
+Each list maps 1:1 to the matching input of the upstream action
+(`plugins` / `plugin_marketplaces` for `anthropics/claude-code-action`,
+`plugins` for `inference-gateway/infer-action`). Pin a tag or commit for
+third-party plugins so reviews stay reproducible.
+
 ## `deps` {#deps}
 
 Extra packages to install into the **development sandbox itself** (flox,
