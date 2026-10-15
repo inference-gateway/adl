@@ -401,7 +401,11 @@ experience for an agent project:
   generated workflows. They default to `CLAUDE_APP_ID` /
   `CLAUDE_APP_PRIVATE_KEY` and `INFER_APP_ID` / `INFER_APP_PRIVATE_KEY`
   respectively; set them when your organization uses different secret
-  names.
+  names. Both also accept `plugins` (and `claudecode` a
+  `pluginMarketplaces` list) naming coding-agent plugins the generated
+  workflow installs before the agent runs, for example the `ponytail`
+  review plugin. See the
+  [development reference](docs/reference/development.md#plugins).
 
 - `spec.development.deps` declares extra packages to install into the
   development sandbox itself (flox, devcontainer, dockerCompose) on top

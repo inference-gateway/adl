@@ -841,6 +841,16 @@
           "type": "string",
           "description": "Name of the repository secret holding the GitHub App private key used by the generated Claude Code workflow.",
           "default": "CLAUDE_APP_PRIVATE_KEY"
+        },
+        "plugins": {
+          "type": "array",
+          "description": "Claude Code plugins the generated workflow installs before the agent runs, as '<plugin>@<marketplace>' (e.g. 'ponytail@ponytail'). Third-party marketplaces must also be listed in pluginMarketplaces.",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "pluginMarketplaces": {
+          "type": "array",
+          "description": "Git URLs of Claude Code plugin marketplaces the generated workflow registers before installing plugins (e.g. 'https://github.com/DietrichGebert/ponytail.git').",
+          "items": { "type": "string", "format": "uri" }
         }
       }
     },
@@ -883,6 +893,11 @@
           "type": "string",
           "description": "Name of the repository secret holding the GitHub App private key used by the generated infer workflow.",
           "default": "INFER_APP_PRIVATE_KEY"
+        },
+        "plugins": {
+          "type": "array",
+          "description": "Infer plugins the generated workflow installs before the agent runs, passed to 'infer plugins install'. Entries are 'owner/repo', 'owner/repo@ref', or a GitHub URL (e.g. 'DietrichGebert/ponytail@v4.8.4').",
+          "items": { "type": "string", "minLength": 1 }
         }
       }
     },
