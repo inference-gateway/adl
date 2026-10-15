@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.29.0](https://github.com/inference-gateway/adl/compare/v0.28.2...v0.29.0) (2026-10-15)
+
+### ✨ Features
+
+* **schema:** add plugins to the claudecode and infer orchestrators ([#216](https://github.com/inference-gateway/adl/issues/216)) ([6cef8aa](https://github.com/inference-gateway/adl/commit/6cef8aad88348c80748cd11a71900feea8159658))
+
+### 📚 Documentation
+
+* generate llms.txt from the docs sidebar ([#213](https://github.com/inference-gateway/adl/issues/213)) ([85e4d90](https://github.com/inference-gateway/adl/commit/85e4d90060c3f4ff48b57119fd0a80f00a5f5603))
+
+### 🔧 Miscellaneous
+
+* **deps:** bump claude-code 2.1.285 -> 2.1.289 ([#214](https://github.com/inference-gateway/adl/issues/214)) ([239970b](https://github.com/inference-gateway/adl/commit/239970b4a7284e085f1e62e479a824565726c2c9))
+* **deps:** bump infer CLI v0.221.1 -> v0.226.0 ([#215](https://github.com/inference-gateway/adl/issues/215)) ([f8929d9](https://github.com/inference-gateway/adl/commit/f8929d94f4b86e0f9ba4b9ce5ba8ad55937b87c0))
+
 ## [0.28.2](https://github.com/inference-gateway/adl/compare/v0.28.1...v0.28.2) (2026-10-04)
 
 ### 📚 Documentation
