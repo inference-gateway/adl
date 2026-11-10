@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.29.2](https://github.com/inference-gateway/adl/compare/v0.29.1...v0.29.2) (2026-11-10)
+
+### 👷 CI
+
+* **release:** label issues and PRs shipped in an rc with rc ([#225](https://github.com/inference-gateway/adl/issues/225)) ([48c8817](https://github.com/inference-gateway/adl/commit/48c8817f4ea994c71c9cf7325180dfcf37e6b16c))
+
+### 🔧 Miscellaneous
+
+* **deps-dev:** bump source-map-js from 1.2.1 to 1.2.2 in /docs ([#219](https://github.com/inference-gateway/adl/issues/219)) ([01e4d98](https://github.com/inference-gateway/adl/commit/01e4d98b3f9eceb691b1c021bd58d10221c62abd))
+* **deps:** bump @vue/server-renderer and vue in /docs ([#221](https://github.com/inference-gateway/adl/issues/221)) ([dea4562](https://github.com/inference-gateway/adl/commit/dea456260fd5d9a85432d548a9f54ac4878dde34))
+* **deps:** bump actions/create-github-app-token ([#220](https://github.com/inference-gateway/adl/issues/220)) ([82ba74d](https://github.com/inference-gateway/adl/commit/82ba74d43a64d51f7673863f34aad88b699bb257))
+* **deps:** bump claude-code 2.1.289 -> 2.1.296 ([#222](https://github.com/inference-gateway/adl/issues/222)) ([0cff9a9](https://github.com/inference-gateway/adl/commit/0cff9a93e90e4d2f5d3a56128a3ff240f85e44f2))
+* **deps:** bump claude-code 2.1.296 -> 2.1.308 ([#224](https://github.com/inference-gateway/adl/issues/224)) ([b1f6f0b](https://github.com/inference-gateway/adl/commit/b1f6f0bad213d501550854e9465fdad1513beab5))
+* **deps:** bump infer CLI v0.226.0 -> v0.231.1 ([#223](https://github.com/inference-gateway/adl/issues/223)) ([5252933](https://github.com/inference-gateway/adl/commit/52529338735610df6c7b9c1e4bf0c62e80127ad1))
+
 ## [0.29.1](https://github.com/inference-gateway/adl/compare/v0.29.0...v0.29.1) (2026-10-15)
 
 ### 🐛 Bug Fixes
