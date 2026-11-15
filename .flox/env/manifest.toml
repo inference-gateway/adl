@@ -2,18 +2,18 @@ schema-version = "1.19.0"
 
 [install]
 nodejs_24.pkg-path = "nodejs_24"
-nodejs_24.version = "24.15.0"
+nodejs_24.version = "24.22.2"
 go-task.pkg-path = "go-task"
-go-task.version = "3.48.0"
+go-task.version = "3.53.1"
 infer.flake = "github:inference-gateway/cli/v0.231.1"
 claude-code.pkg-path = "claude-code"
-claude-code.version = "^2.1.318"
+claude-code.version = "^2.1.321"
 claude-code.pkg-group = "claude-code"
 codex.pkg-path = "codex"
-codex.version = "^0.139.0"
+codex.version = "^0.167.1"
 codex.pkg-group = "codex"
 prettier.pkg-path = "prettier"
-prettier.version = "^3.8.3"
+prettier.version = "^3.9.10"
 
 [hook]
 on-activate = """
