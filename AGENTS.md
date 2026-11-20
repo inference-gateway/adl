@@ -5,7 +5,8 @@ This repository is the **source of truth for the ADL (Agent Definition Language)
 ## Layout
 
 - `schema/v1/schema.json` — the canonical schema. Everything else describes it.
-- `docs/` — VitePress site (`docs/guide/`, `docs/reference/`, `docs/examples/`). Deployed by the **Deploy** workflow on any push to `main` touching `docs/**` or `schema/v1/schema.json`.
+- `docs/` — VitePress site (`docs/guide/`, `docs/reference/`, `docs/examples/`, with `docs/v1/index.md` as the per-version landing page). Deployed by the **Deploy** workflow on any push to `main` touching `docs/**` or `schema/v1/schema.json` - the site is served via Cloudflare Workers and also serves the schema at `/schemas/agent/v1` (its `$id`).
+- `.agents/skills/adl/` — repo-local Agent Skill for authoring and maintaining ADL manifests.
 
 ## Commands
 
@@ -13,11 +14,15 @@ Recommended environment: `flox activate` (provides `task`, Node.js, Prettier, aj
 
 - `task compile` — AJV-compile the schema (the exact check CI runs)
 - `task validate -- path/to/manifest.yaml` — validate a manifest against the schema
-- `task format` / `task format:check` — Prettier auto-format / check (CI runs `npx --yes prettier@3.8.3 --check .`)
+- `task format` / `task format:check` — Prettier auto-format / check (CI runs `npx --yes prettier@3.8.3 --check .`). flox installs a newer Prettier than the CI pin - if CI disagrees with a local format run, rerun with the pinned command.
 - `npx ajv compile --spec=draft7 -c ajv-formats -s schema/v1/schema.json` — manual fallback without go-task
 - Docs (inside `docs/`, which has its own `package.json` and lockfile): `npm ci`, then `npm run dev` / `npm run build` — the build must succeed before deploy
 
-CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check formatting** (Prettier, repo-wide including `docs/`). A `.githooks/pre-commit` hook runs Prettier on staged files. Activate once per clone with `git config core.hooksPath .githooks`. If it blocks a commit, fix with `npx prettier@3.8.3 --write <file>`.
+CI has two checks, both must pass: **Compile JSON Schema** (AJV) and **Check formatting** (Prettier, repo-wide including `docs/`). A `.githooks/pre-commit` hook runs Prettier on staged files. Activate once per clone with `git config core.hooksPath .githooks`. If it blocks a commit, fix with `npx prettier@3.8.3 --write <file>`. `.prettierignore` exempts `CHANGELOG.md`, `AGENTS.md`, `.infer/`, `.flox/`, `docs/.vitepress/`, and the orchestrator thin callers.
+
+## Agent orchestrators
+
+`.github/workflows/claude.yml` and `.github/workflows/infer.yml` are thin callers for the org-wide `@claude` / `@infer` agent runs. Mentioning `@claude` or `@infer` in an issue body, an issue comment, or a PR review dispatches an agent to act on it. Their setup is managed centrally in `inference-gateway/.github` (`repos.yaml` plus the reusable workflows) - do not hand-edit the callers, and treat PRs opened by these agents like any other contributor PR.
 
 ## Schema versioning contract — the most important rule
 
@@ -51,7 +56,7 @@ Use Conventional Commits. semantic-release derives the next version from commit 
 
 ## Releases and propagation
 
-Releases are manual: a maintainer triggers the **Release** workflow via `workflow_dispatch` (cuts an immutable `vX.Y.Z` tag), then the **Sync adl-cli** workflow dispatches `schema-sync` to `adl-cli` so it re-fetches the schema and regenerates its Go types. Contributors never bump versions or edit `CHANGELOG.md`.
+Releases are manual: a maintainer triggers the **Release** workflow via `workflow_dispatch` (cuts an immutable `vX.Y.Z` tag), then the **Sync adl-cli** workflow dispatches `schema-sync` to `adl-cli` so it re-fetches the schema and regenerates its Go types (its optional `ref` input pins the schema tag, defaulting to the latest release). Contributors never bump versions or edit `CHANGELOG.md`.
 
 ## Security
 
